@@ -8,7 +8,7 @@
     "pkgbuild": "webpack && node -e \"fs.copyFileSync('surface.d.ts', './dist/index.d.ts')\""
   },
   "author": "",
-  "license": "ISC",
+  "license": "MPL-2.0",
   "devDependencies": {
     "webpack": "^5.9.0",
     "webpack-cli": "^4.2.0"

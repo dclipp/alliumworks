@@ -8,12 +8,12 @@
     "build": "tsc"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MPL-2.0",
   "dependencies": {
-    "@allium/arch": "file:../../acm/arch",
-    "@allium/asm": "file:../../acm/asm",
-    "@allium/emulator": "file:../../acm/emulator",
-    "@allium/types": "file:../../acm/types",
+    "@allium/arch": "file:../../allium/arch",
+    "@allium/asm": "file:../../allium/asm",
+    "@allium/emulator": "file:../../allium/emulator",
+    "@allium/types": "file:../../allium/types",
     "abab": "^2.0.5",
     "rxjs": "6.5.5"
   }

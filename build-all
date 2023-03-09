@@ -1,8 +1,8 @@
-pushd ../yfs && npm i && npm run build && popd
+pushd .. && pushd yfs && npm i && npm run build && popd && popd
 pushd archiver && npm i && npm run build && popd
 pushd debugger && npm i && npm run build && popd
 pushd platform && npm i && npm run build && popd
 pushd shell2 && npm i && npm run build && popd
-pushd shell-ui && npm i && npm run build:full && npm run packdist && popd
+pushd shell-ui && npm i && npm run build:full && popd
 pushd cm4a-v2 && npm i && npm run pkgbuild && popd
-#pushd web-ide && npm i && npm run build && popd
+pushd web-ide && npm i && npm run copy-cm4a-js && npm run ts:parse && popd

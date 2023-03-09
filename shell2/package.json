@@ -10,10 +10,10 @@
     "generate-cli-source": "node scripts/generate-cli-source.js"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MPL-2.0",
   "dependencies": {
-    "@allium/asm": "file:../../acm/asm",
-    "@allium/types": "file:../../acm/types",
+    "@allium/asm": "file:../../allium/asm",
+    "@allium/types": "file:../../allium/types",
     "@alliumworks/platform": "file:../platform",
     "rxjs": "6.5.5"
   }
