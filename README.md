@@ -8,7 +8,7 @@ AlliumWorks is a development platform for Allium.
 
 Currently, the build process is rather hacky.
 
-The [Allium](https://github.com/dclipp/allium) and [yfs](http://https://github.com/dclipp/yfs) projects must be cloned in the parent directory.
+The [Allium](https://github.com/dclipp/allium) and [yfs](http://github.com/dclipp/yfs) projects must be cloned in the parent directory.
 
 The directory layout should look something like this:
 
