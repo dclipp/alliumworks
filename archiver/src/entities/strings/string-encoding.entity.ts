@@ -1,0 +1,1 @@
+export type StringEncodingEntity = 'ascii' | 'binary' | 'utf8' | 'base64';

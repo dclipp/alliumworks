@@ -1,0 +1,123 @@
+<div class="settings-editor" [ngClass]="{ 'is-dirty': view.isDirty }">
+  <h3>Assembly Settings</h3>
+  <div class="preset-editor" *ngIf="show.editor && !show.rawEditor">
+    <div class="form-section">
+      <label for="se-assemblyName" [ngClass]="{ 'dirty-label': view.assemblyName.dirty }">Assembly Name</label>
+      <input class="default-font" type="text" id="se-assemblyName" [formControl]="view.assemblyName" spellcheck="false">
+      <div class="form-error" *ngIf="view.assemblyName.invalid">{{ view.assemblyName.errors['message'] }}</div>
+    </div>
+    <div class="form-section">
+      <label for="se-cpuModelId" [ngClass]="{ 'dirty-label': view.sourceMap.dirty }">Sources</label>
+      <table class="sources-map" *ngIf="view.sourceMap.models.length > 0">
+        <thead>
+          <tr>
+            <th>Reference Name</th>
+            <th>File</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let source of view.sourceMap.models; let si = index">
+            <tr [ngClass]="{ 'deleted': source.isDeleted }">
+              <td *ngIf="source.isDeleted" class="deleted-static-text">
+                {{ source.referenceName }}
+                <div class="crossout">&nbsp;</div>
+              </td>
+              <td *ngIf="source.isDeleted" class="deleted-static-text">
+                {{ source.filePath }}
+                <div class="crossout">&nbsp;</div>
+              </td>
+              <td *ngIf="!source.isDeleted">
+                <input class="default-font" type="text" spellcheck="false" [value]="source.referenceName" (input)="source.rename($event.target.value)">
+              </td>
+              <td *ngIf="!source.isDeleted">
+                <aq4w-tree-selectnew [selectedPath]="source.filePath"
+                  [options]="{ separator: '/', hideLeading: true, containerIcon: '(fa)far.folder', itemIcon: '(c)sourcefile' }"
+                  [items]="view.binaryBlockMap2"
+                  [allowContainerSelection]="false"
+                  [allowSelectNone]="false"
+                  (selection)="on.filePathChanged($event, source)"></aq4w-tree-selectnew>
+              </td>
+              <td>
+                <div class="options" *ngIf="source.isPendingNew">
+                  <aq4w-icon name="(fa)fas.times-circle" title="Cancel" (click)="view.sourceMap.cancelNew()"></aq4w-icon>
+                  <aq4w-icon name="(fa)fas.check-circle" title="Save" (click)="view.sourceMap.saveNew()"></aq4w-icon>
+                </div>
+                <div class="options" *ngIf="source.isCommittedNew">
+                  <aq4w-icon name="(fa)fas.trash-alt" title="Remove import" (click)="view.sourceMap.deleteNew(source.uniqueKey)"></aq4w-icon>
+                  <aq4w-icon *ngIf="si === view.sourceMap.models.length - 1" class="add-source" name="(fa)fas.plus-circle" title="Add..." (click)="on.addSourceFile()"></aq4w-icon>
+                </div>
+                <div class="options" *ngIf="!source.isPendingNew && !source.isCommittedNew">
+                  <aq4w-icon [ngClass]="{ 'disabled': source.isDeleted }" name="(fa)fas.trash-alt" title="Remove import" (click)="source.delete()"></aq4w-icon>
+                  <aq4w-icon [ngClass]="{ 'disabled': !source.isModified }" name="(fa)fas.undo" [title]="source.isDeleted ? 'Undo delete' : 'Undo changes'" (click)="source.undoChanges()"></aq4w-icon>
+                  <aq4w-icon class="rename-refs-btn" name="(fa)fas.spell-check" [ngClass]="{ 'disabled': !source.isRenamed, 'active': source.autoRenameReferences }" (click)="source.toggleAutoRenameRefs()" [attr.title]="'Auto-rename references on save (Currently ' + (source.autoRenameReferences ? 'enabled)' : 'disabled)')"></aq4w-icon>
+                  <aq4w-icon *ngIf="si === view.sourceMap.models.length - 1" class="add-source" name="(fa)fas.plus-circle" title="Add..." (click)="on.addSourceFile()"></aq4w-icon>
+                </div>
+              </td>
+            </tr>
+            <ng-container *ngIf="source.invalid && !source.isDeleted && (!source.isPendingNew || source.isModified)">
+              <tr *ngFor="let error of source.errors">
+                <td colspan="3">
+                  <div class="form-error">{{ error }}</div>
+                </td>
+              </tr>
+            </ng-container>
+          </ng-container>
+        </tbody>
+      </table>
+      <div class="empty-sources-map" *ngIf="view.sourceMap.models.length === 0">
+        No sources included in assembly.
+        <button (click)="on.addSourceFile()">Include...</button>
+      </div>
+    </div>
+    <div class="form-section">
+      <label for="se-entryPoint" [ngClass]="{ 'dirty-label': view.entryPoint.dirty }">Entry Point</label>
+        <aq4w-tree-selectnew [selectedPath]="view.entryPoint.value"
+          [items]="view.entryPointMap"
+          [options]="{ separator: '::', hideLeading: true, containerIcon: '(c)cube', itemIcon: '(c)lightningbolt' }"
+          [allowContainerSelection]="false"
+          [allowSelectNone]="true"
+          noSelectionPlaceholder="Not set"
+          noSelectionIcon="flash-off-outline"
+          (selection)="on.changeEntryPoint($event)"></aq4w-tree-selectnew>
+    </div>
+    <div class="form-section">
+      <aq4w-checkbox label="Inline value validation"
+        [control]="view.treatOversizedInlineValuesAsWarnings">
+        <label for="se-treatOversizedInlineValuesAsWarnings" class="ivlabel" [ngClass]="{ 'dirty-label': view.treatOversizedInlineValuesAsWarnings.dirty }" #label>
+          Allow oversized inline values
+          <aq4w-note>
+            <p>Specifies the way the parser treats inline values that larger than allowed for a given instruction argument.</p>
+            <p><strong>Enforce Constraints</strong> Raises a parser error when an oversized value is encountered</p>
+            <p><strong>Allow Oversized</strong> Raises a parser warning when an oversized value is encountered</p>
+            <p class="related">Note that this will cause affected instructions to raise the <strong>BadArgument</strong> flag on standards-compliant runtimes.</p>
+          </aq4w-note>
+        </label>
+      </aq4w-checkbox>
+      <!-- <aq4w-tactile-selector [options]="{ opts: [{ label: 'Allow Oversized', value: 'allow' }, { label: 'Enforce Constraints', value: 'forbid' }], initial: view.treatOversizedInlineValuesAsWarnings.value === true ? 'allow' : 'forbid' }" [control]="[view.treatOversizedInlineValuesAsWarnings, '(v) => v === \'allow\'']"></aq4w-tactile-selector> -->
+    </div>
+    <div class="form-section" [ngClass]="{ 'disabled-section': view.treatOversizedInlineValuesAsWarnings.value !== true }">
+      <label for="se-oversizedInlineValueSizing" [ngClass]="{ 'dirty-label': view.oversizedInlineValueSizing.dirty }">
+        Oversized inline value encapsulation
+        <aq4w-note>
+          <p>Specifies the byte sequence size that the parser should assume when an oversized inline value is encountered.</p>
+          <p>Only applicable if <strong>Allow oversized inline values</strong> is set to <strong>true</strong></p>
+        </aq4w-note>
+      </label>
+      <select id="se-oversizedInlineValueSizing" class="preset-selector default-font" [formControl]="view.oversizedInlineValueSizing" [attr.disabled]="view.treatOversizedInlineValuesAsWarnings.value !== true ? 'disabled' : null">
+        <option [value]="'min-required'">Minimum required to hold value</option>
+        <option [value]="'double'">Double-byte</option>
+        <option [value]="'tri'">Tri-byte</option>
+        <option [value]="'quad'">Quad-byte</option>
+      </select>
+    </div>
+  </div>
+  <div class="raw-editor" *ngIf="show.rawEditor">
+    <ng-container *ngIf="view.assemblyJson.invalid">
+      <ul *ngFor="let error of view.assemblyJson.errors[0].split('\n')">
+        <li>{{error}}</li>
+      </ul>
+    </ng-container>
+    <textarea spellcheck="false" [formControl]="view.assemblyJson"></textarea>
+  </div>
+</div>

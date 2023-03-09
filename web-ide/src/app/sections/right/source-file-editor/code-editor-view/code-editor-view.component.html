@@ -1,0 +1,29 @@
+<div class="code-editor-view">
+  <textarea
+    spellcheck="false"
+    class="top-text"
+    [ngStyle]="{ 'font-size.px': view.fontSize }"
+    (input)="on.textInput($event)"
+    (mousemove)="on.textAreaMouseMove($event)">{{ view.sourceCodeText }}</textarea>
+  <div class="bottom">
+    <div class="bottom-token" *ngFor="let token of view.tokens" [attr.data-token-kind]="token.kind"
+      [attr.data-token-underline]="token.underline"
+      [attr.data-token-entity-id]="token.entityId"
+      [ngStyle]="{ 'left.ch': token.left, 'top.ch': (2 * token.top) - (0.04 * token.top), 'font-size.px': view.fontSize }"
+      [popper]="tokenPopover"
+      [popperTrigger]="'none'"
+      #bottomToken>
+      {{ token.text }}
+    </div>
+  </div>
+</div>
+
+<popper-content #tokenPopover>
+  <div class="popover">
+    <div class="token-popover-message" *ngFor="let message of view.tokenPopover.messages">
+      <span class="classification">{{ message.classificationText }}</span>
+      <span class="code">{{ message.messageCode }}</span>
+      <span class="text">{{ message.localizedMessage }}</span>
+    </div>
+  </div>
+</popper-content>

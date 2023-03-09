@@ -1,0 +1,63 @@
+@import '../../../../styles';
+
+// ul {
+.toolbar {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: 1.9em;
+    align-items: center;
+    display: flex;
+
+    // & li {
+        & .tool-group {
+            display: inline-block;
+            margin-left: 0.5em;
+
+            & button {
+                -webkit-appearance: none;
+                // border: none;
+                border: 1px solid $color-primary;
+                cursor: pointer;
+                outline: none;
+                background: white;
+                font-size: 18px;
+                // opacity: 0.6;
+        
+                // &:hover {
+                //     opacity: 1;
+                // }
+        
+                &:disabled {
+                    cursor: not-allowed;
+                }
+        
+                // &[data-hide-button="true"] {
+                //     // display: none;
+                //     opacity: 0.25;
+                //     cursor: not-allowed;
+                // }
+
+                &[data-is-active-button="true"] {
+                    background-color: $color-primary;
+                    color: $color-secondary;
+                }
+            }
+        }
+    // }
+
+    @media screen and (max-width: $mobile-small-max-width) {
+        height: $mobile-top-bottom-height;
+        // width: 100%;
+        width: max-content;
+        align-items: center;
+
+        & .tool-group {
+
+            & button {
+                height: 35px;
+                width: 35px;
+            }
+        }
+    }
+}

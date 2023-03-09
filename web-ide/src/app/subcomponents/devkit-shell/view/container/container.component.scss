@@ -1,0 +1,87 @@
+@import '../../styles';
+
+.container {
+    height: 100%;
+    width: 100%;
+    display: inline-flex;
+    flex-direction: column;
+    position: absolute;
+
+    & .irow {
+        width: 100%;
+    }
+
+    & .toolbar {
+        & .buttons {
+            float: right;
+
+            & button {
+                @include ngcButton();
+            }
+        }
+
+        & .instance-selector {
+            float: left;
+        }
+
+        padding-bottom: 0.25em;
+        border-bottom: 1px solid $color-primary;
+        // height: $toolbar-height;
+
+        position: relative;
+        top: 0;
+        display: inline-block;
+        height: $toolbar-height;
+    }
+
+    & ngconsole-output-area {
+        height: calc(100% - (var(--shell-top) - #{$toolbar-height} - #{$input-area-height} - #{$input-area-height} - 2px));
+        display: block;
+        position: relative;
+        top: calc(0.5em - 1px);
+        left: 0;
+        margin-top: calc(-0.5em + 1px);
+        background-color: lightcoral;
+    }
+
+    & ngconsole-input-area {
+        border-top: 1px solid $color-primary;
+        padding-bottom: 0.25em;
+        // bottom: 0;
+        // position: fixed;
+
+        height: $input-area-height;
+        bottom: 0;
+        position: fixed;
+        display: block;
+        background-color: white;
+    }
+
+    &.no-input {
+        & .toolbar {
+            & .buttons {
+                & .clear-buffer {
+                    display: none;
+                }
+            }
+        }
+        
+        & ngconsole-output-area {
+            height: calc(100% - 1.5em);
+        }
+
+        & ngconsole-input-area {
+            display: none;
+        }
+    }
+
+    & .unit-ref-em {
+        width: 1em;
+        visibility: hidden;
+    }
+    
+    & .unit-ref-ch {
+        width: $console-font-size;
+        visibility: hidden;
+    }
+}

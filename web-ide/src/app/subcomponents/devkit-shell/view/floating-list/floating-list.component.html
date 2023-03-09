@@ -1,0 +1,24 @@
+<div class="floating-list">
+    <div class="floating-list-outer">
+        <div class="floating-list-inner"
+            [ngClass]="{ 'show': view.show }"
+            [ngStyle]="{ 'left.px': view.leftPx }"
+            [attr.data-item-count]="view.queryMatches.length"
+            (keydown)="on.keystroke($event)"
+            (mousewheel)="on.mousewheel($event)">
+            <div class="scroller scroll-up" [ngClass]="{ 'no-show': !view.scroll.canScrollUp }" (click)="on.scrollUp()">UP</div>
+            <div class="floating-list-item" *ngFor="let historicEntry of view.queryMatches; let hei = index" (click)="on.itemClicked(hei)"
+              [ngClass]="{ 'no-show': hei < view.scroll.startIndex || hei >= view.scroll.endIndexExclusive }">
+                <span class="he-indicator">
+                    <ng-container *ngIf="view.selectedIndex === hei">
+                        <aq4w-icon name="(c)caretright"></aq4w-icon>
+                    </ng-container>
+                    <ng-container *ngIf="view.selectedIndex !== hei">&nbsp;</ng-container>
+                </span>
+                <span class="he-char" *ngFor="let char of historicEntry.chars" [ngClass]="{ 'is-match': view.searchString[char.index] === char.value }">{{ char.value }}</span>
+            </div>
+            <div class="scroller scroll-down" [ngClass]="{ 'no-show': !view.scroll.canScrollDown }" (click)="on.scrollDown()">DOWN</div>
+            <ng-content></ng-content>
+        </div>
+    </div>
+</div>

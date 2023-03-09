@@ -1,0 +1,37 @@
+<div class="tree-select">
+  <div class="presentation">
+    <aq4w-icon class="item-icon" [name]="view.itemIcon" (click)="on.toggleForm()" *ngIf="!(!(!!view.selectedPath) && !!view.noSelectionIcon)"></aq4w-icon>
+    <aq4w-icon class="item-icon" [name]="view.noSelectionIcon" (click)="on.toggleForm()" *ngIf="!(!!view.selectedPath) && !!view.noSelectionIcon"></aq4w-icon>
+    <span class="item-path">
+      {{ view.selectedPath || view.noSelectionPlaceholder }}
+    </span>
+  </div>
+  <ul class="item-selection-form" [ngClass]="{ 'active': view.formActive }">
+    <li data-rsrc-level="0" *ngIf="!!view.selectedId && view.allowSelectNone">
+      <span class="expansion-icon" data-is-expanded="false">
+        <span>&nbsp;</span>
+      </span>
+      <span class="resource-icon selectable" (click)="on.selectNone()">
+        <aq4w-icon [name]="!!view.noSelectionIcon ? view.noSelectionIcon : view.itemIcon"></aq4w-icon>
+      </span>
+      <span class="resource-name">{{ view.noSelectionPlaceholder }}</span>
+    </li>
+    <li *ngFor="let fsResource of view.resources" [ngClass]="{ 'no-show': !view.visibleResources.includes(fsResource.id), 'selected-resource': view.selectedId === fsResource.id }" [ngStyle]="{ 'padding-left.em': fsResource.level }" [attr.data-rsrc-level]="fsResource.level">
+      <span class="expansion-icon" [ngClass]="{ 'container': fsResource.isContainer }" [attr.data-is-expanded]="view.expandedResources.includes(fsResource.id)">
+        <span *ngIf="fsResource.isContainer" (click)="on.expandContainer(fsResource.id)">
+          +
+        </span>
+        <span class="collapse" *ngIf="fsResource.isContainer" (click)="on.collapseContainer(fsResource.id)">
+          -
+        </span>
+        <span *ngIf="!fsResource.isContainer">
+          &nbsp;
+        </span>
+      </span>
+      <span class="resource-icon" [ngClass]="{ 'selectable': fsResource.id !== view.selectedId && (!fsResource.isContainer || view.allowContainerSelection) }" (click)="on.selectResource(fsResource.id)">
+        <aq4w-icon [name]="fsResource.isContainer ? view.containerIcon : view.itemIcon"></aq4w-icon>
+      </span>
+      <span class="resource-name">{{ fsResource.name }}</span>
+    </li>
+  </ul>
+</div>

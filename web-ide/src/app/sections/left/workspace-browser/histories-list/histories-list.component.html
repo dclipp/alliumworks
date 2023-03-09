@@ -1,0 +1,22 @@
+<div class="histories-list">
+  <div class="record" *ngFor="let historyGroup of view.histories">
+    <div class="workspace-title" [ngClass]="{ 'collapsed': view.collapsedRecords.includes(historyGroup.workspaceId) }" (click)="on.titleClicked(historyGroup.workspaceId)">
+      <aq4w-icon name="arrow-dropright" class="caret-right"></aq4w-icon>
+      <aq4w-icon name="arrow-dropdown" class="caret-down"></aq4w-icon>
+      {{ historyGroup.workspaceTitle }}
+    </div>
+    <ul class="history-list">
+      <ng-container *ngFor="let history of historyGroup.versions">
+        <li [ngClass]="{ 'selected-item': view.selectedHistoryKey === history.key }" (click)="on.historyClicked(history.key)">
+          <div class="list-content history-date">
+            <aq4w-icon name="time"></aq4w-icon>
+            {{ history.version | date:'yyyy-MM-dd' }}
+          </div>
+          <div class="list-content history-time">
+            {{ history.version | date:'HH:mm:ss.SSS' }}
+          </div>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+</div>

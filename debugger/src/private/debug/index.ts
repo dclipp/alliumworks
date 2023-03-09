@@ -1,0 +1,11 @@
+export { ActionOriginator } from './session/action-originator';
+export { DebugSession } from './session/debug-session';
+export { ContinuousExecutionHaltOriginator } from './halts/continuous-execution-halt-originator';
+export { ContinuousExecutionHaltContext } from './halts/continuous-execution-halt-context';
+export { TrapType, ALL_TRAP_TYPES } from './traps/trap-type';
+export { Trap } from './traps/trap';
+export { InstructionTrap } from './traps/typed-definitions/instruction-trap';
+export { RegisterTrap } from './traps/typed-definitions/register-trap';
+export { MemoryTrap } from './traps/typed-definitions/memory-trap';
+export { FlagTrap } from './traps/typed-definitions/flag-trap';
+export { ExecutionInterval } from './session/execution-interval';

@@ -1,0 +1,23 @@
+<div class="choice-list-modal" [ngClass]="{ 'open': view.isOpen }">
+  <div class="backdrop" (click)="on.backdropClicked()">&nbsp;</div>
+  <div class="dialog">
+    <div class="inner">
+      <div class="header">{{ view.title }}</div>
+      <div class="body">
+        <p class="description">{{ view.body }}</p>
+        <div class="list">
+          <div class="choice" (click)="on.clickedChoice(choice.value)" *ngFor="let choice of view.choices">
+            <div class="choice-caption">
+              <aq4w-icon [name]="choice.iconName" *ngIf="!!choice.iconName"></aq4w-icon>
+              <span>{{ choice.caption }}</span>
+            </div>
+            <div class="choice-description" *ngIf="!!choice.description">{{ choice.description }}</div>
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <button (click)="on.clickedNo()">{{ view.cancelButtonCaption }}</button>
+      </div>
+    </div>
+  </div>
+</div>

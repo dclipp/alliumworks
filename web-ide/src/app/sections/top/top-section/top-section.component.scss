@@ -1,0 +1,22 @@
+@import '../../../../styles';
+
+aq4w-toolbar {
+    display: inline-block;
+
+    // @media screen and (max-width: $mobile-small-max-width) {
+    //     max-width: 100%;
+    //     overflow: scroll;
+    // }
+}
+
+aq4w-computer-controls {
+    float: right;
+    display: flex;
+    padding: 5px;
+}
+
+::ng-deep {
+    [data-responsive-type="tiny"] aq4w-computer-controls {
+        float: none;
+    }
+}

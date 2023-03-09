@@ -1,0 +1,29 @@
+<div class="package-entity-selection-modal" [ngClass]="{ 'open': view.isOpen }">
+  <div class="backdrop" (click)="on.backdropClicked()">&nbsp;</div>
+  <div class="dialog">
+    <div class="inner">
+      <div class="header">{{ view.title }}</div>
+      <div class="body">
+        <p class="description">{{ view.body }}</p>
+        <div class="list">
+          <ul>
+            <li *ngFor="let opt of view.options" [ngClass]="{ 'selected': view.selections.includes(opt.key) }">
+              <aq4w-icon name="(fa)fas.check-circle" class="icon-selected" (click)="on.selectionClicked(opt.key)"></aq4w-icon>
+              <aq4w-icon name="(fa)far.circle" class="icon-not-selected" (click)="on.selectionClicked(opt.key)"></aq4w-icon>
+              <span class="option-title" (click)="on.selectionClicked(opt.key)">{{ opt.title }}</span>
+              <div class="option-input form-section" *ngIf="!!view.requiredInputValidator">
+                <label>{{view.inputLabel}}</label>
+                <input type="text" spellcheck="false" [formControl]="view.inputForms.controls[opt.key]" (click)="on.optInputClicked($event)">
+                <div class="form-error">{{ !!view.inputForms.errors ? view.inputForms.errors[opt.key] : '' }}</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer">
+        <button (click)="on.clickedNo()">Cancel</button>
+        <button (click)="on.clickedYes()" [attr.disabled]="view.selections.length === 0 || view.inputForms.invalid ? 'disabled' : null">Select</button>
+      </div>
+    </div>
+  </div>
+</div>

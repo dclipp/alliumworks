@@ -1,0 +1,85 @@
+<aq4w-panel-container
+  [panelDescriptor]="view.registerExplorerDescriptor"
+  (panelIsFloating)="on.panelFloatingChanged(view.registerExplorerDescriptor.key, $event)"
+  (panelIsExpanded)="on.panelExpandedChanged(view.registerExplorerDescriptor.key, $event)">
+  <aq4w-register-explorer [isExpanded]="view.expandedPlaceholders.includes(view.registerExplorerDescriptor.key)" (emphasizeInTaskBar)="on.applyEmphasis(view.registerExplorerDescriptor.key, $event)"></aq4w-register-explorer>
+</aq4w-panel-container>
+<div
+  class="floating-container-placeholder"
+  [ngClass]="{
+    'container-minimized': !view.expandedPlaceholders.includes(view.registerExplorerDescriptor.key),
+    'emphasize': view.emphasizeKeys.includes(view.registerExplorerDescriptor.key),
+    'docked': !view.floatingPlaceholders.includes(view.registerExplorerDescriptor.key)
+  }"
+  (click)="on.placeholderClicked(view.registerExplorerDescriptor.key)"
+  (contextmenu)="on.placeholderRightClicked(view.registerExplorerDescriptor.key)"
+  [attr.title]="view.floatingPlaceholders.includes(view.registerExplorerDescriptor.key) ? 'Click to open/close. Right-click to re-center.' : null">
+  <div class="placeholder ph-icon">
+    <aq4w-icon [name]="view.registerExplorerDescriptor.titleIcon"></aq4w-icon>
+    <div class="tooltip">{{ view.registerExplorerDescriptor.title }}</div>
+  </div>
+  <div class="placeholder ph-title">{{ view.registerExplorerDescriptor.title }}</div>
+</div>
+
+<aq4w-panel-container
+  [panelDescriptor]="view.memoryExplorerDescriptor"
+  (panelIsFloating)="on.panelFloatingChanged(view.memoryExplorerDescriptor.key, $event)"
+  (panelIsExpanded)="on.panelExpandedChanged(view.memoryExplorerDescriptor.key, $event)">
+  <aq4w-memory-explorer-container [isExpanded]="view.expandedPlaceholders.includes(view.memoryExplorerDescriptor.key)" (emphasizeInTaskBar)="on.applyEmphasis(view.memoryExplorerDescriptor.key, $event)"></aq4w-memory-explorer-container>
+</aq4w-panel-container>
+<div
+  class="floating-container-placeholder"
+  [ngClass]="{
+    'container-minimized': !view.expandedPlaceholders.includes(view.memoryExplorerDescriptor.key),
+    'emphasize': view.emphasizeKeys.includes(view.memoryExplorerDescriptor.key),
+    'docked': !view.floatingPlaceholders.includes(view.memoryExplorerDescriptor.key)
+  }"
+  (click)="on.placeholderClicked(view.memoryExplorerDescriptor.key)"
+  (contextmenu)="on.placeholderRightClicked(view.memoryExplorerDescriptor.key)"
+  [attr.title]="view.floatingPlaceholders.includes(view.memoryExplorerDescriptor.key) ? 'Click to open/close. Right-click to re-center.' : null">
+  <div class="placeholder ph-icon">
+    <aq4w-icon [name]="view.memoryExplorerDescriptor.titleIcon"></aq4w-icon>
+    <div class="tooltip">{{ view.memoryExplorerDescriptor.title }}</div>
+  </div>
+  <div class="placeholder ph-title">{{ view.memoryExplorerDescriptor.title }}</div>
+</div>
+
+<ng-container *ngFor="let descriptor of view.deviceDescriptors">
+  <aq4w-panel-container
+    class="device-container"
+    [panelDescriptor]="descriptor"
+    [detectChangesOnEvent]="true"
+    [allowSeparateWindow]="true"
+    (panelIsFloating)="on.panelFloatingChanged(descriptor.key, $event)"
+    (panelIsExpanded)="on.panelExpandedChanged(descriptor.key, $event)"
+    (panelIsInSeparateWindow)="on.panelIsInSeparateWindowChanged(descriptor.key)">
+    <aq4w-device-instance-container-new [descriptor]="descriptor"
+      [isInSeparateWindow]="view.devicePopupKeys[descriptor.key] !== undefined"
+      (popupEvent)="on.deviceInstancePopupEvent($event)"
+      (detached)="on.deviceDetached(descriptor.key)" #swo></aq4w-device-instance-container-new>
+  </aq4w-panel-container>
+  <div
+    class="floating-container-placeholder"
+    [ngClass]="{
+      'container-minimized': !view.expandedPlaceholders.includes(descriptor.key),
+      'emphasize': view.emphasizeKeys.includes(descriptor.key),
+      'docked': !view.floatingPlaceholders.includes(descriptor.key),
+      'separate-window-open': view.devicePopupKeys[descriptor.key] !== undefined,
+      'separate-window-focused': view.devicePopupKeys[descriptor.key] === true,
+      'separate-window-blurred': view.devicePopupKeys[descriptor.key] === false
+    }"
+    (click)="on.placeholderClicked(descriptor.key)"
+    (contextmenu)="on.placeholderRightClicked(descriptor.key)"
+    [attr.title]="view.devicePopupKeys[descriptor.key] === undefined ? view.floatingPlaceholders.includes(descriptor.key) ? 'Click to open/close. Right-click to re-center.' : null : 'Device is opened in a separate window. Right-click to bring back to this window.'">
+    <div class="placeholder ph-icon">
+      <aq4w-icon [name]="descriptor.titleIcon"></aq4w-icon>
+      <div class="tooltip">{{ !!view.deviceTitles[descriptor.key] ? view.deviceTitles[descriptor.key] : '[installing...]' }}</div>
+    </div>
+    <div class="placeholder ph-title">{{ !!view.deviceTitles[descriptor.key] ? view.deviceTitles[descriptor.key] : '[installing...]' }}</div>
+    <aq4w-icon class="separate-window-icon" name="(fa)window-restore"></aq4w-icon>
+  </div>
+</ng-container>
+
+<div class="shell-button" title="Show or hide shell" (click)="on.toggleShell()" [ngClass]="{ 'showing': view.shellOpen }">
+  <aq4w-icon name="(fa)fas.terminal"></aq4w-icon>
+</div>

@@ -1,0 +1,45 @@
+<aq4w-icon name="(c)dial" class="register-edit-icon" title="Toggle register value editor" (click)="on.toggle()"
+  [popper]="editorPopover" [popperPlacement]="'top'" [popperTrigger]="'click'"></aq4w-icon>
+
+<popper-content #editorPopover>
+  <div class="popover">
+    <div class="byte-sequence-editor" [ngClass]="{ 'none': !show.editor }">
+      <div class="error-message" *ngIf="show.errorMessage">{{ view.errorMessage }}</div>
+      <div class="base-10-editor value-editor-container" *ngIf="show.base10">
+        <input type="number" min="0" max="4294967295" [formControl]="view.base10Control"
+          (keydown)="on.inputKeydown($event)">
+      </div>
+      <div class="base-16-editor value-editor-container" *ngIf="show.base16">
+        <input type="text" [formControl]="view.base16Control" (keydown)="on.inputKeydown($event)">
+      </div>
+      <div class="base-2-editor value-editor-container" *ngIf="show.base2">
+        <div class="bit-group" *ngFor="let group of view.base2BitGroups;let byteIndex = index">
+          <div class="label">byte {{ byteIndex }}</div>
+          <div class="bits">
+            <div class="bit-value" *ngFor="let bit of group;let bitIndex = index" (click)="on.flipBit(bitIndex)"
+              [title]="'bit ' + bitIndex.toString()">
+              <ng-container *ngIf="bitIndex > 0 && bitIndex % 8 === 0">&nbsp;</ng-container>
+              <ng-container>{{ bit }}</ng-container>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="bit-value" *ngFor="let bit of view.base2Bits;let bitIndex = index" (click)="on.flipBit(bitIndex)"
+          [title]="'bit ' + bitIndex.toString()">
+          <ng-container *ngIf="bitIndex > 0 && bitIndex % 8 === 0">&nbsp;</ng-container>
+          <ng-container>{{ bit }}</ng-container>
+        </div> -->
+      </div>
+      <div class="buttons">
+        <button>
+          <aq4w-icon name="(fa)fas.hashtag" (click)="on.changeEditorRadix()" title="Change radix"></aq4w-icon>
+        </button>
+        <button>
+          <aq4w-icon name="(c)crosscircle" (click)="on.cancel()"></aq4w-icon>
+        </button>
+        <button>
+          <aq4w-icon name="(c)checkcircle" (click)="on.save()"></aq4w-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</popper-content>

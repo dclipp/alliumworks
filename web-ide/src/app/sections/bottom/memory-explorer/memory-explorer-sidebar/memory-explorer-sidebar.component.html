@@ -1,0 +1,11 @@
+<div class="tabs">
+  <button [ngClass]="{ 'active-tab-btn': view.activeTab === 'browser' }" (click)="on.changeTab('browser')" title="Browse memory">
+    <aq4w-icon name="(fa)fas.memory"></aq4w-icon>
+  </button>
+  <button [ngClass]="{ 'active-tab-btn': view.activeTab === 'watches' }" (click)="on.changeTab('watches')" title="Memory watches">
+    <aq4w-icon name="eye"></aq4w-icon>
+  </button>
+  <button [ngClass]="{ 'active-tab-btn': view.activeTab === 'search' }" (click)="on.changeTab('search')" title="Search memory">
+    <aq4w-icon name="search"></aq4w-icon>
+  </button>
+</div>

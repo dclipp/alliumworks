@@ -1,0 +1,80 @@
+@import '../../../styles';
+@import '../../../form-styles';
+
+@mixin modalButton {
+    -webkit-appearance: none;
+    border: 1px solid #5b2f5e;
+    cursor: pointer;
+    outline: none;
+    background: #793e7d21;
+
+    &:not(:last-of-type) {
+        margin-right: 1em;
+    }
+
+    &:hover:not(:disabled) {
+        background-color: #fef7ff;
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+    }
+}
+
+@mixin modalDialog {
+    z-index: 102;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+
+    & .inner {
+        background-color: #fef7ff;
+        border-radius: 12px;
+        border: 1px solid #5b2f5e;
+        margin: auto;
+        flex: 0.5;
+
+        & .header {
+            border-bottom: 1px solid #793e7d21;
+            font-weight: bold;
+            padding: 0.5em 1em;
+        }
+
+        & .body {
+            padding: 0.5em 1em;
+            padding-bottom: 1em;
+
+            & .description {
+                margin-top: 0.5em;
+            }
+        }
+
+        & .footer {
+            border-top: 1px solid #793e7d21;
+            padding: 0.5em 1em;
+            text-align: right;
+    
+            & button {
+                @include modalButton;
+                padding: 0.25em 1em 0.25em 1em;
+            }
+        }
+    }
+}
+
+@mixin modalBackdrop {
+    z-index: 101;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.25;
+    position: absolute;
+    cursor: pointer;
+}
+
+::ng-deep .templated-body > .form-section > input:not(:invalid) + .form-error {
+    display: none !important;
+}

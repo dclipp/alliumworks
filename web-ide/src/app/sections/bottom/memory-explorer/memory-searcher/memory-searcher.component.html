@@ -1,0 +1,26 @@
+<div class="memory-searcher">
+  <!-- <div class="searcher-title">Search memory values</div> -->
+  <label>Search for</label>
+  <aq4w-tactile-selector [options]="view.searchOptions" (selection)="on.optionChanged($event)"></aq4w-tactile-selector>
+  <!-- <div class="search-option">
+    <input type="radio" name="search-by" id="number-10">
+    <label for="number-10">Number (base-10)</label>
+  </div>
+  <div class="search-option">
+    <input type="radio" name="search-by" id="number-16">
+    <label for="number-16">Number (base-16)</label>
+  </div>
+  <div class="search-option">
+    <input type="radio" name="search-by" id="ascii">
+    <label for="ascii">ASCII string</label>
+  </div> -->
+  <label>matching the value</label>
+  <input type="text" class="search-input default-font" spellcheck="false" placeholder="Enter a query value" [formControl]="view.searchValue">
+  <div class="form-section">
+    <button (click)="on.beginSearch()" [attr.disabled]="view.searchInProgress || !(!!view.searchValue.value) ? 'disabled' : null">Search</button>
+  </div>
+  <div class="progress" *ngIf="view.searchInProgress">
+    <aq4w-icon name="(loading)"></aq4w-icon>
+    <span>searching...</span>
+  </div>
+</div>

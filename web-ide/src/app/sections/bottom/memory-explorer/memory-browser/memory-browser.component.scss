@@ -1,0 +1,110 @@
+@import '../../../../../styles';
+
+.memory-browser {
+    padding-left: 1em;
+    padding-right: 1em;
+
+    & .memory-table {
+        min-width: 300px;
+
+        & .address-cell {
+            cursor: pointer;
+            text-align: center;
+            
+            & .address-radix {
+                font-size: 10px;
+                vertical-align: bottom;
+            }
+        }
+
+        & .watch-cell {
+            text-align: left;
+        
+            & .watch-icon {
+                &:not(.has-watch) {
+                    opacity: 0.1;
+                }
+        
+                &:not(.has-watch):hover {
+                    opacity: 0.5;
+                }
+        
+                &.emphasize {
+                    animation: register-explorer-icon-pulse 1s infinite;
+                    animation-timing-function: ease-out;
+                    animation-iteration-count: 6;
+                    color: rgba(255,86,34,1);
+                }
+        
+                &.emphasize-static {
+                    color: rgba(255,86,34,1);
+                }
+            }
+        }
+
+        & .value-cell {
+            text-align: right;
+
+            & .memory-value-readonly {
+                display: inline-block;
+            }
+
+            & .memory-edit-icon {
+                display: inline-block;
+                cursor: pointer;
+            }
+
+            & .value-radix {
+                font-size: 10px;
+                vertical-align: bottom;
+            }
+        }
+    }
+
+    & .offset-selector {
+        border-bottom: 1px solid $color-primary;
+        padding-bottom: 0.5em;
+
+        & .offset-stepper {
+            display: inline-block;
+            background: none;
+            border: 1px solid $color-primary;
+            outline: none;
+            font-size: 16px;
+            cursor: pointer;
+
+            &:hover:not(:disabled) {
+                background: $color-primary;
+            }
+
+            &:disabled {
+                cursor: not-allowed;
+            }
+        }
+
+        & .offset-forms {
+            text-align: center;
+            display: inline-block;
+            width: 80%;
+            vertical-align: middle;
+
+            & .offset-input {
+                & .offset-input-radix {
+                    font-size: 10px;
+                    vertical-align: bottom;
+                    font-weight: bold;
+                }
+
+                & input {
+                    max-width: 5em;
+                }
+            }
+        }
+    }
+
+    & .offset-selector-title {
+        text-align: center;
+        width: 100%;
+        font-weight: bold;
+    }
+}

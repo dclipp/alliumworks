@@ -1,0 +1,24 @@
+<aq4w-tab-bar></aq4w-tab-bar>
+<aq4w-contextual-toolbar></aq4w-contextual-toolbar>
+<!-- <aq4w-code-editor-view [sourceCodeText]="'?alias BLOCK2 = b_2\nMain:\n\nLOAD_MONDAY 91\nADD [MONDAY]\nFLAG_ACK [TUESDAY.hh] @flag=OVERFLOW\nJMPI BLOCK2\nb_2:\nCOPY [TUESDAY] [WEDNESDAY]\nNO_OP'" [referenceName]="'test'"></aq4w-code-editor-view> -->
+<div class="main-content-container">
+  <div class="content-item" *ngFor="let item of view.contentItems"
+    [id]="item.elementRefId"
+    [ngClass]="{ 'active-item': view.activeItemKey === item.contentKey }"
+    [attr.data-content-type]="item.contentTypeCode"></div>
+</div>
+<ng-template let-contentReference="contentReference" #sourceFileEditor>
+  <aq4w-source-file-editor [content]="contentReference"></aq4w-source-file-editor>
+</ng-template>
+<ng-template let-contentReference="contentReference" #genericFileEditor>
+  <aq4w-generic-file-editor [content]="contentReference"></aq4w-generic-file-editor>
+</ng-template>
+<ng-template #settingsEditor let-contentReference="contentReference">
+  <aq4w-settings-editor [content]="contentReference"></aq4w-settings-editor>
+</ng-template>
+<ng-template #computerPresetsManager let-contentReference="contentReference">
+  <aq4w-computer-presets-manager [content]="contentReference"></aq4w-computer-presets-manager>
+</ng-template>
+<ng-template #deviceHomepage let-contentReference="contentReference">
+  <aq4w-device-homepage [content]="contentReference"></aq4w-device-homepage>
+</ng-template>

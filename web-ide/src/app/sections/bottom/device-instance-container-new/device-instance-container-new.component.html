@@ -1,0 +1,112 @@
+<div class="controls-row">
+  <aq4w-icon name="(fa)fas.plug" class="device-btn" title="Detach device..." (click)="on.beginDetach()"></aq4w-icon>
+  <aq4w-icon name="(fa)fas.slash" class="plug-slash-icon" title="Detach device..." (click)="on.beginDetach()"></aq4w-icon>
+  <aq4w-icon name="(fa)fas.info-circle" class="device-btn" title="Show device info" [popper]="deviceProfilePopover" popperTrigger="click"></aq4w-icon>
+  <div class="interface-options">
+    <!-- <aq4w-icon name="(fa)fas.bolt" class="device-btn" title="Send command..." [popper]="iSendCommandPopover" popperTrigger="click" popoverPlacement="bottom"></aq4w-icon> -->
+    <!-- <aq4w-icon name="(fa)paper-plane" class="device-btn" title="Transmit..." [popper]="iTransmitPopover" popperTrigger="click" popoverPlacement="bottom"></aq4w-icon> -->
+    <aq4w-icon name="(fa)paper-plane" class="device-btn incoming-icon" title="Transmit data to this device..." [popper]="iInputTransmitPopover" popperTrigger="click" popoverPlacement="bottom"></aq4w-icon>
+    <aq4w-icon name="(fa)paper-plane" class="device-btn" title="Transmit data to the machine..." [popper]="iOutputTransmitPopover" popperTrigger="click" popoverPlacement="bottom"></aq4w-icon>
+  </div>
+</div>
+<div class="frame-container" #frameContainer></div>
+<popper-content #deviceProfilePopover>
+    <div class="popover device-profile-popover">
+        <div class="popover-title">Device Info</div>
+        <div class="deferred-message form-section" *ngIf="!view.sessionIsDefined">
+            <aq4w-icon class="c1" name="(fa)fas.exclamation-triangle"></aq4w-icon>
+            <span class="c2">
+                <div class="form-error">
+                    The machine is currently powered off
+                </div>
+            </span>
+        </div>
+        <table *ngIf="view.profile.isLoaded">
+            <tbody>
+                <tr>
+                    <td>Device Name</td>
+                    <td>{{ view.humanReadableName }}</td>
+                </tr>
+                <tr>
+                    <td>Bundle ID</td>
+                    <td>{{ view.bundleId }}</td>
+                </tr>
+                <tr>
+                    <td>Port Index</td>
+                    <td *ngIf="view.attachedToPortIndex === null">n/a</td>
+                    <td *ngIf="view.attachedToPortIndex !== null" class="clickable-radix" (click)="on.changeChannelRadix()" [attr.title]="'(base ' + view.attachedToPortIndexRadix.toString() + ')'">{{ view.attachedToPortIndex | byteSequence:view.attachedToPortIndexRadix }}</td>
+                </tr>
+                <tr>
+                    <td>Device Status</td>
+                    <td>{{ view.currentStatus }}</td>
+                </tr>
+                <tr>
+                    <td>Device Identifier (Primary)</td>
+                    <td>{{ view.profile.primaryDeviceIdentifier | byteSequence:16 }}</td>
+                </tr>
+                <tr>
+                    <td>Device Identifier (Secondary)</td>
+                    <td>{{ view.profile.secondaryDeviceIdentifier | byteSequence:16 }}</td>
+                </tr>
+                <tr>
+                    <td>Device Output</td>
+                    <td><ng-container *ngTemplateOutlet="infoBufferText; context: { bufferLength: view.profile.output.bufferLength }"></ng-container></td>
+                </tr>
+                <tr>
+                    <td>Device Input</td>
+                    <td><ng-container *ngTemplateOutlet="infoBufferText; context: { bufferLength: view.profile.input.bufferLength }"></ng-container></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</popper-content>
+<!-- <popper-content #iSendCommandPopover class="send-command-popover-content">
+    <div class="popover send-command-popover">
+        <div class="btn-row"><button (click)="on.sendCommand(0)">Send <span>Break</span> command to device</button></div>
+        <div class="btn-row"><button (click)="on.sendCommand(1)">Send <span>Reset</span> command to device</button></div>
+        <div class="btn-row"><button (click)="on.sendCommand(2)">Send <span>Shut Down</span> command to device</button></div>
+    </div>
+</popper-content> -->
+<!-- <popper-content #iTransmitPopover class="transmit-popover-content">
+    <div class="popover transmit-popover">
+        <label>Transmit from</label>
+        <aq4w-tactile-selector [options]="view.transmissionRouteOpts" (selection)="on.transmissionRouteOptionChanged($event)"></aq4w-tactile-selector>
+        <div class="packet-editor" [attr.data-selected-direction]="view.selectedTransmissionDirection">
+            <aq4w-byte-input [control]="view.fromMachineToDevicePacket" *ngIf="view.profile.input.supported" data-direction="input"></aq4w-byte-input>
+            <aq4w-byte-input [control]="view.fromDeviceToMachinePacket" *ngIf="view.profile.output.supported" data-direction="output"></aq4w-byte-input>
+        </div>
+        <div class="form-section">
+            <div class="form-error" *ngIf="view.transmissionError">Failed to transmit</div>
+            <button (click)="on.transmit()" [attr.disabled]="view.isAttached && !view.disableTransmissionControls ? null : 'disabled'">Transmit</button>
+        </div>
+    </div>
+</popper-content> -->
+<popper-content #iInputTransmitPopover class="transmit-popover-content">
+    <div class="popover transmit-popover">
+        <div class="popover-title">Transmit to device</div>
+        <aq4w-byte-input [control]="view.fromMachineToDevicePacket"
+            [maxSize]="view.profile.input.bufferLength"
+            *ngIf="view.profile.input.bufferLength > 0"></aq4w-byte-input>
+        <div class="form-section">
+            <div class="form-error" *ngIf="view.transmissionError">Failed to transmit</div>
+            <button (click)="on.transmit('input')" [attr.disabled]="!!view.fromMachineToDevicePacket.value && view.fromMachineToDevicePacket.value.length > 0 ? null : 'disabled'">Transmit</button>
+        </div>
+    </div>
+</popper-content>
+<popper-content #iOutputTransmitPopover class="transmit-popover-content">
+    <div class="popover transmit-popover">
+        <div class="popover-title">Transmit to machine</div>
+        <aq4w-byte-input [control]="view.fromDeviceToMachinePacket"
+            [maxSize]="view.profile.output.bufferLength"
+            *ngIf="view.profile.output.bufferLength > 0"></aq4w-byte-input>
+        <div class="form-section">
+            <div class="form-error" *ngIf="view.transmissionError">Failed to transmit</div>
+            <button (click)="on.transmit('output')" [attr.disabled]="!!view.fromDeviceToMachinePacket.value && view.fromDeviceToMachinePacket.value.length > 0 ? null : 'disabled'">Transmit</button>
+        </div>
+    </div>
+</popper-content>
+<ng-template let-bufferLength="bufferLength" #infoBufferText>
+    <ng-container *ngIf="bufferLength > 1">Up to {{bufferLength}} bytes</ng-container>
+    <ng-container *ngIf="bufferLength === 1">1 byte</ng-container>
+    <ng-container *ngIf="bufferLength < 1">Not Supported</ng-container>
+</ng-template>

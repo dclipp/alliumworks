@@ -1,0 +1,156 @@
+/* You can add global styles to this file, and also import other style files */
+.col {
+  display: inline-block;
+}
+.col.left {
+  float: left;
+}
+.col.right {
+  float: right;
+}
+
+button.icon-btn {
+  cursor: pointer;
+  background: none;
+  border: none;
+  outline: none;
+  color: #3b4238;
+  opacity: 0.8;
+}
+button.icon-btn:not(:disabled):hover {
+  opacity: 1;
+}
+
+.container-row {
+  width: 100%;
+  min-height: 1em;
+  display: inline-block;
+  border-top: 1px solid #3b4238;
+}
+
+.no-show {
+  display: none;
+}
+
+sui-input-area .input-area {
+  width: 100%;
+  height: calc((1.5 * var(--shell-ui-font-size)) + 2px);
+}
+sui-input-area .input-area .completions-toggle-column {
+  width: 1.5em;
+}
+sui-input-area .input-area .history-toggle-column {
+  width: 1.5em;
+}
+sui-input-area .input-area .field-column {
+  width: calc(100% - 3em);
+  transform: translateY(-0.5em);
+  vertical-align: middle;
+}
+sui-input-area .input-area .field-column .input-container {
+  position: relative;
+  width: 100%;
+}
+sui-input-area .input-area .field-column .input-container input {
+  width: 100%;
+  font-family: var(--shell-ui-font-family);
+  font-size: var(--shell-ui-font-size);
+  margin: 0;
+  border: none;
+  background: none;
+  outline: none;
+  position: absolute;
+  left: 0;
+}
+sui-input-area .input-area .field-column .input-container input.editable {
+  z-index: 0;
+}
+sui-input-area .input-area .field-column .input-container input.suggestions {
+  z-index: -1;
+  color: darkgray;
+}
+sui-input-area .input-area .field-column .input-container input:focus {
+  border-bottom: 1px solid gold;
+}
+
+sui-output-area .output-area {
+  overflow-y: auto;
+  height: calc(var(--shell-ui-max-height) - ((2 * var(--shell-ui-font-size)) + 4px) - ((2 * var(--shell-ui-font-size)) + 2px));
+}
+sui-output-area .output-area .log-entry {
+  font-family: var(--shell-ui-font-family);
+  font-size: var(--shell-ui-font-size);
+  line-height: calc(var(--shell-ui-font-size) + 2px);
+  width: 100%;
+}
+sui-output-area .output-area .log-entry .icon-column {
+  width: 1.5ch;
+}
+sui-output-area .output-area .log-entry .message-column {
+  width: calc(100% - 1.5ch);
+}
+
+sui-popover-list .popover-list {
+  width: 100%;
+  position: relative;
+  bottom: calc(2 * ((1.5 * var(--shell-ui-font-size)) + 2px));
+  left: 0;
+  min-height: calc((1.5 * var(--shell-ui-font-size)) + 2px);
+  font-size: var(--shell-ui-font-size);
+  font-family: var(--shell-ui-font-family);
+  background-color: burlywood;
+}
+sui-popover-list .popover-list ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+sui-popover-list .popover-list ul li[data-has-children=true] .caret-icon-container .icon.no-children {
+  display: none;
+}
+sui-popover-list .popover-list ul li[data-has-children=true].expanded .caret-icon-container .icon.collapsed {
+  display: none;
+}
+sui-popover-list .popover-list ul li[data-has-children=true]:not(.expanded) .caret-icon-container .icon.expanded {
+  display: none;
+}
+sui-popover-list .popover-list ul li[data-has-children=false] .caret-icon-container .icon:not(.no-children) {
+  display: none !important;
+}
+sui-popover-list .popover-list ul li .caret-icon-container .icon {
+  width: 1.5ch;
+  padding-right: 4px;
+}
+sui-popover-list .popover-list ul li .caret-icon-container .icon.clickable {
+  cursor: pointer;
+}
+sui-popover-list .popover-list .popover-column {
+  display: inline-block;
+}
+sui-popover-list .popover-list .popover-column .item-text:empty {
+  display: none;
+}
+sui-popover-list .popover-list .popover-column .item-text.bold {
+  font-weight: bold;
+}
+sui-popover-list .popover-list.fixed-height {
+  height: calc((5 * var(--shell-ui-font-size)) + 2px);
+  overflow-y: scroll;
+  margin-top: calc(-2 * ((1.5 * var(--shell-ui-font-size)) + 2px));
+}
+
+sui-toolbar .toolbar {
+  width: 100%;
+  height: calc(var(--shell-ui-font-size) * 1.75);
+}
+sui-toolbar .toolbar .icon-btn {
+  vertical-align: sub;
+}
+sui-toolbar .toolbar select {
+  vertical-align: sub;
+}
+
+sui-container .container {
+  max-height: var(--shell-ui-max-height);
+  overflow: hidden;
+}

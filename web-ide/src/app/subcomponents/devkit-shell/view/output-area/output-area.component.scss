@@ -1,0 +1,27 @@
+@import '../../styles';
+
+.output-area {
+    font-family: $console-font-family;
+    font-size: $console-font-size;
+    width: 100%;
+    background-color: white;
+    overflow-y: auto;
+
+    & .output-line {
+        line-height: 1em;
+
+        &[data-output-type="error"] {
+            color: red;
+        }
+
+        &[data-output-type="warning"] {
+            color: darkorange;
+        }
+        
+        &[data-output-type="success"] {
+            & .success-icon {
+                color: green;
+            }
+        }
+    }
+}

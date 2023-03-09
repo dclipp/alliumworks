@@ -1,0 +1,59 @@
+@import '../../../../../styles';
+@import '../../../../../form-styles';
+
+.memory-searcher {
+    // padding-left: 1em;
+    // padding-right: 1em;
+    // padding-bottom: 2em;
+    padding: 0.5em 1em 1em 2em;
+    // min-width: 300px;
+    width: max-content;
+
+    & .searcher-title {
+        // text-align: center;
+        width: 100%;
+        font-weight: bold;
+    }
+
+    & .search-option {
+        padding-left: 0.5em;
+
+        & label {
+            cursor: pointer;
+        }
+    }
+
+    & .search-input {
+        width: 100%;
+        font-size: $standard-font-size;
+        margin-bottom: 1ch;
+        
+        &:focus {
+            outline-color: $color-primary;
+        }
+    }
+
+    & label {
+        font-size: 14px;
+        font-weight: bold;
+        display: block;
+        margin-bottom: 4px;
+    }
+
+    & aq4w-tactile-selector + label {
+        margin-top: 1em;
+    }
+
+    & .form-section {
+        display: inline-block;
+    }
+    
+    & .progress {
+        display: inline-block;
+        margin-left: 0.5em;
+
+        & span {
+            margin-left: 0.25em;
+        }
+    }
+}

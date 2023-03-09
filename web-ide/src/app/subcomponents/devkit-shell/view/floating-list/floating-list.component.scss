@@ -1,0 +1,90 @@
+@import '../../styles';
+
+.floating-list {
+    & .floating-list-outer {
+        position: relative;
+        border-radius: 6px;
+
+        & .floating-list-inner {
+            position: absolute;
+            bottom: 0;
+            transform: var(--floating-list-transform);
+            visibility: hidden;
+            background-color: white;
+            border-radius: 6px;
+            box-shadow: -1px -2px 15px 5px $box-shadow-color;
+            padding: 4px;
+
+            &.show {
+                visibility: visible;
+            }
+
+            & .floating-list-item {
+                cursor: pointer;
+                height: 2ch;
+
+                & .he-char {
+                    padding: 0;
+                    width: 1ch;
+                    font-weight: normal;
+                    font-family: $console-font-family;
+                    font-size: $console-font-size;
+                    display: inline-block;
+                    vertical-align: middle;
+                    
+                    &.is-match {
+                        font-weight: bold;
+                    }
+                }
+
+                & .he-indicator {
+                    width: 2ch;
+                    display: inline-block;
+                    vertical-align: middle;
+                    font-size: 0.5ch;
+                }
+            }
+
+            &[data-item-count="0"] {
+                & input {
+                    margin-top: 0;
+                }
+            }
+
+            &:focus-within {
+                & input {
+                    border-bottom: 1px solid $color-black;
+                }
+            }
+
+            & .scroller {
+                cursor: pointer;
+                background-color: $color-primary;
+                user-select: none;
+            }
+        }
+    }
+
+    & .no-show {
+        display: none;
+    }
+}
+
+::ng-deep {
+    input {
+        font-family: $console-font-family;
+        font-size: $console-font-size;
+        border: none;
+        outline: none;
+        border-bottom: 1px solid gainsboro;
+        margin-top: 5px;
+    }
+
+    .floating-list-inner[data-item-count="0"] input {
+        margin-top: 0;
+    }
+
+    .floating-list-inner:focus-within input {
+        border-bottom: 1px solid $color-black;
+    }
+}

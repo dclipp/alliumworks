@@ -1,0 +1,29 @@
+<div class="slider" (click)="on.toggle()" [attr.data-label-position]="view.labelPosition" [ngClass]="{ 'disabled': view.isDisabled }">
+  <label class="top" *ngIf="view.labelPosition === 'top' && !view.hasLabelContent">
+    {{ view.label }}
+  </label>
+  <div class="top" *ngIf="view.labelPosition === 'top' && view.hasLabelContent">
+    <ng-container *ngTemplateOutlet="labelContent"></ng-container>
+  </div>
+  
+  <div class="form">
+    <label class="left" *ngIf="view.labelPosition === 'left' && !view.hasLabelContent">
+      {{ view.label }}
+    </label>
+    <div class="left" *ngIf="view.labelPosition === 'left' && view.hasLabelContent">
+      <ng-container *ngTemplateOutlet="labelContent"></ng-container>
+    </div>
+    <div class="inner" [ngClass]="{ 'checked': view.checked }">
+      <div class="control" [attr.title]="!!view.tooltip ? view.tooltip : null"></div>
+    </div>
+    <label class="right" *ngIf="view.labelPosition === 'right' && !view.hasLabelContent">
+      {{ view.label }}
+    </label>
+    <div class="right" *ngIf="view.labelPosition === 'right' && view.hasLabelContent">
+      <ng-container *ngTemplateOutlet="labelContent"></ng-container>
+    </div>
+  </div>
+</div>
+<ng-template #labelContent>
+  <ng-content></ng-content>
+</ng-template>

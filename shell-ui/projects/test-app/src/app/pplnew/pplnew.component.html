@@ -1,0 +1,22 @@
+<div class="pplnew">
+    pplnew
+    <ul>
+        <li *ngFor="let item of view.items" [ngClass]="{
+            'active-item': item.id === view.activeItemId,
+            'no-show': !item.isVisible,
+            'has-children': item.hasChildren,
+            'is-expanded': view.expandedIds.includes(item.id)
+        }">
+            <span class="icon-spacer">
+                <testapp-icon name="(fa)fas.square"></testapp-icon>
+            </span>
+            <span class="toggle-icon expanded" (click)="on.collapseRow(item.id)">
+                <testapp-icon name="(fa)fas.caret-down"></testapp-icon>
+            </span>
+            <span class="toggle-icon collapsed" (click)="on.expandRow(item.id)">
+                <testapp-icon name="(fa)fas.caret-right"></testapp-icon>
+            </span>
+            <span class="item-text">{{item.text}}</span>
+        </li>
+    </ul>
+</div>

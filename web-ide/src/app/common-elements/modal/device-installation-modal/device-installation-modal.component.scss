@@ -1,0 +1,70 @@
+@import '../../../../styles';
+@import '../../../../form-styles';
+@import '../modal-styles';
+
+.device-installation-modal {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+
+    &.open {
+        display: block;
+    }
+
+    & .dialog {
+        @include modalDialog;
+
+        & .inner {
+            & .body {
+                & .form-section {
+                    padding-left: 0.5em;
+
+                    &.no-show {
+                        display: none;
+                    }
+                }
+
+                // & .channel-forms {
+
+                //     & .form-section {
+                //         display: inline-block;
+
+                //         &:last-of-type {
+                //             float: right;
+                //         }
+                //     }
+                // }
+            }
+        }
+    }
+
+    .backdrop {
+        @include modalBackdrop;
+    }
+}
+
+.channel-range-control {
+    & .range-block {
+        width: 1ch;
+        height: 1.5ch;
+        border: 1px solid $box-shadow-color;
+        display: inline-block;
+        cursor: pointer;
+        background-color: white;
+        user-select: none;
+        -ms-user-select: none;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+
+        &:not(:last-of-type) {
+            border-right: none;
+        }
+
+        &.selected {
+            background-color: $color-secondary;
+        }
+    }
+}

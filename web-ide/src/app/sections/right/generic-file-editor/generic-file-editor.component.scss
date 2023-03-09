@@ -1,0 +1,45 @@
+.generic-file-editor {
+    border-left: 0.5em solid white;
+    width: calc(100% - 5px - 0.5em);
+    height: calc(100% - 1em);
+    position: absolute;
+
+    &:focus-within {
+        border-left-color: #b59bb5;
+    }
+
+    &.is-dirty {
+        border-left-color: #ff9a7a;
+        
+        &:focus-within {
+            border-left-color: #ff9a7a;
+        }
+    }
+
+
+    & textarea {
+        // width: calc(100% - 6px);
+        width: calc(100% - 6px - 0.5em);
+        height: calc(100% - 4em);
+        position: absolute;
+        border-left: none;//0.5em solid white;
+        border-right: none;
+        border-top: none;
+        border-bottom: none;
+        resize: none;
+
+        &:focus {
+            // border-left-color: #ff9a7a;
+            // border-left-color: #b59bb5;
+            outline: none;
+        }
+
+        // &.is-dirty {
+        //     border-left-color: #ff9a7a;
+            
+        //     &:focus {
+        //         border-left-color: #ff9a7a;
+        //     }
+        // }
+    }
+}

@@ -1,0 +1,49 @@
+<div class="browser-button-bar">
+  <button *ngFor="let button of view.buttons" (click)="on.buttonClicked(button.key)"
+    [attr.disabled]="button.disabledAttr"
+    [attr.data-additional-class]="button.additionalClassAttr"
+    [attr.title]="button.tooltipAttr"
+    [attr.data-button-key]="button.key"
+    class="button-bar-button">
+    <ng-container *ngIf="button.key !== 'MoreMenu'">
+      <aq4w-icon [name]="button.iconName"></aq4w-icon>
+      <ng-container *ngIf="!!button.contextMenu && button.contextMenu.length > 0">
+        <aq4w-icon class="context-menu-toggle" name="(fa)fas.angle-down" (click)="on.contextMenuClicked($event, button.key)"
+          [popper]="contextMenuPopper"
+          [popperTrigger]="'click'"
+          [popperPlacement]="'bottom'"></aq4w-icon>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="button.key === 'MoreMenu'">
+      <aq4w-icon [name]="button.iconName"
+        [popper]="morePopper" [popperTrigger]="'click'" [popperPlacement]="'bottom'" [popperHideOnMouseLeave]="false" [popperHideOnScroll]="false"></aq4w-icon>
+    </ng-container>
+  </button>
+</div>
+
+<popper-content #morePopper>
+  <div class="popper">
+    <div class="inner browser-button-bar more-menu" [ngStyle]="{ 'width.ch': view.moreMenuWidth }">
+      <button *ngFor="let button of view.moreMenuItemButtons" (click)="on.buttonClicked(button.key)"
+        [attr.disabled]="button.disabledAttr"
+        [attr.data-additional-class]="button.additionalClassAttr"
+        [attr.data-button-key]="button.key"
+        class="button-bar-button">
+        <aq4w-icon [name]="button.iconName"></aq4w-icon>
+        <div class="caption">{{ button.tooltipAttr }}</div>
+      </button>
+    </div>
+  </div>
+</popper-content>
+
+<popper-content #contextMenuPopper>
+  <div class="popper">
+    <div class="inner browser-button-bar context-menu">
+      <ul>
+        <li *ngFor="let opt of view.contextMenuOptions"
+          [title]="opt.tooltip || null"
+          (click)="on.contextMenuOptionSelected(opt.key)">{{opt.caption}}</li>
+      </ul>
+    </div>
+  </div>
+</popper-content>

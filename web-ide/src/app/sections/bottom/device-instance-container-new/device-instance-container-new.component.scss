@@ -1,0 +1,312 @@
+@import '../../../../styles';
+@import '../../../../form-styles';
+
+@mixin dynamicOpacity {
+    opacity: 0.6;
+
+    &:not(:disabled):hover {
+        opacity: 1;
+    }
+}
+
+.controls-row {
+    & > aq4w-icon:not(.plug-slash-icon) {
+        margin-left: 0.25em;
+    }
+
+    & .device-btn {
+        cursor: pointer;
+
+        &:not(:first-of-type) {
+            @include dynamicOpacity;
+        }
+    }
+
+    & .interface-options {
+        float: right;
+
+        & aq4w-icon {
+            margin-right: 0.25em;
+            @include dynamicOpacity;
+        }
+    }
+
+    & .plug-slash-icon {
+        color: $color-secondary;
+        position: absolute;
+        left: 0;
+        cursor: pointer;
+    }
+    
+    & .incoming-icon {
+        ::ng-deep {
+            i {
+                transform: rotate(180deg) !important;
+            }
+        }
+    }
+}
+
+@mixin commandSubmissionElement {
+    & .btn-row {
+        width: 100%;
+        
+        &:hover {
+            background-color: $color-primary;
+        }
+    }
+
+    & button {
+        border: none;
+        outline: none;
+        background-color: transparent;
+        cursor: pointer;
+
+        & span {
+            font-weight: bold;
+        }
+
+        &:disabled {
+            cursor: not-allowed;
+        }
+    }
+}
+popper-content {
+    ::ng-deep {
+        & > div {
+            background-color: white;
+        }
+
+        & .send-command-popover {
+            @include commandSubmissionElement;
+        }
+
+        & .sim-machine-popover {
+            & .tab-container {
+                border-bottom: 1px solid $color-primary;
+                margin-bottom: 0.5em;
+
+                & .tab {
+                    font-size: 14px;
+                    cursor: pointer;
+                    display: inline;
+                    padding-left: 4px;
+                    padding-right: 4px;
+                    margin-right: 0.5em;
+
+                    &.active-tab {
+                        background-color: $color-primary;
+                        // font-weight: bold;
+                        border-bottom: 1px solid $color-primary;
+                    }
+
+                    &:not(.active-tab) {
+                        opacity: 0.8;
+
+                        &:hover {
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+
+            & .sm {
+                &.command {
+                    @include commandSubmissionElement;
+                }
+            }
+        }
+
+        & .device-profile-popover {
+            & table {
+                font-size: 14px;
+                min-width: 38ch;
+                
+                & tr {
+                    & td:first-of-type {
+                        font-weight: bold;
+                    }
+
+                    & td:last-of-type {
+                        padding-left: 1em;
+                        text-align: right;
+                    }
+
+                    & td.clickable-radix {
+                        cursor: pointer;
+                    }
+                }
+            }
+
+            & .deferred-message {
+                display: inline-flex;
+                width: 100%;
+
+                & .c1 {
+                    flex: 0.1;
+                    color: $color-secondary;
+                }
+
+                & .c2 {
+                    flex: 0.9;
+
+                    & .form-error {
+                        color: $color-secondary !important;
+                    }
+                }
+            }
+        }
+
+        & .state-popover {
+            @include commandSubmissionElement;
+        }
+
+        & .transmit-popover {
+            padding: 1ch;
+
+            & > label {
+                display: block;
+                font-weight: bold;
+                font-size: 14px;
+                margin-bottom: 4px;
+            }
+
+            & .form-section {
+                & > button {
+                    float: right;
+                    margin-top: 0.5em;
+                }
+            }
+        }
+        
+        & .popover-title {
+            // text-align: center;
+            font-size: 12px;
+            padding-bottom: 0.75em;
+            // font-style: italic;
+            font-family: "Helvetica", sans-serif;
+        }
+    }
+}
+
+popper-content.send-command-popover-content {
+    ::ng-deep {
+        & > div {
+            padding: 0px 0px 7px 0px !important;
+        }
+    }
+}
+
+popper-content.state-popover-content {
+    ::ng-deep {
+        & > div {
+            padding: 0px 0px 7px 0px !important;
+        }
+    }
+}
+
+popper-content.transmit-popover-content {
+    ::ng-deep {
+        & > div {
+            padding: 0px 0px 7px 0px !important;
+                /* min-width: 50ch; */
+            width: max-content !important;
+        }
+    }
+}
+
+.byte-list {
+    & td:first-of-type {
+        font-size: 13px;
+        font-weight: normal;
+    }
+
+    & .byte-row-btn {
+        cursor: pointer;
+        border: none;
+        background: transparent;
+        outline: none;
+        @include dynamicOpacity;
+
+        &:disabled {
+            cursor: not-allowed;
+        }
+
+        &.packet-btn {
+            font-size: 13px;
+
+            & aq4w-icon {
+                margin-right: 0.25em;
+            }
+
+            &:disabled {
+                cursor: not-allowed;
+            }    
+
+            &.fr {
+                float: right;
+            }
+        }
+    }
+
+    & .flush-packets-btn {
+        cursor: pointer;
+        border: none;
+        background: transparent;
+        outline: none;
+        font-size: 13px;
+        float: right;
+        margin-top: 0.5em;
+
+        &:disabled {
+            cursor: not-allowed;
+        }
+
+        &:hover {
+            & > span {
+                font-weight: bold;
+            }
+        }
+
+        & aq4w-icon {
+            margin-right: 0.25em;
+        }
+
+        & > span {
+            vertical-align: middle;
+        }
+    }
+
+    & .row-buttons-cell {
+        width: 2em;
+    }
+
+    & .packet-view {
+        &:not(.active-packet) {
+            display: none;
+        }
+        
+        & .packet-index {
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        & .banner {
+            text-align: center;
+        }
+    }
+}
+
+::ng-deep {
+    .device-frame {
+        width: calc(100% - 1em);
+        position: relative;
+        margin: 0.25em;
+        height: 100%;
+        border: 1px solid gainsboro;
+    }
+}
+
+.frame-container {
+    height: calc(100% - 2em);
+}

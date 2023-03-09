@@ -1,0 +1,19 @@
+<div class="byte-input" [ngClass]="{ 'disabled': view.disabled }">
+  <div class="header">
+    <div class="radix">
+      <label>radix</label>
+      <button [ngClass]="{ 'selected': view.radix === 10 }" (click)="on.changeRadix()">10</button>
+      <button [ngClass]="{ 'selected': view.radix === 16 }" (click)="on.changeRadix()">16</button>
+    </div>
+    <div class="max-size" *ngIf="view.maxSize > 0">
+      <label>max size</label>
+      <span>{{ view.maxSize }}</span>
+    </div>
+  </div>
+  <textarea class="input-area"
+    (keydown)="on.keydown($event)"
+    [value]="view.textValue"
+    spellcheck="false"
+    [ngStyle]="{ 'height.px': view.textAreaHeight }"
+    [disabled]="view.disabled ? 'disabled' : null" #inputArea></textarea>
+</div>

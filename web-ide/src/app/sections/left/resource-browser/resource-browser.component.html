@@ -1,0 +1,70 @@
+<aq4w-browser-button-bar [buttons]="view.buttons"
+  [selectionCount]="view.selectedPaths.length"
+  [disabledButtonKeys]="view.disabledButtonKeys"
+  (buttonClicked)="on.buttonBarButtonClicked($event)" *ngIf="!view.isLoading"></aq4w-browser-button-bar>
+
+<div class="workspace-title" title="Current workspace title">{{ view.workspaceTitle }}</div>
+<ul class="resources-list" [ngClass]="{ 'initialized': view.isInitialized }">
+  <li *ngFor="let resource of view.resources; let ri = index" class="resources-list-li"
+    [ngClass]="{
+      'selected-item': view.selectedPaths.includes(resource.fullPath),
+      'no-show': resource.isEditing !== true && !view.visiblePaths.includes(resource.fullPath),
+      'unmapped': view.unmappedFilePaths.includes(resource.fullPath),
+      'drop-zone': view.activeDropZoneIndex === ri,
+      'drag-target': view.draggingIndex === ri
+    }"
+    [ngStyle]="{ 'margin-left.px': 10 * resource.depthFromTop }"
+    [attr.data-is-expanded]="view.expandedPaths.includes(resource.fullPath)"
+    [attr.data-is-file]="resource.isFile === true"
+    [attr.data-is-source-file]="resource.isSourceFile === true"
+    [attr.data-is-pending]="resource.isPending === true"
+    (click)="on.resourceClicked($event, resource.fullPath)"
+    (dragstart)="on.resourceDragStart($event, ri)"
+    (dragend)="on.resourceDragEnd($event, ri)"
+    (drag)="on.resourceDragging($event)"
+    (dragover)="on.resourceDragOver($event, ri)"
+    (dragleave)="on.resourceDragLeave($event, ri)"
+    (drop)="on.resourceDrop($event, ri)"
+    [draggable]="true"
+    dropzone="move">
+    <span class="caret-icon">
+      <aq4w-icon name="(c)caretright" class="icon right"></aq4w-icon>
+      <aq4w-icon name="(c)caretdown" class="icon down"></aq4w-icon>
+    </span>
+    <aq4w-icon [name]="resource.iconName" class="resource-type-icon"></aq4w-icon>
+    <aq4w-icon name="(loading)" class="resource-loading-icon"></aq4w-icon>
+    <span class="resource-name" *ngIf="resource.isEditing !== true">{{ resource.displayNameOverride || resource.name }}</span>
+    <span class="resource-name" *ngIf="resource.isPending === true">{{ resource.pendingName }}</span>
+    <aq4w-icon name="(fa)fas.paperclip::slashed"
+      class="unmapped-icon"
+      [popper]="unmappedAlertPopover"
+      [popperPlacement]="'right'"
+      [popperTrigger]="'hover'"
+      [popperStyles]="{ 'background-color': 'white', 'z-index': '99' }"
+      [popperApplyClass]="'unmapped-popper'"
+      (click)="on.unmappedAlertClicked($event, resource.fullPath)"></aq4w-icon>
+    <popper-content #unmappedAlertPopover>
+      <div class="popover unmapped-alert">
+        <!-- <div class="message">This file is not mapped and will not be included in the compilation</div> -->
+        <div class="message">This file is not imported by the assembly and will not be included in the compilation</div>
+      </div>
+    </popper-content>
+    <input type="text" class="resource-input" [value]="resource.name" spellcheck="false"
+      [id]="'resource-browser-rename-input-for-' + resource.fullPath" *ngIf="!!resource.name && resource.isEditing === true && resource.isPending !== true"
+      (input)="on.nameInput($event)" (keypress)="on.nameKeyPress($event)">
+    <input type="text" class="resource-input" [value]="resource.name" spellcheck="false"
+      [id]="'resource-browser-input-for-' + view.edit.parentPath" *ngIf="!(!!resource.name) && (resource.isEditing === true && resource.isPending !== true)"
+      (input)="on.nameInput($event)" (keypress)="on.nameKeyPress($event)">
+    <!-- <ng-container *ngTemplateOutlet="liDraggingPresentation; context: { name: resource.name, fullPath: resource.fullPath, iconName: resource.iconName }"></ng-container> -->
+  </li>
+</ul>
+<div class="list-loading-icon" *ngIf="view.isLoading">
+  <aq4w-icon name="(loading)"></aq4w-icon>
+</div>
+
+<div class="li-dragging-presentation"
+    [attr.data-show]="!!view.drag.path"
+    [ngStyle]="{ 'left.px': view.drag.left, 'top.px': view.drag.top }">
+    <span class="icon"><aq4w-icon [name]="view.drag.iconName"></aq4w-icon></span>
+    <span class="name">{{ view.drag.name }}</span>
+</div>

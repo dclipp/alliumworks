@@ -1,0 +1,36 @@
+<div class="container" [ngClass]="{ 'no-input': !(!!view.inputModel) }">
+    <div class="toolbar irow">
+        <div class="instance-selector">
+            <select [formControl]="view.selectedInstance">
+                <option [value]="instance.value" *ngFor="let instance of view.instances">
+                    <span class="instance-name">{{ instance.name }}</span>
+                    <span *ngIf="instance.updated === true && instance.value !== view.selectedInstance.value">*</span>
+                </option>
+            </select>
+        </div>
+        <div class="buttons">
+            <button title="Empty input buffer" class="clear-buffer" (click)="on.emptyBuffer()">
+                <aq4w-icon name="(c)empty"></aq4w-icon>
+            </button>
+            <button title="Clear output" (click)="on.clearOutput()">
+                <aq4w-icon name="(c)clear"></aq4w-icon>
+            </button>
+            <button title="Download output" (click)="on.downloadOutput()">
+                <aq4w-icon name="(c)download"></aq4w-icon>
+            </button>
+        </div>
+    </div>
+    <ngconsole-output-area [data]="view.outputData"
+        [emUnitSizePx]="view.emUnitSizePx"
+        [extendHeight]="!(!!view.inputModel)"
+        class="irow"></ngconsole-output-area>
+    <ngconsole-input-area [data]="view.inputModel"
+        [chUnitSizePx]="view.chUnitSizePx"
+        [optAltKeyName]="view.optAltKeyName"
+        (updated)="on.inputUpdated($event)"
+        (commit)="on.inputCommitted($event)"
+        (showing)="on.inputAreaShowingChanged($event)"
+        class="irow" #inputArea></ngconsole-input-area>    
+    <div class="unit-ref-em" #unitRefEm>A</div>
+    <div class="unit-ref-ch" #unitRefCh>A</div>
+</div>

@@ -1,0 +1,45 @@
+<aq4w-browser-button-bar [buttons]="view.buttonBar.buttons"
+  [selectionCount]="view.selectedDeviceBundleIds.length"
+  [disabledButtonKeys]="view.buttonBar.disabledButtonKeys"
+  (buttonClicked)="on.buttonBarBtnClicked($event)"></aq4w-browser-button-bar>
+
+<div class="loading-message" *ngIf="!view.isReady">
+  <aq4w-icon name="(loading)"></aq4w-icon>
+</div>
+<ng-container *ngIf="view.isReady">
+  <ng-container *ngTemplateOutlet="browserSection;context: { title: 'Favorites', iconName: '(c)hearthalf', devices: view.favoriteDevices, sectionType: 'favorites', sectionKey: 'favorites'}"></ng-container>
+  <ng-container *ngIf="view.importedDevices.length > 0">
+    <ng-container *ngTemplateOutlet="browserSection;context: { title: 'Imported', iconName: 'browser', devices: view.importedDevices, sectionType: 'imported', sectionKey: 'imported'}"></ng-container>
+  </ng-container>
+  <ng-container *ngFor="let category of view.categories">
+    <ng-container *ngTemplateOutlet="browserSection;context: { title: view.categoryLocalizations[category.categoryName], iconName: category.iconName, devices: category.devices, sectionType: 'category', sectionKey: category.categoryName}"></ng-container>
+  </ng-container>
+</ng-container>
+
+<ng-template #browserSection let-title="title" let-iconName="iconName" let-devices="devices" let-sectionType="sectionType" let-sectionKey="sectionKey">
+  <div class="browser-section" [ngClass]="{ 'collapsed': view.collapsedSections.includes(sectionKey) }">
+    <div class="title-row">
+      <button class="section-toggle-btn">
+        <aq4w-icon name="(fa)fas.caret-right" class="caret-right-icon" (click)="on.toggleSection(sectionKey)"></aq4w-icon>
+        <aq4w-icon name="(fa)fas.caret-down" class="caret-down-icon" (click)="on.toggleSection(sectionKey)"></aq4w-icon>
+      </button>
+      <div class="title-text" (click)="on.toggleSection(sectionKey)">
+        <aq4w-icon [name]="iconName"></aq4w-icon>
+        {{ title }}
+      </div>
+    </div>
+    <ul class="section-body" *ngIf="devices.length > 0">
+      <li *ngFor="let device of devices" (click)="on.rowClicked(sectionType, device.bundleId)"
+        [ngClass]="{ 'selected-item': view.selectedType === sectionType && view.selectedDeviceBundleIds.includes(device.bundleId) }">
+        <aq4w-icon name="(loading)" *ngIf="view.loadingBundleId === device.bundleId"></aq4w-icon>
+        <aq4w-icon name="(c)lightbulb2" *ngIf="view.loadingBundleId !== device.bundleId"></aq4w-icon>
+        <span class="device-name">{{ device.name }}</span>
+      </li>
+    </ul>
+    <div class="section-body empty-row" *ngIf="devices.length === 0">
+      <ng-container *ngIf="sectionType === 'favorites'">You haven't added any favorites yet.</ng-container>
+      <ng-container *ngIf="sectionType === 'category'">No devices found for this category.</ng-container>
+      <ng-container *ngIf="sectionType === 'search'">No devices found matching the search query.</ng-container>
+    </div>
+  </div>
+</ng-template>

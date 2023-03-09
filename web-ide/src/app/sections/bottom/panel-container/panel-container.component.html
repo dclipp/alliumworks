@@ -1,0 +1,23 @@
+<div class="panel-container" [ngClass]="{ 'free-float': view.isFloating }" [id]="view.panelContainerElementId">
+  <div class="panel-content" [ngClass]="{ 'expanded': view.isExpanded, 'foreground': view.isForeground, 'docking': view.isDocking }" [id]="view.panelContentElementId"
+    [attr.data-pp-width-rel]="view.preferredDimensions.has && view.preferredDimensions.width.isRelative ? view.preferredDimensions.width.amount : null"
+    [attr.data-pp-height-rel]="view.preferredDimensions.has && view.preferredDimensions.height.isRelative ? view.preferredDimensions.height.amount : null"
+    [attr.data-pp-width-px]="view.preferredDimensions.has && !view.preferredDimensions.width.isRelative ? view.preferredDimensions.width.amount : null"
+    [attr.data-pp-height-px]="view.preferredDimensions.has && !view.preferredDimensions.height.isRelative ? view.preferredDimensions.height.amount : null"
+    [ngStyle]="{
+      'width.px': view.preferredDimensions.has && !view.preferredDimensions.width.isRelative ? view.preferredDimensions.width.amount : null,
+      'height.px': view.preferredDimensions.has && !view.preferredDimensions.height.isRelative ? view.preferredDimensions.height.amount : null }">
+    <div class="content-row top" (drag)="on.dragTopRow($event)" (click)="on.titleBarClicked($event)" data-title-bar="true" [draggable]="true">
+      <div class="title-bar floating" [title]="view.title">{{ view.title }}</div>
+      <div class="panel-icon-container">
+        <aq4w-icon class="panel-minimize-icon" name="(fa)fas.minus" title="Minimize this panel" (click)="on.titleBarClicked($event)"></aq4w-icon>
+        <aq4w-icon class="panel-dock-icon dock" name="(c)dockalt" title="Dock to task bar" (click)="on.dockIconClicked($event)" *ngIf="view.isFloating"></aq4w-icon>
+        <aq4w-icon class="panel-dock-icon undock" name="(fa)fas.window-maximize" title="Undock from task bar" (click)="on.dockIconClicked($event)" *ngIf="!view.isFloating"></aq4w-icon>
+        <aq4w-icon class="panel-separate-window-icon" name="(fa)window-restore" title="Move to separate window" (click)="on.moveToSeparateWindowClicked($event)" *ngIf="view.allowSeparateWindow"></aq4w-icon>
+      </div>
+    </div>
+    <div class="content-row" [ngClass]="{ 'open': view.isExpanded, 'for-device': view.isDevice }">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+{
+  "name": "@alliumworks/shell",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/exports.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "update-versions": "node scripts/update-version-strings.js",
+    "generate-cli-source": "node scripts/generate-cli-source.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@allium/asm": "file:../../acm/asm",
+    "@allium/types": "file:../../acm/types",
+    "@alliumworks/platform": "file:../platform",
+    "rxjs": "6.5.5"
+  }
+}

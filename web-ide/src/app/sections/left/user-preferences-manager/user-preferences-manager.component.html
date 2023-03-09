@@ -1,0 +1,52 @@
+<div class="user-preferences-manager" id="user-preferences-manager">
+  <div class="backdrop" (click)="on.clickedBackdrop()">&nbsp;</div>
+  <div class="container">
+    <div class="header">
+      <aq4w-icon name="(fa)fas.user-cog" class="icon"></aq4w-icon>
+      <span>User Preferences</span>
+      <aq4w-icon name="(fa)fas.times" class="close" (click)="on.close()"></aq4w-icon>
+      <!-- <aq4w-icon name="(fa)fas.check" class="close save" (click)="on.close()"></aq4w-icon> -->
+    </div>
+    <div class="body">
+      <div class="form-section">
+        <label>Local storage</label>
+        <div class="link-button" (click)="on.clearLocalStorage()">Clear local storage</div>
+        <div class="cleared" *ngIf="!!view.localStorageClearResult">{{ view.localStorageClearResult }}</div>
+      </div>
+
+      <div class="form-section">
+        <label>Locale</label>
+        <label class="sublabel">Region</label>
+        <select class="default-font">
+          <option>Default</option>
+        </select>
+
+        <label class="sublabel">Language</label>
+        <select class="default-font">
+          <option>Default</option>
+        </select>
+      </div>
+
+      <div class="form-section slider">
+        <aq4w-checkbox label="Prefer timestamps in UTC"
+          labelPosition="top"
+          [checked]="view.preferTimestampsInUTC"
+          (changed)="on.preferTimestampsInUtcChanged($event)"></aq4w-checkbox>
+      </div>
+
+      <div class="form-section slider">
+        <aq4w-checkbox label="Work offline"
+          labelPosition="top"
+          [checked]="true"
+          [disabled]="true"></aq4w-checkbox>
+      </div>
+
+      <!-- <div class="form-section slider">
+        <aq4w-checkbox label="Manage data automatically"
+          labelPosition="top"
+          [checked]="false"
+          [disabled]="true"></aq4w-checkbox>
+      </div> -->
+    </div>
+  </div>
+</div>

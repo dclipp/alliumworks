@@ -1,0 +1,34 @@
+.memory-explorer {
+    display: flex;
+
+    & .tab-page {
+        & > *:not(.show-page) {
+            display: none;
+        }
+    }
+
+    & .subcomponent {
+        &.sidebar {
+            flex: 10%;
+        }
+
+        // &.tab-page {
+
+        // }
+    }
+
+    & .powered-off-message {
+        padding: 2em 4em 2em 4em;
+        background-color: #fbf9fb;
+    }
+
+    &.machine-on {
+        & .powered-off-message {
+            display: none;
+        }
+    }
+
+    &:not(.machine-on) > *:not(.powered-off-message) {
+        display: none;
+    }
+}

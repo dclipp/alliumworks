@@ -1,0 +1,144 @@
+@import '../../../../styles';
+
+.computer-controls {
+    display: flex;
+    align-items: center;
+
+    & .computer-selector {
+
+        & select {
+            padding-right: 4em;
+            margin-right: 1em;
+
+            &:focus {
+                outline-color: $color-primary;
+            }
+        }
+
+        & aq4w-icon {
+            margin-right: 0.25em;
+        }
+    }
+
+    & .memory-allocation {
+        margin-right: 0.5em;
+
+        & .sizes {
+            & div {
+                display: inline;
+                cursor: default;
+            }
+
+            & .program-size {
+                color: royalblue;
+            }
+        }
+    }
+
+    & .run-controls {
+        margin-right: 0.5em;
+        margin-top: -3px;
+
+        & button {
+            -webkit-appearance: none;
+            border: 1px solid $color-primary;
+            cursor: pointer;
+            outline: none;
+            background: white;
+            font-size: 18px;
+    
+            &:disabled {
+                cursor: not-allowed;
+            }
+
+            &.button-active {
+                color: $color-secondary;
+            }
+
+            &.menu-btn {
+                display: inline-block;
+
+                &[data-responsive-style-compact] {
+                    &[data-responsive-style-compact="a"] {
+                        & .rx-b {
+                            display: none;
+                        }
+                    }
+
+                    &[data-responsive-style-compact="b"] {
+                        & .rx-a {
+                            display: none;
+                        }
+                    }
+                }
+
+                // &:not([data-responsive-style-compact-b="true"]) .rx-a {
+                //     display: none;
+                // }
+            }
+        }
+    }
+
+    & button.button-active-full {
+        background-color: $color-primary;
+        color: $color-secondary;
+    }
+
+    // @media screen and (max-width: $mobile-small-max-width) {
+    //     &:not([data-mobile-show="true"]) {
+    //         display: none;
+    //     }
+    // }
+}
+
+::ng-deep {
+    [data-rx-group-comctl] {
+        &[data-rx-group-comctl="a"] .computer-controls .menu-btn {
+            & .rx-b {
+                display: none !important;
+            }
+        }
+
+        &[data-rx-group-comctl="b"] .computer-controls .menu-btn {
+            & .rx-a {
+                display: none !important;
+            }
+        }
+    }
+
+    [data-responsive-type="tiny"] .computer-controls:not(.cc-alt) .memory-allocation {
+        display: none !important;
+    }
+    [data-responsive-type="tiny"] .computer-controls:not(.cc-alt) .computer-selector {
+        position: absolute;
+        left: 100%;
+        top: 0;
+        transform: translate(-100%, 15%);
+    }
+    [data-responsive-type="tiny"] .computer-controls.cc-alt button:not(.tiny-only):not(.compact-only) {
+        display: none !important;
+    }
+    [data-responsive-type="tiny"] .computer-controls button {
+        font-size: 14px;
+    }
+    [data-responsive-type="tiny"] .computer-controls {
+        width: 100%;
+    }
+    [data-responsive-type="tiny"] .computer-controls .run-controls {
+        margin-right: 0 !important;
+    }
+    [data-responsive-type="tiny"] .computer-controls .memory-allocation {
+        margin-right: 5px !important;
+        margin-left: 5px !important;
+    }
+    [data-responsive-type="tiny"] .computer-controls .computer-selector select {
+        margin-right: 5px !important;
+    }
+    [data-responsive-type="tiny"] .computer-controls .computer-selector .selector-icon {
+        display: none;
+    }
+
+    aq4w-byte-count-display > .program-size {
+        color: royalblue;
+    }
+}

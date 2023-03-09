@@ -1,0 +1,25 @@
+<ul class="workspaces-list">
+  <li *ngFor="let workspace of view.workspaces">
+    <div class="workspace-row" (click)="on.rowClicked(workspace.id, workspace.version, $event)"
+      [ngClass]="{ 'selected-item': workspace.isSelected, 'active-workspace': workspace.version === view.activeSessionInfo.workspaceVersion }">
+      <aq4w-icon name="(c)briefcase4" *ngIf="!view.loadingItems.includes(workspace.id)" class="workspace-icon"></aq4w-icon>
+      <aq4w-icon name="flame" *ngIf="!view.loadingItems.includes(workspace.id)" class="workspace-icon" title="Active workspace"></aq4w-icon>
+      <aq4w-icon name="(loading)" *ngIf="view.loadingItems.includes(workspace.id)"></aq4w-icon>
+      <span class="workspace-name" *ngIf="!workspace.isEditing">{{ workspace.title }}</span>
+      <input type="text" class="workspace-input" spellcheck="false" [value]="workspace.title"
+        [id]="'workspace-browser-input-for-' + workspace.id" *ngIf="workspace.isEditing"
+        (keypress)="on.inputKeypress($event)">
+    </div>
+  </li>
+  <li *ngIf="view.newWorkspace.showRow">
+    <div class="workspace-row" (click)="on.rowClicked(view.newWorkspace.id, 0, $event)"
+      [ngClass]="{ 'selected-item': false }">
+      <aq4w-icon name="(c)briefcase4" *ngIf="!view.loadingItems.includes(view.newWorkspace.id)"></aq4w-icon>
+      <aq4w-icon name="(loading)" *ngIf="view.loadingItems.includes(view.newWorkspace.id)"></aq4w-icon>
+      <span class="workspace-name" *ngIf="!view.newWorkspace.isEditing">{{ view.newWorkspace.title }}</span>
+      <input type="text" class="workspace-input" spellcheck="false"
+        [id]="'workspace-browser-input-for-' + view.newWorkspace.id" *ngIf="view.newWorkspace.isEditing"
+        (keypress)="on.inputKeypress($event)">
+    </div>
+  </li>
+</ul>

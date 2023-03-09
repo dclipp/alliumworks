@@ -1,0 +1,201 @@
+$source-code-font: 'Courier New', Courier, monospace;
+$color-constant: darkgoldenrod;
+$color-definition: darksalmon;
+$color-block-name: darkviolet;
+$color-directive-receiver: fuchsia;
+
+.token {
+    display: inline-block;
+    
+    &.highlight {
+        background-color: yellow;
+    }
+    // &:not(:last-child) {
+    //     margin-right: 0.25em;
+    // }
+}
+
+@mixin spaceSequence {
+    &:not(:last-child) {
+        margin-right: 0.25em;
+    }
+}
+
+@mixin tabSequence {
+    &:not(:last-child) {
+        margin-right: 0.25em;
+    }
+}
+
+@mixin punctuation {
+    color: black;//dimgray;
+}
+
+@mixin comment {
+    color: slategray;
+    font-style: italic;
+}
+
+.line-section {
+    display: inline-block;
+}
+
+// @mixin punctuation {
+    
+// }
+
+// @mixin language-construct {
+    
+// }
+
+@mixin mnemonic {
+    color: blue;
+}
+
+@mixin inlineSignedNumber {
+    color: $color-constant;
+}
+
+@mixin inlineUnsignedNumber {
+    color: $color-constant;
+}
+
+@mixin inlineFractionalNumber {
+    color: $color-constant;
+}
+
+@mixin registerName {
+    color: green;
+}
+
+@mixin registerMask {
+    color: darkgreen;
+    font-weight: bold;
+}
+
+@mixin autoLabelRefTargetLabelLocal {
+    color: $color-block-name;
+}
+
+@mixin blockName {
+    color: $color-block-name;
+}
+
+@mixin directiveCommand {
+    color: $color-definition;
+}
+
+@mixin directiveReceiver {
+    color: $color-directive-receiver;
+    font-weight: bold;
+}
+
+@mixin constantInjectorKey {
+    color: $color-definition;
+}
+
+@mixin constantInjectorValue {
+    color: $color-constant;
+    font-weight: bold;
+}
+
+@mixin autoMemRef {
+    color: $color-constant;
+    font-weight: bold;
+}
+
+@mixin aliasReference {
+    color: $color-directive-receiver;
+    font-weight: bold;
+}
+
+.line-section {
+    display: inline-block;
+}
+
+// [data-entity-kind="punctuation"] {
+    
+// }
+
+// [data-entity-kind="language-construct"] {
+    
+// }
+[data-entity-kind="space-sequence"] {
+	@include spaceSequence();
+}
+
+[data-entity-kind="tab-sequence"] {
+	@include tabSequence();
+}
+
+[data-entity-kind="punctuation"] {
+	@include punctuation;
+}
+
+[data-entity-kind="comment"] {
+	@include comment;
+}
+
+// [data-entity-kind="punctuation"] {
+// 	@include punctuation;
+// }
+
+// // [data-entity-kind="language-construct"] {
+// 	@include languageconstruct;
+// }
+
+[data-construct-kind="mnemonic"] {
+	@include mnemonic;
+}
+
+[data-construct-kind="inline-signed-number"] {
+	@include inlineSignedNumber();
+}
+
+[data-construct-kind="inline-unsigned-number"] {
+	@include inlineUnsignedNumber();
+}
+
+[data-construct-kind="inline-fractional-number"] {
+	@include inlineFractionalNumber();
+}
+
+[data-construct-kind="register-name"] {
+	@include registerName();
+}
+
+[data-construct-kind="named-register-mask"] {
+	@include registerMask();
+}
+
+[data-construct-kind="auto-label-ref-target-label-local"] {
+	@include autoLabelRefTargetLabelLocal();
+}
+
+[data-construct-kind="block-name"] {
+	@include blockName();
+}
+
+[data-construct-kind="directive-command"] {
+	@include directiveCommand();
+}
+
+[data-construct-kind="directive-receiver"] {
+	@include directiveReceiver();
+}
+
+[data-construct-kind="constant-injector-key"] {
+	@include constantInjectorKey();
+}
+
+[data-construct-kind="constant-injector-value"] {
+	@include constantInjectorValue();
+}
+
+[data-construct-kind="auto-mem-ref"] {
+	@include autoMemRef();
+}
+
+[data-construct-kind="alias-reference"] {
+	@include aliasReference();
+}

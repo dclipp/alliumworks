@@ -1,0 +1,118 @@
+.al-instruction::after {
+    content: "aa";
+    font-family: monospace;
+    color: gray;
+    font-size: 10px;
+}
+
+/* .disassembly-data::after {
+    content: "aa";
+    font-family: monospace;
+    color: gray;
+    font-size: 10px;
+} */
+
+.disassembly-data-display {
+    content: "aa";
+    font-family: monospace;
+    color: gray;
+    font-size: 10px;
+}
+.CodeMirror[show-disassembly="base2"] .disassembly-data-display span:not(.base2) {
+    display: none;
+}
+.CodeMirror[show-disassembly="base10"] .disassembly-data-display span:not(.base10) {
+    display: none;
+}
+.CodeMirror[show-disassembly="base16"] .disassembly-data-display span:not(.base16) {
+    display: none;
+}
+.CodeMirror:not([show-disassembly]) .disassembly-data-display span:not(.placeholder) {
+    display: none;
+}
+
+.CodeMirror .disassembly-data {
+    /* content: "--"; */
+    /* content: attr(disassembly-data); */
+    display: block;
+    /* font-size: small;
+    white-space: pre-line; */
+
+    font-size: 12px;
+    white-space: break-spaces;
+    line-height: 1em;
+    color: gray;
+    font-family: var(--popover-font-family-monospace);
+    user-select: none;
+}
+
+.tooltip-popover .text-title {
+    font-size: 18px;
+    font-weight: bold;
+    font-family: var(--popover-font-family-monospace);
+}
+.tooltip-popover .text-main {
+    font-size: 16px;
+    font-family: var(--popover-font-family-regular);
+}
+.tooltip-popover .text-sub {
+    padding-left: 1em;
+    font-family: var(--popover-font-family-regular);
+}
+.tooltip-popover strong {
+    font-weight: bold;
+    text-decoration: none;
+}
+.tooltip-popover .fs-italic {
+    font-style: italic !important;
+}
+.tooltip-popover .ff-monospace {
+    font-family: var(--popover-font-family-monospace) !important;
+}
+.tooltip-popover .ff-regular {
+    font-family: var(--popover-font-family-regular) !important;
+}
+.tooltip-popover .symbol-rarr {
+    font-family: var(--popover-font-family-monospace) !important;
+}
+.tooltip-popover .symbol-rarr::after {
+    content: "\2192";
+}
+.tooltip-popover :not(.with-resolved-args) .resolved-arg-name {
+    display: none;
+}
+
+.CodeMirror .breakpoint-col {
+    width: 1em;
+}
+.CodeMirror .breakpoint-col-instance {
+    padding-left: 10px;
+}
+.CodeMirror .breakpoint-col-instance .inner {
+    width: 0.75em;
+    height: 0.75em;
+    display: inline-block;
+    vertical-align: middle;
+}
+.CodeMirror .breakpoint-col-instance .indicator {
+    cursor: pointer;
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    background-color: red;
+    display: inline-block;
+}
+.CodeMirror .CodeMirror-gutter-wrapper.active-instruction .breakpoint-col-instance .indicator {
+    background-color: green;
+    border-radius: revert;
+}
+.CodeMirror:not(.breakpoints-enabled) .breakpoint-col-instance .indicator {
+    /* display: none !important; */
+    opacity: 0.5;
+}
+.CodeMirror .breakpoint-col-instance:not(.breakpoint-set) .indicator {
+    display: none !important;
+}
+.CodeMirror .CodeMirror-gutter-wrapper.active-instruction + .CodeMirror-line {
+    background-color: yellow;
+}

@@ -1,0 +1,146 @@
+{
+    "playground_only": true,
+    "workspaces": [
+        {
+            "metadata": {
+                "workspaceId": "wksp000000001",
+                "title": "WKSP 1"
+            },
+            "resources": [
+                {
+                    "containerPath": "/",
+                    "isDirectory": false,
+                    "isDeleted": false,
+                    "isUserOwned": true,
+                    "mutationTimestamp": 1602385932423,
+                    "delta": {
+                        "oldPath": "",
+                        "newPath": "/assembly.json",
+                        "type": 0
+                    },
+                    "title": "assembly",
+                    "extension": "json",
+                    "content": "{\"assemblyName\": \"playground\", \"sourceImports\": [{\"referenceName\": \"Foo\",\"filePath\": \"/foo.aq\"}],\"treatOversizedInlineValuesAsWarnings\": false,\"oversizedInlineValueSizing\": \"min-required\"}"
+                },
+                {
+                    "containerPath": "/",
+                    "isDirectory": false,
+                    "isDeleted": false,
+                    "isUserOwned": true,
+                    "mutationTimestamp": 1602385932424,
+                    "delta": {
+                        "oldPath": "",
+                        "newPath": "/foo.aq",
+                        "type": 0
+                    },
+                    "title": "foo",
+                    "extension": "aq",
+                    "content": "Main:\n\tLOAD_MONDAY 4294967286\n\tLOAD_TUESDAY 12\n\tCOPY [MONDAY] [ACCUMULATOR]\n\tADD [TUESDAY]\n\tFLAG_ACK [WEDNESDAY] @flag=OVERFLOW\n\tEND\n"
+                }
+            ]
+        },
+        {
+            "metadata": {
+                "workspaceId": "wksp000000002",
+                "title": "WKSP 2"
+            },
+            "resources": [
+                {
+                    "containerPath": "/",
+                    "isDirectory": false,
+                    "isDeleted": false,
+                    "isUserOwned": true,
+                    "mutationTimestamp": 1602385932423,
+                    "delta": {
+                        "oldPath": "",
+                        "newPath": "/assembly.json",
+                        "type": 0
+                    },
+                    "title": "assembly",
+                    "extension": "json",
+                    "content": "{\"assemblyName\": \"playground\", \"sourceImports\": [{\"referenceName\": \"Foo\",\"filePath\": \"/foo.aq\"}],\"treatOversizedInlineValuesAsWarnings\": false,\"oversizedInlineValueSizing\": \"min-required\"}"
+                },
+                {
+                    "containerPath": "/",
+                    "isDirectory": false,
+                    "isDeleted": false,
+                    "isUserOwned": true,
+                    "mutationTimestamp": 1602385932424,
+                    "delta": {
+                        "oldPath": "",
+                        "newPath": "/foo.aq",
+                        "type": 0
+                    },
+                    "title": "foo",
+                    "extension": "aq",
+                    "content": "Bar:\n\tLOAD_MONDAY 0\n\tLOAD_TUESDAY 0\n\tFLAG_ACK [TUESDAY] @flag=IOREJECTION\n\tLOAD_TUESDAY 0\n\tIOMAN [MONDAY.hh] [MONDAY]\n\tFLAG_ACK [TUESDAY] @flag=IOREJECTION\n\tLOAD_TUESDAY 59\n\tIOWRITE_B [MONDAY.hh] [TUESDAY.hh]\n\tIOFLUSH [MONDAY.hh]\n\tEND"
+                },
+                {
+                    "containerPath": "/",
+                    "isDirectory": false,
+                    "isDeleted": false,
+                    "isUserOwned": true,
+                    "mutationTimestamp": 1602385932424,
+                    "delta": {
+                        "oldPath": "",
+                        "newPath": "/foo2.aq",
+                        "type": 0
+                    },
+                    "title": "foo2",
+                    "extension": "aq",
+                    "content": "Bar:\n\tLOAD_MONDAY 0\n\tLOAD_TUESDAY 0\n\tFLAG_ACK [TUESDAY] @flag=IOREJECTION\n\tLOAD_TUESDAY 0\n\tIOMAN [MONDAY.hh] [MONDAY]\n\tFLAG_ACK [TUESDAY] @flag=IOREJECTION\n\tLOAD_TUESDAY 59\n\tIOWRITE_B [MONDAY.hh] [TUESDAY.hh]\n\tIOFLUSH [MONDAY.hh]\n\tEND"
+                },
+                {
+                    "containerPath": "/",
+                    "isDirectory": true,
+                    "isDeleted": false,
+                    "isUserOwned": true,
+                    "mutationTimestamp": 1602385932424,
+                    "delta": {
+                        "oldPath": "",
+                        "newPath": "/folder2",
+                        "type": 0
+                    },
+                    "name": "folder2"
+                },
+                {
+                    "containerPath": "/folder2",
+                    "isDirectory": false,
+                    "isDeleted": false,
+                    "isUserOwned": true,
+                    "mutationTimestamp": 1602385932424,
+                    "delta": {
+                        "oldPath": "",
+                        "newPath": "/folder2/r34.aq",
+                        "type": 0
+                    },
+                    "title": "r34",
+                    "extension": "aq",
+                    "content": "Bar:\n\tLOAD_MONDAY 0\n\tLOAD_TUESDAY 0\n\tFLAG_ACK [TUESDAY] @flag=IOREJECTION\n\tLOAD_TUESDAY 0\n\tIOMAN [MONDAY.hh] [MONDAY]\n\tFLAG_ACK [TUESDAY] @flag=IOREJECTION\n\tLOAD_TUESDAY 59\n\tIOWRITE_B [MONDAY.hh] [TUESDAY.hh]\n\tIOFLUSH [MONDAY.hh]\n\tEND"
+                },
+                {
+                    "containerPath": "/",
+                    "isDirectory": false,
+                    "isDeleted": false,
+                    "isUserOwned": true,
+                    "mutationTimestamp": 1602385932424,
+                    "delta": {
+                        "oldPath": "",
+                        "newPath": "/singleline.aq",
+                        "type": 0
+                    },
+                    "title": "singleline",
+                    "extension": "aq",
+                    "content": "'Bar:LOAD_MONDAY 0 LOAD_TUESDAY 0"
+                }
+            ]
+        }
+    ],
+    "sessionData": [
+        {
+            "name": "top-devices",
+            "value": "{\"input\": [{ \"bundleId\": \"asd-99\", \"name\": \"simple-console\" }] }",
+            "encoding": "utf8"
+        }
+    ]
+}

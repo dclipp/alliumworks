@@ -1,0 +1,99 @@
+@import '../../../styles.scss';
+
+.tree-select {
+    border: 1px solid #dcdcdc;
+    max-width: 30ch;
+    max-height: 1.5em;
+
+    &:hover {
+        border-color: $color-primary;
+    }
+
+    & .item-icon {
+        cursor: pointer;
+        border-right: 1px solid #dcdcdc;
+        padding: 0px 3px;
+
+        &:hover {
+            border-color: $color-primary;
+            background-color: $color-primary;
+            color: $color-secondary;
+            border-bottom: 1px solid $color-primary;
+        }
+    }
+
+    & .item-path {
+        vertical-align: middle;
+    }
+
+    & .item-selection-form {
+        list-style: none;
+        user-select: none;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        padding: 0;
+        margin: 0;
+        padding-bottom: 0.5em;
+        background-color: white;
+        border: 1px solid #dcdcdc;
+        margin-left: -1px;
+        width: 100%;
+        backface-visibility: hidden;
+
+        &:not(.active) {
+            display: none;
+        }
+
+        & li {
+            &.no-show {
+                display: none;
+            }
+
+            &.selected-resource {
+                & .resource-name, .resource-icon {
+                    background-color: $color-primary;
+                    color: $color-secondary;
+                }
+
+                & .resource-name {
+                    font-weight: bold;
+                    padding-left: 4px;
+                }
+            }
+
+            & .expansion-icon {
+                // padding: 0px 3px;
+                // margin-right: 0.5em;
+                font-family: 'Courier New', Courier, monospace;
+
+                &.container {
+                    cursor: pointer;
+                }
+
+                &[data-is-expanded="false"] {
+                    & .collapse {
+                        display: none;
+                    }
+                }
+                &[data-is-expanded="true"] {
+                    & :not(.collapse) {
+                        display: none;
+                    }
+                }
+
+                & span {
+                    width: 1ch;
+                }
+            }
+
+            & .resource-icon {
+                padding-right: 0.25em;
+
+                &.selectable {
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,106 @@
+@import './styles';
+
+@mixin errorMessage {
+    font-weight: bold;
+    color: red;
+    font-size: 13px;
+    margin-top: 0.25em;
+}
+
+@mixin formLabel {
+    display: block;
+    margin-bottom: 0.5em;
+    font-family: "Helvetica", sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+
+    &.dirty-label::after {
+        content: "*";
+        color: #ff9a7a;
+    }
+}
+
+::ng-deep .form-section {
+// .form-section {
+    & label {
+        @include formLabel;
+    }
+
+    &:not(:last-of-type) {
+        margin-bottom: 1em;
+    }
+
+    & input {
+        font-size: 15px;
+
+        &:focus {
+            outline-color: $color-primary;
+        }
+    }
+
+    & .input-uom {
+        display: inline-block;
+        margin-left: 0.5em;
+    }
+
+    & .form-error {
+        @include errorMessage;
+    }
+
+    & button {
+        -webkit-appearance: none;
+        border: 1px solid #5b2f5e;
+        cursor: pointer;
+        outline: none;
+        background: #793e7d21;
+        padding: 0.25em 1em 0.25em 1em;
+
+        &:not(:last-of-type) {
+            margin-right: 1em;
+        }
+
+        &:not(:disabled):hover {
+            background-color: #fef7ff;
+        }
+
+        &:disabled {
+            cursor: not-allowed;
+            border-color: #793e7d21;
+        }
+    }
+
+    &.disabled-section {
+        & label {
+            color: rbga(0, 0, 0, 0.75);//TODO
+        }
+    }
+}
+
+.form-sxs {
+    display: flex;
+
+    & .form-section:not(:first-of-type) {
+        margin-left: 1em;
+    }
+
+    &.labeled {
+        flex-direction: column;
+
+        & .forms {
+            display: flex;
+        }
+
+        & > label {
+            @include formLabel;
+            flex: 1;
+        }
+    }
+}
+
+.form-sxs + .form-error {
+    @include errorMessage;
+    width: 100%;
+    display: block;
+    margin-top: -0.25em;
+    margin-bottom: 0.5em;
+}

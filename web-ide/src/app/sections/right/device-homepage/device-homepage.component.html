@@ -1,0 +1,21 @@
+<div class="device-homepage" *ngIf="!!view.readme && !!view.metadata">
+  <h2>
+    {{ view.metadata.humanReadableDeviceName }}
+    <aq4w-icon name="(fa)fas.download" title="Attach a new instance of this device" class="new-instance" (click)="on.newInstance()"></aq4w-icon>
+  </h2>
+  <div class="author">
+    <span class="label">Author&nbsp;</span>
+    <span class="value">{{ view.developerName }}</span>
+  </div>
+  <ng-container *ngTemplateOutlet="sectionBlock; context: { section: { title: 'Description', order: 0, paragraphs: view.readme.descriptionParagraphs } }"></ng-container>
+  <ng-container *ngFor="let section of view.readme.sections">
+    <ng-container *ngTemplateOutlet="sectionBlock; context: { section: section }"></ng-container>
+  </ng-container>
+</div>
+
+<ng-template let-section="section" #sectionBlock>
+  <h4>{{ section.title }}</h4>
+  <p *ngFor="let pg of section.paragraphs" class="section-paragraph">
+    {{ pg }}
+  </p>
+</ng-template>

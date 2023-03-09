@@ -1,0 +1,91 @@
+@import '../../../styles';
+@import '../../../form-styles';
+
+.byte-sequence-editor {
+    &:not(.none) {
+        display: inline-block;
+    }
+
+    &.none {
+        display: none;
+    }
+
+    & input {
+        font-size: $standard-font-size;
+        // width: calc(100% - 2em);
+
+        &.ng-invalid {
+            border-color: red;
+        }
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    & .value-editor-container {
+        display: inline-block;
+    }
+
+    & .buttons {
+        display: inline-block;
+    }
+
+    & button {
+        -webkit-appearance: none;
+        border: none;
+        cursor: pointer;
+        outline: none;
+        background: transparent;
+        // font-size: 18px;
+        // opacity: 0.6;
+
+        // &:hover {
+        //     opacity: 1;
+        // }
+
+        &:disabled {
+            cursor: not-allowed;
+        }
+    }
+
+    & .error-message {
+        @include errorMessage;
+    }
+
+    & .base-2-editor {
+        display: block;
+
+        & .bit-value {
+            cursor: pointer;
+            display: inline;
+
+            &:hover {
+                font-weight: bold;
+            }
+        }
+
+        & .bit-group {
+            & .label {
+                display: inline-block;
+                margin-right: 1em;
+            }
+            
+            & .bits {
+                font-family: 'Courier New', Courier, monospace;
+                display: inline-block;
+            }
+        }
+
+        & + .buttons {
+            text-align: center;
+            width: 100%;
+        }
+    }
+}
+
+::ng-deep {
+    popper-content > div {
+        background-color: white;
+    }
+}

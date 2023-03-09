@@ -1,0 +1,23 @@
+<aq4w-browser-button-bar [buttons]="view.buttons"
+  [selectionCount]="view.selectionCount"
+  [disabledButtonKeys]="view.disabledButtonKeys"
+  (buttonClicked)="on.buttonClicked($event)"></aq4w-browser-button-bar>
+
+<aq4w-deleted-workspaces-list
+  [ngClass]="{ 'no-show': !show.historyView }"
+  (onEvent)="on.deletedWorkspaceSelected($event)"
+  (onBackendEvent)="on.backendStateChanged($event)" 
+  (sendMessage)="on.sendMessage($event)"
+  #deletedWorkspacesList></aq4w-deleted-workspaces-list>
+<aq4w-histories-list
+  [ngClass]="{ 'no-show': !show.historyView }"
+  (onEvent)="on.historySelected($event)"
+  (onBackendEvent)="on.backendStateChanged($event)" 
+  (sendMessage)="on.sendMessage($event)"
+  #historiesList></aq4w-histories-list>
+<aq4w-workspaces-list
+  [ngClass]="{ 'no-show': show.historyView }"
+  (onEvent)="on.workspaceSelected($event)"
+  (onBackendEvent)="on.backendStateChanged($event)" 
+  (sendMessage)="on.sendMessage($event)"
+  #workspacesList></aq4w-workspaces-list>

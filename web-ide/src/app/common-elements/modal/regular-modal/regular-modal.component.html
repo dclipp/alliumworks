@@ -1,0 +1,16 @@
+<div class="regular-modal" [ngClass]="{ 'open': view.isOpen, 'body-is-template': view.bodyIsTemplate }">
+  <div class="backdrop" (click)="on.backdropClicked()">&nbsp;</div>
+  <div class="dialog">
+    <div class="inner">
+      <div class="header">{{ view.title }}</div>
+      <div class="body">
+        <p class="description">{{ view.body }}</p>
+      </div>
+      <div class="body templated-body" #templatedBody></div>
+      <div class="footer">
+        <button (click)="on.clickedNo()" *ngIf="!view.hideNoButton">{{ view.noButtonCaption }}</button>
+        <button (click)="on.clickedYes()" [attr.disabled]="view.hasInvalidForms ? 'disabled' : null">{{ view.yesButtonCaption }}</button>
+      </div>
+    </div>
+  </div>
+</div>

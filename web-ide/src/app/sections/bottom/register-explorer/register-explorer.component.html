@@ -1,0 +1,56 @@
+<div class="register-explorer">
+  <table [ngClass]="{ 'editable': view.isEditable }">
+    <thead>
+      <tr>
+        <th class="watch-cell">Watch&nbsp;&nbsp;</th>
+        <th class="name-cell">Register</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngTemplateOutlet="registerRow; context: { regKey: 'insptr', regName: 'Instruction Pointer', regValue: view.registerValues.insptr }"></tr>
+      <tr *ngTemplateOutlet="registerRow; context: { regKey: 'accumulator', regName: 'Accumulator', regValue: view.registerValues.accumulator }"></tr>
+      <tr *ngTemplateOutlet="registerRow; context: { regKey: 'monday', regName: 'Monday', regValue: view.registerValues.monday }"></tr>
+      <tr *ngTemplateOutlet="registerRow; context: { regKey: 'tuesday', regName: 'Tuesday', regValue: view.registerValues.tuesday }"></tr>
+      <tr *ngTemplateOutlet="registerRow; context: { regKey: 'wednesday', regName: 'Wednesday', regValue: view.registerValues.wednesday }"></tr>
+      <tr *ngTemplateOutlet="registerRow; context: { regKey: 'thursday', regName: 'Thursday', regValue: view.registerValues.thursday }"></tr>
+      <tr *ngTemplateOutlet="registerRow; context: { regKey: 'friday', regName: 'Friday', regValue: view.registerValues.friday }"></tr>
+      <tr *ngTemplateOutlet="registerRow; context: { regKey: 'g7', regName: 'G7', regValue: view.registerValues.g7 }"></tr>
+      <tr *ngTemplateOutlet="registerRow; context: { regKey: 'g8', regName: 'G8', regValue: view.registerValues.g8 }"></tr>
+      <tr *ngTemplateOutlet="registerRow; context: { regKey: 'g9', regName: 'G9', regValue: view.registerValues.g9 }"></tr>
+      <tr *ngTemplateOutlet="registerRow; context: { regKey: 'g10', regName: 'G10', regValue: view.registerValues.g10 }"></tr>
+      <tr *ngTemplateOutlet="registerRow; context: { regKey: 'g11', regName: 'G11', regValue: view.registerValues.g11 }"></tr>
+      <tr *ngTemplateOutlet="registerRow; context: { regKey: 'g12', regName: 'G12', regValue: view.registerValues.g12 }"></tr>
+      <tr *ngTemplateOutlet="registerRow; context: { regKey: 'g13', regName: 'G13', regValue: view.registerValues.g13 }"></tr>
+      <tr *ngTemplateOutlet="registerRow; context: { regKey: 'g14', regName: 'G14', regValue: view.registerValues.g14 }"></tr>
+      <tr *ngTemplateOutlet="registerRow; context: { regKey: 'stkptr', regName: 'Stack Pointer', regValue: view.registerValues.stkptr }"></tr>
+    </tbody>
+  </table>
+</div>
+<ng-template #registerRow let-regKey="regKey" let-regName="regName" let-regValue="regValue">
+  <tr class="register-explorer-table-row">
+    <td class="watch-cell">
+      <aq4w-icon name="(c)lift" class="watch-icon reads" title="Toggle whether to break when this register is read from"
+        [ngClass]="{ 'has-watch': view.readWatches.includes(regKey), 'emphasize': view.emphasizeReadIcons.includes(regKey), 'emphasize-static': view.staticEmphasizeReadIcons.includes(regKey) }"
+        (click)="on.readWatchCellClicked(regKey)"></aq4w-icon>
+      &nbsp;
+      <aq4w-icon name="(c)drop" class="watch-icon writes" title="Toggle whether to break when this register is written to"
+        [ngClass]="{ 'has-watch': view.writeWatches.includes(regKey), 'emphasize': view.emphasizeWriteIcons.includes(regKey), 'emphasize-static': view.staticEmphasizeWriteIcons.includes(regKey) }"
+        (click)="on.writeWatchCellClicked(regKey)"></aq4w-icon>
+    </td>
+    <td>
+      <span class="register-name">{{ regName }}</span>
+      <span class="value-radix">&nbsp;{{ view.displayRadix }}</span>
+    </td>
+    <td class="value-cell" [ngClass]="{ 'edit-mode': view.editingKeys.includes(regKey) }">
+      <div class="register-value-readonly" (click)="on.changeRadix()" [title]="'(base ' + view.displayRadix + ')'">{{ regValue | byteSequence:view.displayRadix }}</div>
+        <aq4w-byte-sequence-editor
+          class="register-edit-icon"
+          [radix]="view.editor.radix"
+          [value]="view.editor.initialValue"
+          [sequenceLength]="4"
+          (visibilityChanged)="on.toggleEditMode(regKey, $event)"
+          (valueChanged)="on.valueEdited($event)"></aq4w-byte-sequence-editor>
+    </td>
+  </tr>
+</ng-template>

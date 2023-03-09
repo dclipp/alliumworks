@@ -1,0 +1,36 @@
+<ng-container *ngIf="view.ready">
+    <div class="app" id="aq4w-app-base">
+        <div class="app-row main" [ngClass]="{ 'left-collapsed': view.isLeftSectionCollapsed }">
+            <div class="inner-row top">
+                <aq4w-top-section class="container-section top" (mobileToggleSidebar)="on.mobileToggleSidebar()"></aq4w-top-section>
+            </div>
+            <div class="inner-row columns">
+                <aq4w-left-section class="column left" (collapseToggled)="on.leftCollapseToggled($event)"></aq4w-left-section>
+                <aq4w-right-section class="column right" id="aq4w-container-section-right"></aq4w-right-section>
+            </div>
+            <div class="inner-row bottom task-bar-container">
+                <aq4w-task-bar class="container-section bottom"></aq4w-task-bar>
+            </div>    
+        </div>
+        <div class="app-row shell">
+            <!-- <div class="shell-adjuster" draggable="true" (dragstart)="on.beginShellResize()" (dragend)="on.shellResized($event)"></div> -->
+            <!-- <ngconsole-container></ngconsole-container> -->
+            <shell-ui [uiOptions]="view.shellUiOptions" [completer]="view.shellCompleter">
+                <ng-template let-iconName="iconName" #iconTemplate>
+                    <aq4w-icon [name]="iconName"></aq4w-icon>
+                </ng-template>
+            </shell-ui>
+        </div>
+    </div>
+    <div id="aq4w-modal">
+        <aq4w-modal></aq4w-modal>
+    </div>
+    <aq4w-user-preferences-manager></aq4w-user-preferences-manager>
+</ng-container>
+<ng-container *ngIf="!view.ready">
+    <div class="loading">
+        <i class="fas fa-sync-alt fa-spin"></i>
+        <!-- TODO use loading icon? -->
+    </div>
+</ng-container>
+<div id="em-reference-size">&nbsp;</div>

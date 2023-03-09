@@ -1,0 +1,52 @@
+@import '../common-styles';
+
+ul.workspaces-list {
+    list-style: none;
+    padding-left: 0;
+
+    & li {
+        cursor: pointer;
+
+        & .workspace-row {
+            & .workspace-name {
+                vertical-align: middle;
+                margin-left: 0.25em;
+            }
+
+            & .workspace-input {
+                vertical-align: middle;
+                margin-left: 0.5em;
+            }
+
+            &.active-workspace {
+                & .workspace-name::after {
+                    content: "*";
+                }
+            }
+        }
+    }
+}
+
+.deleted-workspaces {
+    margin-top: $element-margin-top;
+
+    & .section-label {
+        @include sectionTitle;
+
+        &.collapsed + .workspaces-list {
+            display: none;
+        }
+    }
+
+    & .workspaces-list {
+        margin: 0;
+        padding: 0 0 0 2em;
+    }
+
+    & .empty-message {
+        font-style: italic;
+        font-size: 13px;
+        overflow-wrap: break-word;
+        padding-right: 0.5em;
+    }
+}

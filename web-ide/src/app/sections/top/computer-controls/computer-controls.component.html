@@ -1,0 +1,45 @@
+<!-- <div class="computer-controls" [ngClass]="{ 'cc-alt': view.tinyAltView }"> -->
+<div class="computer-controls">
+  <div class="run-controls">
+      <button [title]="view.isProgramLoaded ? 'Shut down the computer' : 'Compile and load the current workspace into the computer'"
+        [disabled]="view.isWorkspaceLoaded ? null : 'disabled'" 
+        (click)="on.powerClicked()" [ngClass]="{ 'button-active-full': view.isProgramLoaded }">
+        <aq4w-icon name="(c)power3"></aq4w-icon>
+      </button>
+      <button [disabled]="view.isProgramLoaded ? null : 'disabled'" [title]="view.isComputerRunning ? 'Resume execution' : 'Run'" (click)="on.runClicked()" [ngClass]="{ 'button-active': view.isComputerRunning }">
+        <aq4w-icon name="(c)play"></aq4w-icon>
+      </button>
+      <button [disabled]="view.isComputerRunning ? null : 'disabled'" title="Stop execution" (click)="on.stopClicked()">
+        <aq4w-icon name="(c)stop"></aq4w-icon>
+      </button>
+      <button [disabled]="view.isProgramLoaded && !view.isComputerRunning ? null : 'disabled'" title="Cycle pipeline" (click)="on.cycleInstructionClicked()">
+        <aq4w-icon name="(c)stepforward2"></aq4w-icon>
+      </button>
+      <button [disabled]="view.isProgramLoaded && !view.isComputerRunning ? null : 'disabled'" title="Step pipeline" (click)="on.stepPipelineClicked()">
+        <aq4w-icon name="(c)fastforward2"></aq4w-icon>
+      </button>
+      <button title="Toggle breakpoints" (click)="on.toggleBreakpointsClicked()" [ngClass]="{ 'button-active-full': !view.breakpointsDisabled }">
+        <aq4w-icon name="(fa)fas.crosshairs"></aq4w-icon>
+      </button>
+  </div>
+  <div class="memory-allocation">
+    <div class="digital-font light" *ngIf="!view.isProgramLoaded">(no program loaded)</div>
+    <div class="sizes digital-font" *ngIf="view.isProgramLoaded">
+      <aq4w-byte-count-display [count]="view.programSize"
+        additionalClasses="program-size"
+        tooltipTemplate="The length of the loaded program (in ^plural)^^notbyte [^count bytes]^^"></aq4w-byte-count-display>
+      <div class="size-separator">&nbsp;&#47;&nbsp;</div>
+      <aq4w-byte-count-display [count]="view.memorySize"
+        additionalClasses="memory-size"
+        tooltipTemplate="The total amount of memory available to the computer (in ^plural)^^notbyte [^count bytes]^^"></aq4w-byte-count-display>
+    </div>
+  </div>
+  <div class="computer-selector">
+    <aq4w-icon name="(c)configuration" class="selector-icon"></aq4w-icon>
+    <select [formControl]="view.selectedPreset">
+      <option *ngFor="let opt of view.computerPresets"
+        [value]="opt.value"
+        [attr.disabled]="opt.value === view.managePresetOptionKey && view.isComputerPresetsManagerOpen ? 'disabled' : null">{{ opt.label }}</option>
+    </select>
+  </div>
+</div>

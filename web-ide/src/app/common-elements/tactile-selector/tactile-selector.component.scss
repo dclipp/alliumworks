@@ -1,0 +1,49 @@
+@import '../../../styles.scss';
+
+.tactile-selector {
+    display: inline-block;
+    margin-left: 0.5em;
+    font-size: 13px;
+    vertical-align: middle;
+                
+    & .opt {
+        display: inline;
+        cursor: pointer;
+        padding-left: 0.25em;
+        padding-right: 0.25em;
+        padding-top: 0.25em;
+        padding-bottom: 0.25em;
+        border: 1px solid $color-primary;
+
+        &:first-of-type {
+            border-top-left-radius: 0.5em;
+            border-bottom-left-radius: 0.5em;
+        }
+
+        &:last-of-type {
+            border-top-right-radius: 0.5em;
+            border-bottom-right-radius: 0.5em;
+        }
+
+        &:not(:first-of-type):not(:last-of-type) {
+            border-left: none;
+            border-right: none;
+        }
+
+        &.selected {
+            background-color: $color-primary;
+            color: $color-secondary;
+            font-weight: bold;
+        }
+
+        &:disabled {
+            cursor: not-allowed;
+        }
+    }
+}
+
+::ng-deep {
+    .color-alt > .tactile-selector .opt:not(.selected) {
+        background-color: white !important;
+    }
+}

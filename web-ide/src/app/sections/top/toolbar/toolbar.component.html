@@ -1,0 +1,28 @@
+<!-- <ul>
+  <li *ngFor="let toolGroup of view.toolGroups">
+    <div class="tool-group">
+      <button *ngFor="let toolButton of toolGroup.buttons"
+        [attr.disabled]="toolGroup.disabled || toolButton.disabled ? 'disabled' : null"
+        [attr.title]="!!toolButton.tooltip ? toolButton.tooltip : null"
+        (click)="on.buttonClicked(toolButton.buttonKey)">
+        <aq4w-icon [name]="toolButton.iconName"></aq4w-icon>
+      </button>
+    </div>
+  </li>
+</ul> -->
+<div class="toolbar">
+  <div class="tool-group ux-mobile-only">
+    <button (click)="on.toggleSidebar()">
+      <aq4w-icon name="(fa)fas.bars"></aq4w-icon>
+    </button>
+  </div>
+  <div class="tool-group" *ngFor="let toolGroup of view.toolGroups">
+    <button *ngFor="let toolButton of toolGroup.buttons"
+      [attr.disabled]="toolGroup.disabled || toolButton.disabled ? 'disabled' : null"
+      [attr.title]="!!toolButton.tooltip ? toolButton.tooltip : null"
+      [attr.data-is-active-button]="view.buttonsWithActiveStatus.includes(toolButton.buttonKey) ? 'true' : 'false'"
+      (click)="on.buttonClicked(toolButton.buttonKey)">
+      <aq4w-icon [name]="toolButton.iconName"></aq4w-icon>
+    </button>
+  </div>
+</div>

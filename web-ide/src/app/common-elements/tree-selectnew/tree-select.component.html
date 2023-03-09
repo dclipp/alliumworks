@@ -1,0 +1,37 @@
+<div class="tree-select">
+  <div class="presentation">
+    <aq4w-icon class="item-icon" [name]="view.itemIcon" (click)="on.toggleForm()" *ngIf="!(!(!!view.selectedPath) && !!view.noSelectionIcon)"></aq4w-icon>
+    <aq4w-icon class="item-icon" [name]="view.noSelectionIcon" (click)="on.toggleForm()" *ngIf="!(!!view.selectedPath) && !!view.noSelectionIcon"></aq4w-icon>
+    <span class="item-path">
+      {{ view.selectedPath || view.noSelectionPlaceholder }}
+    </span>
+  </div>
+  <ul class="item-selection-form" [ngClass]="{ 'active': view.formActive }">
+    <li data-rsrc-level="0" *ngIf="!!view.selectedId && view.allowSelectNone">
+      <span class="expansion-icon" data-is-expanded="false">
+        <span>&nbsp;</span>
+      </span>
+      <span class="resource-icon selectable" (click)="on.selectNone()">
+        <aq4w-icon [name]="!!view.noSelectionIcon ? view.noSelectionIcon : view.itemIcon"></aq4w-icon>
+      </span>
+      <span class="resource-name">{{ view.noSelectionPlaceholder }}</span>
+    </li>
+    <li *ngFor="let item of view.items" [ngClass]="{ 'no-show': !view.visibleItems.includes(item.id), 'selected-resource': view.selectedId === item.id }" [ngStyle]="{ 'padding-left.em': item.level }" [attr.data-rsrc-level]="item.level">
+      <span class="expansion-icon" [ngClass]="{ 'container': item.isContainer }" [attr.data-is-expanded]="view.expandedItems.includes(item.id)">
+        <span *ngIf="item.isContainer" (click)="on.expandContainer(item.id)">
+          +
+        </span>
+        <span class="collapse" *ngIf="item.isContainer" (click)="on.collapseContainer(item.id)">
+          -
+        </span>
+        <span *ngIf="!item.isContainer">
+          &nbsp;
+        </span>
+      </span>
+      <span class="resource-icon" [ngClass]="{ 'selectable': item.id !== view.selectedId && (!item.isContainer || view.allowContainerSelection) }" (click)="on.selectItem(item.id)">
+        <aq4w-icon [name]="item.isContainer ? view.containerIcon : view.itemIcon"></aq4w-icon>
+      </span>
+      <span class="resource-name">{{ item.name }}</span>
+    </li>
+  </ul>
+</div>

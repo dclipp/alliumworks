@@ -1,0 +1,8 @@
+<div class="output-area" [ngStyle]="{ 'height.em': view.height }">
+    <div class="output-line" [title]="line.timestampString" [attr.data-output-type]="!!line.type ? line.type : null" *ngFor="let line of view.lines">
+        <aq4w-icon name="(fa)fas.exclamation-circle" *ngIf="line.type === 'error'"></aq4w-icon>
+        <aq4w-icon name="(fa)fas.exclamation-triangle" *ngIf="line.type === 'warning'"></aq4w-icon>
+        <aq4w-icon name="(fa)fas.check" *ngIf="line.type === 'success'" class="success-icon"></aq4w-icon>
+        {{ line.content }}
+    </div>
+</div>

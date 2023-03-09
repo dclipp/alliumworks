@@ -1,0 +1,32 @@
+## Assembler Commands
+- `msg`
+    - `localize <`**code**`> <locale>`
+- `reg`
+    - ``: Parses a register reference from a byte value
+    - ``: Returns the byte value of a register reference
+    - ``: Determines if the provided value has the same byte count as the given mask
+- `flag`
+    - ``: Parses a flag name from a numeric value
+    - ``: Returns the numeric value for a given flag name
+- `mn`
+    - ``: Parses a mnemonic from a byte value
+    - ``: Returns the byte value of a given mnemonic
+    - ``: Returns the arguments for a given mnemonic
+- ``
+    - ``: Encodes a byte value
+    - ``: Encodes a double byte value
+    - ``: Encodes a triple byte value
+    - ``: Encodes a quad byte value
+    - ``: Decodes a byte value
+    - ``: Decodes a double byte value
+    - ``: Decodes a triple byte value
+    - ``: Decodes a quad byte value
+- `build`: (re)builds the current workspace
+- `dasm`
+    - `inline`: Compiles the given source code into 
+    - <b>&lt;line number&gt;</b>: Shows the disassembly for the given line of the current workspace
+        - **source file**
+        - <**format**>: The radix to use to
+- `asm`
+- `opts`
+- 

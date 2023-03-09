@@ -1,0 +1,16 @@
+<div class="contextual-toolbar">
+  <!-- <ul>
+    <li>a</li>
+    <li>b</li>
+    <li>c</li>
+  </ul> -->
+  <div class="tool-group" *ngFor="let toolGroup of view.toolGroups">
+    <button *ngFor="let toolButton of toolGroup.buttons"
+      [attr.disabled]="toolGroup.disabled || toolButton.disabled ? 'disabled' : null"
+      [attr.title]="!!toolButton.tooltip ? toolButton.tooltip : null"
+      [attr.data-is-active-button]="view.buttonsWithActiveStatus.includes(toolButton.buttonKey) ? 'true' : 'false'"
+      (click)="on.buttonClicked(toolButton.buttonKey)">
+      <aq4w-icon [name]="toolButton.iconName"></aq4w-icon>
+    </button>
+  </div>
+</div>

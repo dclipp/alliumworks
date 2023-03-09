@@ -1,0 +1,11 @@
+<div class="tactile-selector">
+  <div *ngFor="let option of view.options"
+    class="opt"
+    [attr.data-opt-value]="option.value"
+    [attr.title]="!!option.tooltip ? option.tooltip : null"
+    [attr.disabled]="view.isDisabled ? 'disabled' : null"
+    [ngClass]="{ 'selected': view.selectedValue === option.value }"
+    (click)="on.select(option.value)">
+    {{ option.label }}
+  </div>
+</div>

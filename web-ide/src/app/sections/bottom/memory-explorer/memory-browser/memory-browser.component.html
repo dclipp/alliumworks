@@ -1,0 +1,23 @@
+<div class="memory-browser">
+  <div class="offset-selector-title">Offset</div>
+  <div class="offset-selector">
+    <button class="offset-stepper step-back" (click)="on.stepOffset(-1)" [attr.disabled]="view.canStepBack ? null : 'disabled'">
+      <aq4w-icon name="arrow-round-back"></aq4w-icon>
+    </button>
+    <div class="offset-forms">
+      <input type="range" min="0" [formControl]="view.offsetSlider" (change)="on.offsetSliderChanged()">
+      <div class="offset-input">
+        <input type="number" [formControl]="view.offsetBase10" spellcheck="false" min="0" [max]="view.maxMemoryOffset.toString()">
+        <span class="offset-input-radix">10</span>
+        /
+        <input type="text" [formControl]="view.offsetBase16" spellcheck="false" (blur)="on.offsetBase16Blurred()">
+        <span class="offset-input-radix">16</span>
+      </div>
+    </div>
+    <button class="offset-stepper step-forward" (click)="on.stepOffset(1)" [attr.disabled]="view.canStepForward ? null : 'disabled'">
+      <aq4w-icon name="arrow-round-forward"></aq4w-icon>
+    </button>
+  </div>
+  <aq4w-memory-table [currentItems]="view.currentMemoryItems"
+    (valueEdited)="on.valueEdited($event)"></aq4w-memory-table>
+</div>

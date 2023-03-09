@@ -1,0 +1,188 @@
+@import '../../../../styles';
+@import '../../../../form-styles';
+
+.computer-presets-manager {
+    padding-left: 1em;
+    padding-bottom: 10ch;
+
+    & .preset-editor {
+        padding-left: 1em;
+        margin-top: 1em;
+        padding-top: 1em;
+        border-top: 1px solid gainsboro;
+
+        // & .form-section {
+        //     & label {
+        //         display: block;
+        //         margin-bottom: 0.5em;
+        //         font-family: "Helvetica", sans-serif;
+        //         font-size: 15px;
+
+        //         &.dirty-label::after {
+        //             content: "*";
+        //             color: #ff9a7a;
+        //         }
+        //     }
+
+        //     &:not(:last-of-type) {
+        //         margin-bottom: 1em;
+        //     }
+
+        //     & input {
+        //         font-size: 15px;
+
+        //         &:focus {
+        //             outline-color: $color-primary;
+        //         }
+        //     }
+
+        //     & .form-error {
+        //         font-weight: bold;
+        //         color: red;
+        //         font-size: 13px;
+        //         margin-top: 0.25em;
+        //     }
+
+        //     & button {
+        //         -webkit-appearance: none;
+        //         border: 1px solid #5b2f5e;
+        //         cursor: pointer;
+        //         outline: none;
+        //         background: #793e7d21;
+        //         padding: 0.25em 1em 0.25em 1em;
+
+        //         &:not(:last-of-type) {
+        //             margin-right: 1em;
+        //         }
+    
+        //         &:not(:disabled):hover {
+        //             background-color: #fef7ff;
+        //         }
+
+        //         &:disabled {
+        //             cursor: not-allowed;
+        //             border-color: #793e7d21;
+        //         }
+        //     }
+        // }
+    }
+
+    & select.dropdown {
+        padding-right: 4em;
+        margin-right: 1em;
+        font-size: 15px;
+
+        &:focus {
+            outline-color: $color-primary;
+        }
+
+        &.sub {
+            vertical-align: sub;
+        }
+    }
+
+    & .serial-number-input {
+        border: 1px solid rgb(238, 238, 238);
+        width: fit-content;
+        display: inline-block;
+        
+        & input {
+            border: none;
+            padding-left: 2px;
+            min-width: 30ch;
+        }
+
+        & aq4w-icon {
+            border-right: 1px solid rgb(238, 238, 238);
+            padding-left: 4px;
+            padding-right: 4px;
+            cursor: pointer;
+            color: $color-secondary;
+
+            &:hover {
+                background-color: $color-primary;
+            }
+
+            &.random-sn {
+                &.not-set {
+                    color: rgba(0,0,0,0.2);
+                    cursor: not-allowed;
+                }
+            }
+
+            &.btn.disabled {
+                cursor: not-allowed !important;
+            }
+        }
+
+        &.not-set {
+            & aq4w-icon {
+                &:not(:hover) {
+                    color: rgba(0,0,0,0.2);
+                }
+
+                &:hover {
+                    color: rgba(0,0,0,0.6);
+                }
+            }
+        }
+    }
+
+    & .cpu-feature-flags {
+        & td {
+            & label {
+                font-weight: normal;
+            }
+
+            &.flag-control {
+                vertical-align: middle;
+                display: inline-block;
+            }
+        }
+    }
+
+    & .slider {
+        width: fit-content;
+        text-align: center;
+
+        & .label {      
+            cursor: pointer;
+            border: 1px dashed transparent;
+
+            &.uom {
+                font-size: 13px;
+            }
+
+            &:hover {
+                border-color: gainsboro;
+            }
+        }
+
+        & .fine-editor {
+            display: inline-block;
+            margin: auto;
+            min-width: 4ch;
+        }
+
+        & .fine-editor-hide {
+            cursor: pointer;
+            margin-left: 2px;
+
+            &:not(:hover) {
+                color: rgba(0,0,0,0.4);
+            }
+        }
+
+        & input[type="range"] {
+            display: block;
+        }
+
+        & .fine-editor-hide + .mem-size-value-label {
+            display: none;
+        }
+    }
+
+    & input:disabled {
+        cursor: not-allowed;
+    }
+}

@@ -1,0 +1,21 @@
+aq4w-icon {
+    margin-left: 0.5em;
+}
+
+::ng-deep {
+    .inner {
+        font-weight: normal;
+        // background-color: white;
+        // z-index: 2;
+        max-width: 75ch;
+    }
+
+    popper-content > div {
+        background-color: white;
+        z-index: 999;
+    }
+
+    .inner p.related {
+        margin-top: -0.5em;
+    }
+}

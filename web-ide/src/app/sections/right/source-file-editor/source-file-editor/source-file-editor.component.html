@@ -1,0 +1,13 @@
+<div class="source-file-editor">
+  <div class="loading" *ngIf="!view.isControlLoaded">
+    <aq4w-icon name="(loading)"></aq4w-icon>
+  </div>
+  <div class="container" [ngClass]="{ 'not-loaded': !view.isControlLoaded }">
+    <div [id]="view.id + '_style'"></div>
+    <div class="cm4a-view">
+      <textarea [id]="view.id" [name]="view.id"></textarea>
+      <div [id]="view.id + '_debug-inspector-popover'"></div>
+      <div [id]="view.id + '_tooltip-popover'" class="tooltip-popover"></div>
+    </div>
+  </div>
+</div>

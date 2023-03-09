@@ -1,0 +1,40 @@
+@import '../../../../styles';
+
+.contextual-toolbar {
+    & ul {
+        list-style: none;
+
+        & li {
+            display: inline-block;
+        }
+    }
+    background-color: $color-light-primary;
+    padding-top: 0.25em;
+    padding-bottom: 0.25em;
+    border-bottom: 1px solid $color-primary;
+    // box-shadow: 0px 5px 7px 0px $box-shadow-color;
+    min-height: calc(0.5em + 14px);
+
+    & .tool-group {
+        display: inline-block;
+        margin-left: 0.5em;
+
+        & button {
+            -webkit-appearance: none;
+            border: 1px solid $color-primary;
+            cursor: pointer;
+            outline: none;
+            background: white;
+            font-size: 14px;
+
+            &:disabled {
+                cursor: not-allowed;
+            }
+
+            &[data-is-active-button="true"] {
+                background-color: $color-primary;
+                color: $color-secondary;
+            }
+        }
+    }
+}

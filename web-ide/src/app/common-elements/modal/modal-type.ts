@@ -1,0 +1,1 @@
+export type ModalType = 'regular' | 'file-uploader' | 'device-installation' | 'choice-list' | 'package-entity-selection';

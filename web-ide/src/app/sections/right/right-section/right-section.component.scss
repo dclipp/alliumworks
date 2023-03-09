@@ -1,0 +1,31 @@
+.main-content-container {
+    height: calc(100% - 2.5em - 2px);
+    overflow-y: scroll;
+
+    & .content-item {
+        // &:not([data-content-type="0"]) {
+        //     overflow-y: scroll;
+        // }
+        
+        &:not(.active-item) {
+            display: none;
+        }
+
+        height: 100%;
+        // height: calc(100% - var(--section-top-height) - var(--section-bottom-height));
+    }
+}
+
+.byte2-editor {
+    border: 1px solid;
+    padding: 1em;
+
+    & .input-area {
+        min-height: 30px;
+        width: 100%;
+    }
+
+    & .char {
+        display: inline;
+    }
+}

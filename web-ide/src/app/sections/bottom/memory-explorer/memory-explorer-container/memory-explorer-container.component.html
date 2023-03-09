@@ -1,0 +1,23 @@
+<div class="memory-explorer" [ngClass]="{ 'machine-on': view.isMachineReady }">
+  <div class="powered-off-message">
+    <aq4w-icon name="bed"></aq4w-icon>
+    The machine is currently powered off
+  </div>
+  <aq4w-memory-explorer-sidebar class="sidebar subcomponent" [activeTab]="view.activeTab" (tabChanged)="on.tabChanged($event)"></aq4w-memory-explorer-sidebar>
+  <div class="tab-page subcomponent">
+    <aq4w-memory-browser [ngClass]="{ 'show-page': view.activeTab === 'browser' }"
+      [editingAddresses]="view.editingAddresses"></aq4w-memory-browser>
+    <!-- <aq4w-memory-browser [ngClass]="{ 'show-page': view.activeTab === 'browser' }"
+      [writeWatches]="view.writeWatches"
+      [readWatches]="view.readWatches"
+      [writeIcons]="view.emphasis.writeIcons"
+      [readIcons]="view.emphasis.readIcons"
+      [writeIconsStatic]="view.emphasis.writeIconsStatic"
+      [readIconsStatic]="view.emphasis.readIconsStatic"
+      [editingAddresses]="view.editingAddresses"
+      (toggleReadWatch)="on.toggleReadWatch($event)"
+      (toggleWriteWatch)="on.toggleWriteWatch($event)"></aq4w-memory-browser> -->
+    <aq4w-memory-watch-browser [ngClass]="{ 'show-page': view.activeTab === 'watches' }"></aq4w-memory-watch-browser>
+    <aq4w-memory-searcher [ngClass]="{ 'show-page': view.activeTab === 'search' }"></aq4w-memory-searcher>
+  </div>
+</div>

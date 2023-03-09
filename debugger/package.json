@@ -1,0 +1,20 @@
+{
+  "name": "@alliumworks/debugger",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./lib/exports.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@allium/arch": "file:../../acm/arch",
+    "@allium/asm": "file:../../acm/asm",
+    "@allium/emulator": "file:../../acm/emulator",
+    "@allium/types": "file:../../acm/types",
+    "abab": "^2.0.5",
+    "rxjs": "6.5.5"
+  }
+}

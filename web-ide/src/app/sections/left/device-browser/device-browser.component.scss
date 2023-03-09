@@ -1,0 +1,71 @@
+.browser-section {
+    margin-top: 0.5em;
+    
+    &:not(.collapsed) {
+        & .caret-right-icon {
+            display: none;
+        }
+    }
+
+    &.collapsed {
+        & .caret-down-icon {
+            display: none;
+        }
+
+        & .section-body {
+            display: none;
+        }
+    }
+
+    & .title-text {
+        display: inline;
+        cursor: pointer;
+        vertical-align: middle;
+
+        & aq4w-icon {
+            margin-right: 0.25em;
+        }
+    }
+
+    & .section-toggle-btn {
+        background: none;
+        border: none;
+        outline: none;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    & .empty-row {
+        font-style: italic;
+        font-size: 13px;
+        overflow-wrap: break-word;
+        padding-right: 0.25em;
+    }
+
+    & .section-body {
+        padding-left: 2.5em;
+        margin-top: 0;
+    }
+
+    & ul.section-body {
+        list-style: none;
+        // padding-left: 0;
+    
+        & li {
+            cursor: pointer;
+    
+            &.selected-item {
+                background-color: #ead6f5;   
+            }
+    
+            & .device-name {
+                vertical-align: middle;
+                margin-left: 0.5em;
+            }
+        }
+    }
+}
+
+.loading-message {
+    text-align: center;
+}

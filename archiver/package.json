@@ -1,0 +1,12 @@
+{
+  "name": "@alliumworks/archiver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./lib/exports.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,208 @@
+@import '../../../styles.scss';
+
+// .checkbox {
+//     display: inline-block;
+//     margin-left: 0.5em;
+//     font-size: 13px;
+//     vertical-align: middle;
+                
+//     & .control {
+//         display: inline;
+//         cursor: pointer;
+//         padding-left: 0.25em;
+//         padding-right: 0.25em;
+//         padding-top: 0.25em;
+//         padding-bottom: 0.25em;
+//         border: 1px solid $color-primary;
+
+//         &:first-of-type {
+//             border-top-left-radius: 0.5em;
+//             border-bottom-left-radius: 0.5em;
+//         }
+
+//         &:last-of-type {
+//             border-top-right-radius: 0.5em;
+//             border-bottom-right-radius: 0.5em;
+//         }
+
+//         &:not(:first-of-type):not(:last-of-type) {
+//             border-left: none;
+//             border-right: none;
+//         }
+
+//         &.selected {
+//             background-color: $color-primary;
+//             color: $color-secondary;
+//             font-weight: bold;
+//         }
+
+//         &:disabled {
+//             cursor: not-allowed;
+//         }
+//     }
+// }
+
+// ::ng-deep {
+//     .color-alt > .checkbox .opt:not(.selected) {
+//         background-color: white !important;
+//     }
+// }
+
+.checkbox {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    
+    &:disabled {
+        cursor: not-allowed;
+    }
+
+    & .control {
+        width: 1.25em;
+        height: 1.25em;
+        background-color: white;
+        // cursor: pointer;
+        // padding-left: 0.25em;
+        // padding-right: 0.25em;
+        // padding-top: 0.25em;
+        // padding-bottom: 0.25em;
+        border-radius: 0.5em;
+        border: 2px solid $color-primary;
+        text-align: center;
+
+        &.checked {
+            // background-color: $color-secondary;
+            background-color: $color-primary;
+
+            & > aq4w-icon {
+                color: $color-secondary;
+                display: inline-block;
+            }
+        }
+
+        & > aq4w-icon {
+            display: none;
+        }
+    }
+
+    & label {
+        margin: 0;
+        padding-left: 0.5em;
+    }
+}
+
+.slider {
+    & .form {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        
+        & .inner {
+            border: 1px solid #ead6f5;
+            border-radius: 0.75em;
+            height: 1.25em;
+            width: 2.5em;
+            background-color: white;    
+            transition: background-color 500ms;
+            z-index: -1;
+
+            & .control {
+                border-radius: 50%;
+                // background-color: $color-muted-primary;
+                // background-color: #f0b098;//$color-primary;
+                height: 1.25em;
+                width: 1.25em;
+                transition: left 250ms;
+                left: 0;
+                position: relative;
+                display: inline-block;
+                text-align: center;
+                font-weight: bold;
+                background: radial-gradient(circle, $color-primary 0%, #e6c8f6 85%);
+                box-shadow: 0 0 4px 1px #793e7d;
+            }
+
+            &.checked {
+                background-color: #ff997a;
+
+                & .control {
+                    // background-color: $color-secondary;
+                    // background: radial-gradient(circle, $color-primary 0%, #e6c8f6 85%);
+                    // box-shadow: 0 0 4px 1px #793e7d;
+                    left: calc(100% - 1.25em);
+                }
+            }
+        }
+
+        & label {
+            margin: 0 !important;
+            display: inline-block;
+        }
+    }
+
+    &[data-label-position="right"] {
+        & .top {
+            display: none;
+        }
+
+        & .left {
+            display: none;
+        }
+
+        & .right {
+            padding-left: 0.5em !important;
+        }
+    }
+
+    &[data-label-position="left"] {
+        & .top {
+            display: none;
+        } 
+            
+        & .right {
+            display: none;
+        } 
+
+        & .left {
+            padding-right: 0.5em !important;
+        } 
+    }
+
+    &[data-label-position="top"] {
+        & .left {
+            display: none;
+        }
+            
+        & .right {
+            display: none;
+        }
+
+        & .top {
+            display: block !important;
+
+            & label {
+                display: block !important;
+            }
+        }
+
+        & .form {
+            padding-left: 0.5em;
+        }
+    }
+
+    &.disabled {
+        & .form {
+            cursor: not-allowed;
+
+            & .inner {
+                &.checked {
+                    background-color: #ffc1ad;
+                }
+
+                & .control {
+                    background: radial-gradient(circle, #ede0f3 0%, #ead6f5 85%);
+                }
+            }
+        }
+    }
+}

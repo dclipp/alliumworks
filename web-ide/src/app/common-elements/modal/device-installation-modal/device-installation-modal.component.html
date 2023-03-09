@@ -1,0 +1,25 @@
+<div class="device-installation-modal" [ngClass]="{ 'open': view.isOpen }">
+  <div class="backdrop" (click)="on.backdropClicked()">&nbsp;</div>
+  <div class="dialog">
+    <div class="inner">
+      <div class="header">Install Device</div>
+      <div class="body">
+        <p class="description">Configure installation details for device &quot;{{ view.humanReadableDeviceName }}&quot;</p>
+        <div class="form-section">
+          <label for="dim-install-name">Install Name</label>
+          <input type="text" id="dim-install-name" spellcheck="false" [formControl]="view.installName">
+          <div class="form-error" *ngIf="!view.installName.valid">{{ view.installName.errors['error'] }}</div>
+        </div>
+        <div class="form-section">
+          <label for="dim-input-channel">Port</label>
+          <input type="number" step="1" min="0" max="65535" id="dim-input-channel" [formControl]="view.portIndex.form">
+          <div class="form-error" *ngIf="!view.portIndex.form.valid">{{ view.portIndex.form.errors['error'] }}</div>
+        </div>
+      </div>
+      <div class="footer">
+        <button (click)="on.clickedCancel()">Cancel</button>
+        <button (click)="on.clickedInstall()" [attr.disabled]="view.allValid ? null : 'disabled'">Install</button>
+      </div>
+    </div>
+  </div>
+</div>

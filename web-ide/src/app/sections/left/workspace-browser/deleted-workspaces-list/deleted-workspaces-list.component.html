@@ -1,0 +1,18 @@
+<div class="deleted-workspaces">
+  <div class="section-label" [ngClass]="{ 'collapsed': view.isCollapsed }" (click)="on.toggleList()">
+    <aq4w-icon name="arrow-dropright" class="caret-right"></aq4w-icon>
+    <aq4w-icon name="arrow-dropdown" class="caret-down"></aq4w-icon>
+    Deleted workspaces
+  </div>
+  <div class="empty-message" *ngIf="view.deletedWorkspaces.length === 0">There are no deleted workspaces</div>
+  <ul class="workspaces-list">
+    <li *ngFor="let deletedWorkspace of view.deletedWorkspaces">
+      <div class="workspace-row" (click)="on.rowClicked(deletedWorkspace.workspaceId, $event)"
+        [ngClass]="{ 'selected-item': view.selectedDeletedWorkspaceId === deletedWorkspace.workspaceId }">
+        <aq4w-icon name="(fa)fas.border-style" *ngIf="!view.loadingIds.includes(deletedWorkspace.workspaceId)"></aq4w-icon>
+        <aq4w-icon name="(loading)" title="Restoring..." *ngIf="view.loadingIds.includes(deletedWorkspace.workspaceId)"></aq4w-icon>
+        <span class="workspace-name">{{ deletedWorkspace.title }}</span>
+      </div>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,68 @@
+<table class="memory-table">
+  <thead>
+    <tr>
+      <th class="watch-cell">Tag</th>
+      <th class="address-cell" (click)="on.changeAddressRadix()">
+        Address
+        <span class="address-radix">&nbsp;{{ view.addressRadix }}</span>
+      </th>
+      <th class="value-cell" (click)="on.changeValueRadix()">
+        Value
+        <span class="value-radix">&nbsp;{{ view.valueRadix }}</span>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let memoryItem of view.currentMemoryItems">
+      <tr *ngTemplateOutlet="memoryRow; context: { memAddress: memoryItem.address, memValue: memoryItem.value }"></tr>
+    </ng-container>
+    <div class="empty-message" *ngIf="view.currentMemoryItems.length === 0">
+      (empty)
+    </div>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="3" *ngIf="view.pagination2.length > 1">
+        <ng-container *ngFor="let p of view.pagination2">
+          <div class="page-btn non-btn" *ngIf="!p.clickable">...</div>
+          <div class="page-btn" (click)="on.selectPage(p.text)" [ngClass]="{ 'selected': p.selected }" *ngIf="p.clickable">{{ p.text }}</div>
+        </ng-container>
+      </td>
+      <td colspan="3" *ngIf="view.pagination2.length <= 1">
+        &nbsp;
+      </td>
+    </tr>
+  </tfoot>
+</table>
+
+<ng-template #memoryRow let-memAddress="memAddress" let-memValue="memValue">
+  <tr>
+    <td class="watch-cell">
+      <aq4w-icon name="(c)lift" class="watch-icon reads" title="Toggle whether to break when this address is read from"
+        [ngClass]="{ 'has-watch': view.watches.reads.includes(memAddress), 'emphasizeNEW': view.watches.emphasis.reads.includes(memAddress), 'emphasize-static': view.emphasis.readIconsStatic.includes(memAddress) }"
+        (click)="on.readWatchCellClicked(memAddress)"></aq4w-icon>
+      &nbsp;
+      <aq4w-icon name="(c)drop" class="watch-icon writes" title="Toggle whether to break when this address is written to"
+        [ngClass]="{ 'has-watch': view.watches.writes.includes(memAddress), 'emphasizeNEW': view.watches.emphasis.writes.includes(memAddress), 'emphasize-static': view.emphasis.writeIconsStatic.includes(memAddress) }"
+        (click)="on.writeWatchCellClicked(memAddress)"></aq4w-icon>
+      &nbsp;
+      <aq4w-icon name="(fa)fas.bookmark" class="watch-icon bookmark set" title="Remove bookmark"
+        (click)="on.bookmarkCellClicked(memAddress)" *ngIf="view.watches.bookmarks.includes(memAddress)"></aq4w-icon>
+      <aq4w-icon name="(fa)far.bookmark" class="watch-icon bookmark" title="Bookmark this address"
+        (click)="on.bookmarkCellClicked(memAddress)" *ngIf="!view.watches.bookmarks.includes(memAddress)"></aq4w-icon>
+    </td>
+    <td class="address-cell">
+      <span class="address-display" (click)="on.changeAddressRadix()">{{ memAddress | byteSequence:view.addressRadix }}</span>
+    </td>
+    <td class="value-cell" [ngClass]="{ 'edit-mode': view.editingAddresses.includes(memAddress) }">
+      <div class="memory-value-readonly" (click)="on.changeValueRadix()" [title]="'(base ' + view.valueRadix + ')'">{{ memValue | byteSequence:view.valueRadix }}</div>
+      <aq4w-byte-sequence-editor
+          class="memory-edit-icon"
+          [radix]="view.editor.radix"
+          [value]="view.editor.initialValue"
+          [sequenceLength]="1"
+          (visibilityChanged)="on.toggleEditMode(memAddress, $event)"
+          (valueChanged)="on.valueEdited(memAddress, $event)"></aq4w-byte-sequence-editor>
+    </td>
+  </tr>
+</ng-template>

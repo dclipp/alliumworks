@@ -1,0 +1,196 @@
+<div class="computer-presets-manager" [ngClass]="{ 'is-dirty': view.isDirty }">
+  <h3>Computer Presets</h3>
+  <div class="section">
+    <select class="dropdown default-font" [formControl]="view.selectedPreset">
+      <option *ngFor="let opt of view.presetOptions; let optIndex = index" [value]="opt.value" [attr.disabled]="optIndex === view.presetOptions.length - 1 && view.isReadOnlyMode ? 'disabled' : null">{{ opt.label }}</option>
+    </select>
+    <div class="form-section" *ngIf="view.isReadOnlyMode">
+      <br>
+      <div class="form-error">You are viewing presets in read-only mode. Shut down the computer to enable editing.</div>
+    </div>
+  </div>
+  <div class="preset-editor" *ngIf="show.editor">
+    <div class="form-section">
+      <label for="cpm-presetName" [ngClass]="{ 'dirty-label': view.presetName.dirty }">Preset Name</label>
+      <input class="default-font" type="text" id="cpm-presetName" [formControl]="view.presetName" spellcheck="false">
+      <div class="form-error" *ngIf="view.presetName.invalid">{{ view.presetName.errors['message'] }}</div>
+    </div>
+    <div class="form-sxs labeled">
+      <label class="sxs-label" [ngClass]="{ 'dirty-label': view.memorySize.dirty }">Computer Memory Size</label>
+      <div class="forms">
+        <div class="form-section mem-size slider" #memSizeSliderBytes>
+          <ng-container *ngTemplateOutlet="memSizeFineEditor; context: { uom: 'byte' }"></ng-container>
+          <div class="label mem-size-value-label" (click)="view.memorySize.toggleFineEditor('byte')"></div>
+          <input type="range" step="16384" min="0" max="4294967295" (input)="view.memorySize.updateCounts('bytes', $event)" (change)="view.memorySize.finishSlider('bytes', $event)">
+          <div class="label uom">bytes</div>
+        </div>
+        <div class="form-section mem-size slider" #memSizeSliderKilobytes>
+          <ng-container *ngTemplateOutlet="memSizeFineEditor; context: { uom: 'kilobyte' }"></ng-container>
+          <div class="label mem-size-value-label" (click)="view.memorySize.toggleFineEditor('kilobyte')"></div>
+          <input type="range" step="512" min="0" max="4294967" (input)="view.memorySize.updateCounts('kilobytes', $event)" (change)="view.memorySize.finishSlider('kilobytes', $event)">
+          <div class="label uom">kilobytes</div>
+        </div>
+        <div class="form-section mem-size slider" #memSizeSliderMegabytes>
+          <ng-container *ngTemplateOutlet="memSizeFineEditor; context: { uom: 'megabyte' }"></ng-container>
+          <div class="label mem-size-value-label" (click)="view.memorySize.toggleFineEditor('megabyte')"></div>
+          <input type="range" step="1" min="0" max="4294" (input)="view.memorySize.updateCounts('megabytes', $event)" (change)="view.memorySize.finishSlider('megabytes', $event)">
+          <div class="label uom">megabytes</div>
+        </div>
+        <!-- <ng-container *ngTemplateOutlet="memSizeForm; context: { uom: 'byte', min: view.memorySizeView.bytes.min, max: view.memorySizeView.bytes.max, disabled: view.isReadOnlyMode }"></ng-container>
+        <ng-container *ngTemplateOutlet="memSizeForm; context: { uom: 'kilobyte', min: view.memorySizeView.kilobytes.min, max: view.memorySizeView.kilobytes.max, disabled: view.isReadOnlyMode }"></ng-container>
+        <ng-container *ngTemplateOutlet="memSizeForm; context: { uom: 'megabyte', min: view.memorySizeView.megabytes.min, max: view.memorySizeView.megabytes.max, disabled: view.isReadOnlyMode }"></ng-container> -->
+      </div>
+    </div>
+    <div class="form-sxs">
+      <div class="form-section">
+        <label for="cpm-cpuSpeed" [ngClass]="{ 'dirty-label': view.cpuSpeed.dirty }">CPU Speed</label>
+        <input class="default-font" type="number" id="cpm-cpuSpeed" [formControl]="view.cpuSpeed" min="1" max="4294967.295" style="min-width: 13ch;">
+        <div class="input-uom">MHz</div>
+        <div class="form-error" *ngIf="view.cpuSpeed.invalid">{{ view.cpuSpeed.errors['message'] }}</div>
+      </div>
+      <div class="form-section">
+        <label for="cpm-cpuISA" [ngClass]="{ 'dirty-label': view.cpuISA.dirty }">CPU Instruction Set Architecture</label>
+        <select id="cpm-cpuISA" class="dropdown default-font sub" [formControl]="view.cpuISA">
+          <option value="0">Version 1 / ProtoAllium (0)</option>
+        </select>
+        <div class="form-error" *ngIf="view.cpuISA.invalid">{{ view.cpuISA.errors['message'] }}</div>
+      </div>
+    </div>
+    <div class="form-sxs">
+      <ng-container *ngTemplateOutlet="featureFlagsForm; context: { ffCtrl: view.cpuFeatureFlags1, prefix: '1' }"></ng-container>
+      <ng-container *ngTemplateOutlet="featureFlagsForm; context: { ffCtrl: view.cpuFeatureFlags2, prefix: '2' }"></ng-container>
+    </div>
+    <div class="form-sxs">
+      <div class="form-section">
+        <label for="cpm-cpuSerialNumber" [ngClass]="{ 'dirty-label': view.cpuSerialNumber.dirty }">
+          CPU Serial Number
+          <aq4w-note>
+            <p>If set, must be a 12-character string containing any alphanumeric value except for &quot;I&quot;, &quot;L&quot;, &quot;O&quot;, or &quot;V&quot;</p>
+            <p class="related">Values are case-insensitive</p>
+          </aq4w-note>
+        </label>
+        <div class="serial-number-input" [ngClass]="{ 'not-set': !view.serialNumberView.isSet }">
+          <aq4w-icon class="btn" [name]="!view.serialNumberView.isSet ? '(fa)far.circle' : '(fa)far.dot-circle'" title="Toggle Set/Not set" (click)="on.toggleSerialNumberNotSet()" [ngClass]="{ 'disabled': view.isReadOnlyMode }"></aq4w-icon>
+          <aq4w-icon class="btn random-sn" name="(fa)fas.random" title="Generate random" (click)="on.randomSerialNumber()" [ngClass]="{ 'not-set': !view.serialNumberView.isSet, 'disabled': view.isReadOnlyMode }"></aq4w-icon>
+          <input class="default-font" type="text" id="cpm-cpuSerialNumber" [formControl]="view.cpuSerialNumber" [attr.disabled]="!view.serialNumberView.isSet || view.isReadOnlyMode ? 'disabled' : null" [attr.maxlength]="view.serialNumberView.format === 'val' ? 12 : null" spellcheck="false">
+        </div>
+        <aq4w-tactile-selector [options]="{ opts: [{ label: 'A...9', value: 'val', tooltip: 'todo' }, { label: '0x0', value: 'num' }], initial: this.view.serialNumberView.format }" (selection)="on.changeSerialNumberFormat($event)"></aq4w-tactile-selector>
+      </div>
+      <div class="form-section">
+        <label for="cpm-cpuSnBatchMkt" [ngClass]="{ 'dirty-label': view.cpuBatchMarket.dirty }">Production Market</label>
+        <select id="cpm-cpuSnBatchMkt" class="dropdown default-font" [formControl]="view.cpuBatchMarket">
+          <option value="0">Unspecified (0)</option>
+          <option value="1">Contract (1)</option>
+          <option value="2">Government (2)</option>
+          <option value="3">OEM (3)</option>
+          <option value="4">Private (4)</option>
+          <option value="5">Retail (5)</option>
+          <option value="6">Reserved (6)</option>
+          <option value="7">Reserved (7)</option>
+          <option value="8">Reserved (8)</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-section">
+      <label for="cpm-cpuModelId" [ngClass]="{ 'dirty-label': view.cpuModelId.dirty }">CPU Model Identifier</label>
+      <input class="default-font" type="text" id="cpm-cpuModelId" [formControl]="view.cpuModelId" spellcheck="false">
+      <div class="form-error" *ngIf="view.cpuModelId.invalid">{{ view.cpuModelId.errors['message'] }}</div>
+    </div>
+    <div class="form-error" *ngIf="view.cpuSerialNumber.invalid">{{ view.cpuSerialNumber.errors['message'] }}</div>
+    <div class="form-section">
+      <label for="cpm-isDefault" [ngClass]="{ 'dirty-label': view.isDefault.dirty }">Default</label>
+      <input type="checkbox" id="cpm-isDefault" [formControl]="view.isDefault">
+    </div>
+    <div class="form-section">
+      <button class="delete-button" *ngIf="!view.isNewPreset"
+        [attr.disabled]="(view.presetOptions.length === 2 && !view.presetOptions[0].value.startsWith('custom-')) || view.isReadOnlyMode ? 'disabled' : null"
+        (click)="on.deletePreset()">Delete Preset</button>
+      <button class="save-button" [attr.disabled]="!view.isDirty || view.isReadOnlyMode ? 'disabled' : null" (click)="on.savePreset()">Save</button>
+    </div>
+  </div>
+</div>
+
+<ng-template let-ffCtrl="ffCtrl" let-prefix="prefix" #featureFlagsForm>
+  <div class="form-section cpu-feature-flags">
+    <label [ngClass]="{ 'dirty-label': ffCtrl.dirty }">CPU Feature Set {{ prefix }}</label>
+    <table>
+      <tbody>
+        <tr>
+          <td class="flag-label"><label [for]="'cpm_flg_' + prefix + '0'">Reserved 0 (Flag 0)</label></td>
+          <td class="flag-control"><input type="checkbox" [formControl]="ffCtrl.flag0" [id]="'cpm_flg_' + prefix+'0'"></td>
+          <td class="flag-label"><label [for]="'cpm_flg_' + prefix + '4'">Reserved 4 (Flag 4)</label></td>
+          <td class="flag-control"><input type="checkbox" [formControl]="ffCtrl.flag4" [id]="'cpm_flg_' + prefix+'4'"></td>
+        </tr>
+        <tr>
+          <td class="flag-label"><label [for]="'cpm_flg_' + prefix + '1'">Reserved 1 (Flag 1)</label></td>
+          <td class="flag-control"><input type="checkbox" [formControl]="ffCtrl.flag1" [id]="'cpm_flg_' + prefix+'1'"></td>
+          <td class="flag-label"><label [for]="'cpm_flg_' + prefix + '5'">Reserved 5 (Flag 5)</label></td>
+          <td class="flag-control"><input type="checkbox" [formControl]="ffCtrl.flag5" [id]="'cpm_flg_' + prefix+'5'"></td>
+        </tr>
+        <tr>
+          <td class="flag-label"><label [for]="'cpm_flg_' + prefix + '2'">Reserved 2 (Flag 2)</label></td>
+          <td class="flag-control"><input type="checkbox" [formControl]="ffCtrl.flag2" [id]="'cpm_flg_' + prefix+'2'"></td>
+          <td class="flag-label"><label [for]="'cpm_flg_' + prefix + '6'">Reserved 6 (Flag 6)</label></td>
+          <td class="flag-control"><input type="checkbox" [formControl]="ffCtrl.flag6" [id]="'cpm_flg_' + prefix+'6'"></td>
+        </tr>
+        <tr>
+          <td class="flag-label"><label [for]="'cpm_flg_' + prefix + '3'">Reserved 3 (Flag 3)</label></td>
+          <td class="flag-control"><input type="checkbox" [formControl]="ffCtrl.flag3" [id]="'cpm_flg_' + prefix+'3'"></td>
+          <td class="flag-label"><label [for]="'cpm_flg_' + prefix + '7'">Reserved 7 (Flag 7)</label></td>
+          <td class="flag-control"><input type="checkbox" [formControl]="ffCtrl.flag7" [id]="'cpm_flg_' + prefix+'7'"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</ng-template>
+
+<ng-template let-uom="uom" #memSizeFineEditor>
+    <input *ngIf="view.memorySize.fineEditors[uom].show === true"
+      class="fine-editor"
+      type="number"
+      [value]="view.memorySize.fineEditors[uom].value"
+      [ngStyle]="{ 'max-width.ch': view.memorySize.fineEditors[uom].value.toString().length + 3 }">
+    <aq4w-icon *ngIf="view.memorySize.fineEditors[uom].show === true"
+      class="fine-editor-hide"
+      name="(fa)far.check-circle"
+      (click)="view.memorySize.toggleFineEditor(uom, true)"></aq4w-icon>
+</ng-template>
+
+<ng-template let-uom="uom" let-min="min" let-max="max" let-disabled="disabled" #memSizeForm>
+  <div class="form-section mem-size slider">
+    <div class="label"
+      *ngIf="view.memorySize[uom + 'FineEditor'] === -1"
+      (click)="view.memorySize.toggleFineEditor(uom)">{{ view.memorySize[uom + 'CountLabel'] }}</div>
+    <input *ngIf="view.memorySize[uom + 'FineEditor'] > -1"
+      class="fine-editor"
+      type="number"
+      [value]="view.memorySize[uom + 'FineEditor']"
+      (input)="view.memorySize[uom + 'Count'] = $event.target.value.toString()"
+      [ngStyle]="{ 'max-width.ch': view.memorySize[uom + 'FineEditor'].toString().length + 3 }">
+    <aq4w-icon *ngIf="view.memorySize[uom + 'FineEditor'] > -1"
+      class="fine-editor-hide"
+      name="(fa)far.check-circle"
+      (click)="view.memorySize.toggleFineEditor(uom)"></aq4w-icon>
+    <input type="range" [attr.min]="min" [attr.max]="max" step="1" (input)="view.memorySize[uom + 'Count'] = $event.target.value" (mouseup)="view.memorySizeCommitted()" [value]="view.memorySize[uom + 'Count']" [attr.disabled]="disabled ? 'disabled' : null">
+    <div class="label uom">{{ uom }}s</div>
+  </div>
+</ng-template>
+<!-- <ng-template let-uom="uom" let-max="max" let-step="step" let-disabled="disabled" #memSizeForm>
+  <div class="form-section mem-size slider">
+    <div class="label"
+      *ngIf="view.memorySize[uom + 'FineEditor'] === -1"
+      (click)="view.memorySize.toggleFineEditor(uom)">{{ view.memorySize[uom + 'CountLabel'] }}</div>
+    <input *ngIf="view.memorySize[uom + 'FineEditor'] > -1"
+      class="fine-editor"
+      type="number"
+      [value]="view.memorySize[uom + 'FineEditor']"
+      (input)="view.memorySize[uom + 'Count'] = $event.target.value.toString()"
+      [ngStyle]="{ 'max-width.ch': view.memorySize[uom + 'FineEditor'].toString().length + 3 }">
+    <aq4w-icon *ngIf="view.memorySize[uom + 'FineEditor'] > -1"
+      class="fine-editor-hide"
+      name="(fa)far.check-circle"
+      (click)="view.memorySize.toggleFineEditor(uom)"></aq4w-icon>
+    <input type="range" min="0" [attr.max]="max" [attr.step]="step" (input)="view.memorySize[uom + 'Count'] = $event.target.value" [value]="view.memorySize[uom + 'Count']" [attr.disabled]="disabled ? 'disabled' : null">
+    <div class="label uom">{{ uom }}s</div>
+  </div>
+</ng-template> -->

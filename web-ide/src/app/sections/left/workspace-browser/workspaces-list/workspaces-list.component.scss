@@ -1,0 +1,51 @@
+@import '../../../../../styles';
+
+ul.workspaces-list {
+    list-style: none;
+    padding-left: 0;
+
+    & li {
+        cursor: pointer;
+
+        & .workspace-row {
+            &.selected-item {
+                background-color: #ead6f5;   
+            }
+            
+            & .workspace-name {
+                vertical-align: middle;
+                margin-left: 0.5em;
+            }
+
+            & .workspace-input {
+                vertical-align: middle;
+                margin-left: 0.5em;
+            }
+
+            &.active-workspace {
+                & .workspace-name::after {
+                    content: "*";
+                    color: $color-secondary;
+                }
+
+                & .workspace-icon {
+                    &:first-of-type {
+                        display: none;
+                    }
+
+                    &:last-of-type {
+                        color: $color-secondary;
+                    }
+                }
+            }
+
+            &:not(.active-workspace) {
+                & .workspace-icon {
+                    &:last-of-type {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}

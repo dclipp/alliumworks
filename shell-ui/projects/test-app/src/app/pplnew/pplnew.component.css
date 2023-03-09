@@ -1,0 +1,36 @@
+.pplnew ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-family: var(--shell-ui-font-family);
+    font-size: var(--shell-ui-font-size);
+}
+
+.pplnew li.active-item {
+    background-color: var(--shell-ui-color-active);
+}
+.pplnew li.has-children.is-expanded > .toggle-icon.collapsed {
+    display: none;
+}
+.pplnew li.has-children:not(.is-expanded) > .toggle-icon.expanded {
+    display: none;
+}
+.pplnew li .icon-spacer {
+    color: transparent;
+}
+.pplnew li.has-children > .icon-spacer {
+    display: none;
+}
+.pplnew li:not(.has-children) > .toggle-icon {
+    display: none;
+}
+.pplnew li .toggle-icon {
+    cursor: pointer;
+    margin-right: 0.5em;
+}
+
+.pplnew li.no-show {
+    display: none;
+}
+
+/* .pplnew li */

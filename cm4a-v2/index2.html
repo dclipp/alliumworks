@@ -1,0 +1,91 @@
+<!doctype html>
+<head>
+<title>CodeMirror: Allium mode</title>
+<meta charset="utf-8"/>
+<link rel=stylesheet href="styles/docs.css">
+
+<link rel="stylesheet" href="styles/codemirror.css">
+<link rel="stylesheet" href="styles/customstyles.css">
+<!-- <script src="src/text-library.js"></script> -->
+<script src="src/txtlib.js"></script>
+<script src="dist/index.js"></script>
+<style>.CodeMirror {border-top: 1px solid black; border-bottom: 1px solid black;}</style>
+<style>
+  :root {
+    /* --popover-font-family-regular:  */
+    --popover-font-family-regular: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    --popover-font-family-monospace: Courier, monospace;
+  }
+  #debug-inspector-popover {
+    background-color: gainsboro;
+    border: 1px solid black;
+    position: absolute;
+    z-index: 99;
+    padding: 0.5em;
+  }
+  #debug-inspector-popover h5 {
+    font-family: 'Courier New', Courier, monospace;
+  }
+  #debug-inspector-popover:not(.show) {
+    display: none;
+  }
+
+  #tooltip-popover {
+    background-color: white;
+    border: 1px solid black;
+    position: absolute;
+    z-index: 99;
+    padding: 0.5em;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+  }
+  #tooltip-popover:not(.show) {
+    display: none;
+  }
+</style>
+<script>
+  // var SAMPLE_SRC_CODE = "?alias abc = 4\n''<scope>\nblk:\n\tJNZ 0x9 [MONDAY.hh] 34\n\tJMP # ee 4\n\tJMP [MONDAY] @flag=4\n\tJMP @flag=OVERFLOW\n\tJMP $bk2 'comment\n\tADD [MONDAY]\n\tMEMWRITE [TUESDAY] [MONDAY]\n\tJNZ $(here + 45) [MONDAY] 93\n''</scope>'mnv lorem\n";
+  var SAMPLE_SRC_CODE = "Main:\n\tLOAD_MONDAY 4294967286\n\tLOAD_TUESDAY 12\n\tCOPY [MONDAY] [ACCUMULATOR]\n\tADD [TUESDAY]\n\tFLAG_ACK [WEDNESDAY] @flag=OVERFLOW\n\tEND\n";
+    function initModule() {
+      window.tracer = new cm4a_v2.Tracer(true, false, true);
+      // textareaId, objectName, externals, tracer
+      window.cm = new cm4a_v2.CModule('code', 'obj1', {
+        sourceMap: 'TODO',
+        library: textLibrary,
+        getBlockAddress: () => {
+          return 10;
+        },
+        getNumericValueForRegRef: () => {
+          return 2;
+        }
+      }, window.tracer);
+
+      window.cm.control.on.ready(() => {
+        console.log('Ready callback');
+        window.cm.control.setContent(SAMPLE_SRC_CODE);
+      });
+      window.cm.control.on.contentChanged((objName, changes) => {
+        console.log('contentChanged callback');
+      });
+      window.cm.control.on.breakpointToggled((objName, lineIndex, isBpSet) => {
+        console.log(`breakpointToggled callback: ${objName} ${lineIndex} ${isBpSet}`);
+      });
+      window.cm.control.on.viewScrolled((objName, firstVisibleLineIndex) => {
+        console.log(`viewScrolled callback: ${objName} ${firstVisibleLineIndex}`);
+      });
+    }
+</script>
+</head>
+<body onload="initModule()">
+<textarea id="code" name="code">
+</textarea>
+    <button onclick="window.cm.control.formatSelection()">Format</button>
+    <button onclick="toggleBreakpoints()">Toggle Breakpoints</button>
+    <button onclick="window.cm.control.toggleComment()">(un)Comment</button>
+    <button onclick="window.cm.control.setEditable(false)">ReadOnly</button>
+    <input type="checkbox" id="enable-debug-inspector" onchange="debugInspector.toggle()" checked>
+    <label for="enable-debug-inspector">enable debug inspector</label>
+
+  <div id="debug-inspector-popover"></div>
+  <div id="code_tooltip-popover" class="tooltip-popover"></div>
+</body>

@@ -1,0 +1,35 @@
+@import '../../../../styles';
+
+.device-homepage {
+    padding: 0 1em 1em 1em;
+
+    & h2 {
+        margin-bottom: 0.25em;
+    }
+
+    & .author {
+        font-size: 14px;
+
+        & .value {
+            font-weight: bold;
+        }
+    }
+
+    & .new-instance {
+        cursor: pointer;
+        margin-left: 0.25em;
+        color: $box-shadow-color;
+
+        &:hover {
+            color: $color-secondary;
+        }
+    }
+
+    & h4 {
+        margin-bottom: 0;
+    }
+
+    & .section-paragraph {
+        margin-top: 0;
+    }
+}

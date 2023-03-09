@@ -1,0 +1,21 @@
+<div class="top-tab-bar" id="aq4w-top-tab-bar">
+  <ul>
+    <li *ngFor="let tab of view.tabs" [ngClass]="{ 'active-tab': view.activeTabKey === tab.key, 'is-dirty': view.dirtyTabs.includes(tab.key) }" (click)="on.tabClicked(tab.key)">
+      <aq4w-icon class="tab-icon" [name]="tab.iconName"></aq4w-icon>
+      <span class="tab-label">{{ tab.label }}</span>
+      <aq4w-icon class="tab-close-icon" name="(fa)fas.times" (click)="on.closeClicked(tab.key, $event)"></aq4w-icon>
+    </li>
+  </ul>
+</div>
+<div class="tab-selector ux-mobile-only">
+  <div class="selector-button left">
+    <div *ngIf="!(!!view.activeTabIcon)">&nbsp;</div>
+    <aq4w-icon class="tab-icon" [name]="view.activeTabIcon" *ngIf="!!view.activeTabIcon"></aq4w-icon>
+  </div>
+  <select (input)="on.optionChanged()" id="aq4w-tab-selector">
+    <option *ngFor="let tab of view.tabs" [value]="tab.key">{{ tab.label }}</option>
+  </select>
+  <div class="selector-button right">
+    <aq4w-icon class="tab-close-icon" name="(fa)fas.times" (click)="on.closeClicked(view.activeTabKey, $event)" *ngIf="!!view.activeTabKey"></aq4w-icon>
+  </div>
+</div>

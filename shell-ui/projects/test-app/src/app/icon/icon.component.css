@@ -1,0 +1,41 @@
+span [data-additional-class="x-icon-plus"]::after {
+    content: "+";
+    font-size: 16px;
+    position: absolute;
+    margin-left: -4px;
+    margin-top: 7px;
+    font-weight: bold;
+    color: #ff5722;
+}
+
+span[data-additional-class="x-icon-minus"]::after {
+    content: "-";
+    font-size: 16px;
+    position: absolute;
+    margin-left: -4px;
+    margin-top: 7px;
+    font-weight: bold;
+    color: #ff5722;
+}
+
+span[data-additional-class="x-icon-source-file"]::after {
+    content: ".aq";
+    font-size: 12px;
+    position: absolute;
+    margin-left: -9px;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #ff5722;
+}
+
+span[data-additional-class="align-middle"]::ng-deep i {
+    vertical-align: middle;
+}
+
+span[data-additional-class="align-middle"]::ng-deep ion-icon {
+    vertical-align: middle;
+}
+
+span[data-additional-class="ion-zoom"]::ng-deep ion-icon {
+    zoom: 125%;
+}

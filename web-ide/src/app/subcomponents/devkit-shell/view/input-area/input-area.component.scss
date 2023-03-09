@@ -1,0 +1,110 @@
+@import '../../styles';
+
+.input-area {
+    width: 100%;
+    padding-top: 2px;
+    // display: flex;
+    align-items: center;
+    
+    & .column {
+        display: inline-block;
+
+        &.buttons {
+            // flex: 0.05;
+            width: 4em;
+        }
+
+        &.textbox {
+            font-family: $console-font-family;
+            font-size: $console-font-size;
+            border-bottom: 1px solid gainsboro;
+            // flex: 1;
+            // margin-right: 0.5em;
+            width: calc(100% - 5em);
+            display: inline-block;
+
+            & input {
+                border: none;
+                outline: none;
+                font-family: inherit;
+                font-size: inherit;
+            }
+
+            & .suggested-completion {
+                display: inline-block;
+                color: gainsboro;
+                z-index: 2;
+            }
+
+            &:focus-within {
+                border-bottom: 1px solid $color-black;
+            }
+        }
+    }
+}
+
+.buffer-float-outer {
+    position: relative;
+    border-radius: 6px;
+
+    & .buffer-float {
+        position: absolute;
+        bottom: 0;
+        visibility: hidden;
+        background-color: white;
+        border-radius: 6px;
+        box-shadow: -1px -2px 15px 5px $box-shadow-color;
+        padding: 4px;
+
+        &.show {
+            visibility: visible;
+        }
+
+        & input {
+            font-family: $console-font-family;
+            font-size: $console-font-size;
+            border: none;
+            outline: none;
+            border-bottom: 1px solid gainsboro;
+            margin-top: 5px;
+        }
+
+        & .buffer-item {
+            cursor: pointer;
+            height: 2ch;
+
+            & .he-char {
+                padding: 0;
+                width: 1ch;
+                font-weight: normal;
+                font-family: $console-font-family;
+                font-size: $console-font-size;
+                display: inline-block;
+                vertical-align: middle;
+                
+                &.is-match {
+                    font-weight: bold;
+                }
+            }
+
+            & .he-indicator {
+                width: 2ch;
+                display: inline-block;
+                vertical-align: middle;
+                font-size: 0.5ch;
+            }
+        }
+
+        &[data-item-count="0"] {
+            & input {
+                margin-top: 0;
+            }
+        }
+
+        &:focus-within {
+            & input {
+                border-bottom: 1px solid $color-black;
+            }
+        }
+    }
+}

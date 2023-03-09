@@ -1,0 +1,28 @@
+@import '../../../../styles';
+
+$element-margin-top: 0.75em;
+
+.selected-item {
+    background-color: $color-primary;
+}
+
+@mixin sectionTitle {
+    cursor: pointer;
+    font-weight: bold;
+
+    &:not(.collapsed) {
+        & .caret-right {
+            display: none;
+        }
+    }
+
+    &.collapsed {
+        & .caret-down {
+            display: none;
+        }
+
+        & + .history-list {
+            display: none;
+        }
+    }
+}

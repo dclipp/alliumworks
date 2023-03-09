@@ -1,0 +1,82 @@
+@import '../../../styles';
+
+.byte-input {
+    border: 1px solid $color-black;
+    display: inline-flex;
+    flex-direction: column;
+    width: 210px;
+
+    & .input-area {
+        min-height: 2em;
+        border: none;
+        border-bottom: 1px solid transparent;
+        margin: 0 0.25em 0.25em 0.25em;
+        resize: none;
+        font-family: monospace;
+        font-size: 14px;
+
+        &:focus {
+            outline: none;
+            border-bottom: 1px solid $color-secondary;
+            // outline: 1px $color-secondary;
+            // border: none !important;
+        }
+
+        &:disabled {
+            cursor: not-allowed;
+        }
+    }
+
+    & .header {
+        border-bottom: 1px solid $color-black;
+        background-color: $color-primary;
+        padding: 0.25em;
+        // min-width: 20em;
+
+        & .radix {
+            float: left;
+
+            & button {
+                background: none;
+                outline: none;
+                border: none;
+                padding-left: 0.25em;
+                padding-right: 0.25em;
+                cursor: pointer;
+
+                &.selected {
+                    color: $color-secondary;
+                    font-weight: bold;
+                }
+            }
+        }
+
+        & .max-size {
+            float: right;
+
+            & label {
+                padding-right: 0.25em;
+            }
+
+            & span {
+                font-weight: bold;
+            }
+        }
+    }
+
+    &.disabled {
+        background-color: $color-gray;
+
+        & .header {
+            & label {
+                color: $color-black;
+            }
+
+            & .max-size {
+                & span {
+                    color: $color-black;
+                }
+            }
+        }
+    }
+}

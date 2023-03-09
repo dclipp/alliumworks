@@ -1,0 +1,171 @@
+/* You can add global styles to this file, and also import other style files */
+$color-primary: #ead6f5;
+$color-secondary: #ff5722;
+$color-light-primary: #fefcfe;
+$color-muted-primary: #d7c4e2;
+$box-shadow-color: rgba(59,66,56,0.3);
+$color-black: rgb(59, 66, 56);
+$color-gray: #f0f1ee;
+$left-container-width-normal: 25%;
+$left-container-width-collapsed: 4%;
+$standard-font-size: 16px;
+$mobile-small-max-width: 500px;
+$mobile-top-bottom-height: 50px;
+$shell-height: 8em;
+
+aq4w-icon {
+    ::ng-deep {
+        .foreground-icon {
+            font-size: 12px;
+            position: absolute;
+            text-align: right;
+            bottom: 0;
+            margin-left: 1vw;
+            color: cornflowerblue;
+        }
+
+        [icon-color="primary"] {
+            color: $color-primary !important;
+        }
+        [icon-color="secondary"] {
+            color: $color-secondary !important;
+        }
+        [icon-color="success"] {
+            color: green !important;
+        }
+        // [icon-slashed="true"]::before {
+        //     content: "\\";
+        // }
+
+        // & .aqicon-slash {
+        //     transform: translateX(-1px) !important;
+        //     position: absolute !important;
+        // }
+        & .aqicon-slash + i {
+            transform: translateX(-1ch) !important;
+        }
+    }
+}
+
+.ide-loading-icon {
+    display: inline;
+}
+
+.digital-font {
+    // font-family: 'Bebas Neue', monospace;
+    font-family: 'Big Shoulders Text', monospace;
+    &.light {
+        // font-weight: 300;
+        font-size: 14px;
+    }
+}
+
+body {
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+button {
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+.default-font {
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+#register-explorer-value-editor-popover > div {
+    transform: none !important;
+    position: fixed !important;
+
+    & .ngxp__arrow {
+        border-color: $color-secondary !important;
+    }
+}
+
+::ng-deep {
+    aq4w-resource-browser .unmapped-popper .ngxp__arrow {
+        border-color: inherit !important;
+    }    
+}
+
+shell-ui {
+    ::ng-deep {
+        [data-entry-type="error"] {
+            color: red;
+        }
+
+        [data-entry-type="warning"] {
+            color: darkorange;
+        }
+        
+        // &[data-output-type="success"] {
+        //     & .success-icon {
+        //         color: green;
+        //     }
+        // }
+    }
+}
+
+::ng-deep {
+    @media screen and (min-width: #{$mobile-small-max-width + 1}) {
+        .ux-mobile-only {
+            display: none !important;
+        }
+    }
+}
+
+::ng-deep {
+    @media screen and (min-width: 1050px) {
+        & .compact-only {
+            display: none !important;
+        }
+    }
+
+    @media screen and (min-width: 600px) {
+        & .tiny-only {
+            display: none !important;
+        }
+    }
+}
+
+::ng-deep {
+    // [data-responsive-hide="true"] {
+    //     display: none !important;
+    // }
+
+    [data-responsive-type="compact"] [data-responsive-hide-compact="true"] {
+        display: none !important;
+    }
+
+    [data-responsive-type="tiny"] [data-responsive-hide-tiny="true"] {
+        display: none !important;
+    }
+}
+
+::ng-deep {
+    .shell-ui-dragging shell-ui .grip-handle {
+        background-color: var(--shell-ui-color-active) !important;
+    }
+}
+
+::ng-deep {
+    body.task-bar-overflow-level-1 .inner-row.bottom .floating-container-placeholder .ph-title {
+        display: none !important;
+    }
+    
+    body.task-bar-overflow-level-1 .task-bar-container .floating-container-placeholder .placeholder.ph-icon aq4w-icon {
+        padding-right: 0 !important;
+        margin-left: 0.25em !important;
+    }
+
+    body:not(.task-bar-overflow-level-1) .task-bar-container .floating-container-placeholder .placeholder.ph-icon .tooltip {
+        display: none !important;
+    }
+    
+    .task-bar-container .floating-container-placeholder.docked:not(.container-minimized) .placeholder.ph-icon .tooltip {
+        display: none !important;
+    }
+
+    .task-bar-container {
+        z-index: 1;
+    }
+}

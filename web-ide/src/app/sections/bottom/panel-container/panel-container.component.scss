@@ -1,0 +1,175 @@
+@import '../../../../styles';
+
+.panel-container {
+    & .panel-content {
+        &:not(.expanded) {
+            display: none;
+        }
+
+        &.expanded {
+            position: absolute;
+            bottom: 2em;
+            background-color: white;
+            border-right: 1px solid $color-primary;
+            border-top: 1px solid $color-primary;
+            border-left: 1px solid $color-primary;
+            z-index: 98;
+
+            &.foreground {
+                z-index: 99;
+            }
+
+            &[data-pp-width-rel="1"] {
+                width: var(--presentation-dim-x);
+            }
+            &[data-pp-width-rel="2"] {
+                width: calc(2 * var(--presentation-dim-x));
+            }
+            &[data-pp-width-rel="3"] {
+                width: calc(3 * var(--presentation-dim-x));
+                right: 0.75%;
+            }
+            &[data-pp-width-rel="4"] {
+                width: calc(3.925 * var(--presentation-dim-x));
+                left: 0;
+            }
+
+            &[data-pp-height-rel="1"] {
+                height: var(--presentation-dim-y);
+            }
+            &[data-pp-height-rel="2"] {
+                height: calc(2 * var(--presentation-dim-y));
+            }
+            &[data-pp-height-rel="3"] {
+                height: calc(3 * var(--presentation-dim-y) - 2em);
+            }
+
+            // &[data-pp-width-px] {
+            //     width: var(--presentation-dim-x);
+            // }
+            // &[data-pp-height-px] {
+            //     height: calc(2 * var(--presentation-dim-x));
+            // }
+        }
+
+        & .content-row {
+            &.top {
+                border-bottom: 1px solid $color-primary;
+                width: 100%;
+                // position: absolute;
+                height: 1.5em;
+                background-color: $color-light-primary;
+
+                & .panel-icon-container {
+                    float: right;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+
+                    & .panel-minimize-icon {
+                        margin-right: 0.5em;
+                        cursor: pointer;
+                    }
+
+                    & .panel-dock-icon {
+                        cursor: pointer;
+
+                        &.dock {
+                            margin-right: 0.5em;
+                        }
+    
+                        &.undock {
+                            margin-right: 0.25em;
+                        }
+                    }
+                    
+                    & .panel-separate-window-icon {
+                        margin-right: 0.5em;
+                        cursor: pointer;
+                    }
+                }
+            }
+
+            &.for-device {
+                height: calc(100% - 2em);
+            }
+
+            // &:not(.top) {
+            //     // padding-top: 0.75em;
+
+            //     // &.open {
+            //     //     border-bottom: 2px solid $color-primary;
+            //     // }
+            // }
+        }
+    }
+    
+    & .title-bar {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+        cursor: pointer;
+
+        & .title-label {
+            display: inline;
+            margin-left: 0.5em;
+        }
+    }
+
+    &:not(.free-float) {
+        & .title-bar.floating {
+            display: none;
+        }
+
+        & .panel-minimize-icon {
+            display: none;
+        }
+
+        & .panel-content:not(.docking) {
+            &.expanded {
+                transition: bottom 1s;
+            }
+        }
+    }
+
+    &.free-float {
+        position: fixed;
+        z-index: 3;
+        
+        & .title-bar {
+            display: none;
+        }
+
+        & .title-bar.floating {
+            display: inline-block;
+            background-color: $color-light-primary;
+            vertical-align: middle;
+            margin-left: 0.25em;
+
+            text-overflow: ellipsis;
+            overflow: hidden;
+            width: calc(100% - 3em);
+            white-space: nowrap;
+            position: absolute;
+        }
+
+        & .panel-content {
+            border: 1px solid $color-primary;
+
+            &.expanded {
+                position: relative;
+                box-shadow: 4px 4px 14px 0px $box-shadow-color;
+            }
+
+            & .content-row.open {
+                border-bottom: inherit;
+            }
+        }
+    }
+}
+
+::ng-deep {
+    body.show-shell aq4w-panel-container .panel-container:not(.free-float) .panel-content.expanded {
+        bottom: calc(#{$shell-height} + 2em) !important;
+    }
+}

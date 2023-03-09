@@ -1,0 +1,1 @@
+export type ButtonSelectionRequirement = 'any' | 'no-selection' | 'one' | 'one-or-many' | 'many';

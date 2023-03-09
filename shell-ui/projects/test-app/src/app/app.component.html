@@ -1,0 +1,9 @@
+<div class="test-app">
+  <shell-ui [uiOptions]="shellUiOptions" [completer]="shellCompleter">
+    <ng-template let-iconName="iconName" #iconTemplate>
+        <testapp-icon [name]="iconName"></testapp-icon>
+    </ng-template>
+  </shell-ui>
+
+  <testapp-pplnew></testapp-pplnew>
+</div>

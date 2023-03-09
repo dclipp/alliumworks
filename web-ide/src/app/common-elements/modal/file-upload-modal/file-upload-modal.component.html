@@ -1,0 +1,58 @@
+<div class="file-upload-modal" [ngClass]="{ 'open': view.isOpen }" (click)="on.click($event)">
+  <div class="backdrop">&nbsp;</div>
+  <div class="dialog">
+    <div class="inner file-upload-modal-dialog-content">
+      <div class="header">{{ view.title }}</div>
+      <div class="body file-uploader">
+        <p class="description">{{ view.description }}</p>
+        <div class="input-container" style="display: none;">
+          <input type="file" (input)="on.fileInput()" class="default-font" [attr.accept]="view.acceptExtensions" [attr.multiple]="view.allowMultiple ? 'multiple' : null" #fileInput>
+        </div>
+
+        <div class="upload-area">
+          <div class="upload-type" *ngIf="view.acceptArchiveFile">
+            <label>Upload Type</label>
+            <aq4w-tactile-selector [options]="{ opts: view.uploadTypeOptions, initial: view.uploadType.value }" [control]="[view.uploadType]"
+              [disabled]="view.controlState !== 'clear'"></aq4w-tactile-selector>
+            <aq4w-note *ngIf="view.uploadTypeNotes.length > 0">
+              <ng-container *ngFor="let note of view.uploadTypeNotes">
+                <p>
+                  <strong>{{note.uploadType}}</strong>
+                </p>
+                <p *ngFor="let paragraph of note.paragraphs">{{paragraph}}</p>
+              </ng-container>
+            </aq4w-note>
+          </div>
+
+          <div class="upload-control" [attr.data-control-state]="view.controlState" (click)="on.fileInputClicked()" #uploadControl>
+            <div class="static-text default-font">Selected files ({{ view.selections.length }})</div>
+            <div class="selections">
+              <ul class="files-list">
+                <li *ngFor="let selection of view.selections">
+                  <aq4w-icon [name]="selection.iconName" class="file-icon"></aq4w-icon>
+                  <div class="filename">{{ selection.filename }}</div>
+                </li>
+              </ul>
+              <div class="clear-button-area">
+                <button (click)="on.clearFileInput()">Clear</button>
+              </div>
+            </div>
+            <div class="subfield form-section text-form">
+              <label for="modal-upload-import-name">{{ view.inputFieldCaption }}</label>
+              <input type="text" spellcheck="false" [value]="view.inputFieldValue" (input)="on.fileInputInputValueChanged($event.target.value)">
+            </div>
+            <div class="no-selections default-font">Choose Files</div>
+            <aq4w-icon name="(loading)" class="loading-icon"></aq4w-icon>
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <button (click)="on.clickedCancel()">Cancel</button>
+        <button (click)="on.clickedUpload()" [attr.disabled]="view.cannotProceed ? 'disabled' : null">
+          <ng-container *ngIf="view.step === 1">Next</ng-container>
+          <ng-container *ngIf="view.step === 2">Upload</ng-container>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,51 @@
+<div class="left-section" [ngClass]="{ 'collapsed': view.isCollapsed }">
+  <!-- <div class="search-row">
+    <input type="text">
+  </div> -->
+  <div class="dynamic">
+    <div class="sidebar-browser-type-selector">
+      <button (click)="on.browserTypeChanged('workspace')" [ngClass]="{ 'active-type': view.activeBrowserTypeKey === 'workspace'}">
+        <aq4w-icon name="(c)briefcase4"></aq4w-icon>
+        <span>Workspaces</span>
+      </button>
+      <button (click)="on.browserTypeChanged('device')" [ngClass]="{ 'active-type': view.activeBrowserTypeKey === 'device'}">
+        <aq4w-icon name="(c)lightbulb2"></aq4w-icon>
+        <span>Devices</span>
+      </button>
+    </div>
+    <aq4w-workspace-browser class="browser-root"
+      [ngClass]="{ 'active-browser': view.activeBrowserTypeKey === 'workspace' && !view.hasActiveSession }"></aq4w-workspace-browser>
+    <aq4w-resource-browser class="browser-root"
+      [ngClass]="{ 'active-browser': view.activeBrowserTypeKey === 'workspace' && view.hasActiveSession }"></aq4w-resource-browser>
+    <aq4w-device-browser class="browser-root"
+      [ngClass]="{ 'active-browser': view.activeBrowserTypeKey === 'device' }"></aq4w-device-browser>
+    <!-- <div class="button-row collapse-button">
+      <button>
+        <aq4w-icon class="collapse-icon" name="(fa)fas.compress" *ngIf="!view.isCollapsed" (click)="on.toggleCollapse()" title="Collapse sidebar"></aq4w-icon>
+        <aq4w-icon class="expand-icon" name="(fa)fas.expand" *ngIf="view.isCollapsed" (click)="on.toggleCollapse()" title="Expand sidebar"></aq4w-icon>
+      </button>
+    </div>
+    <div class="button-row prefs-button">
+      <button (click)="on.openUserPrefs()">
+        <aq4w-icon name="(fa)fas.user-cog" title="User preferences"></aq4w-icon>
+      </button>
+    </div>
+    <div class="prefs-button-row" (click)="on.openUserPrefs()">
+      <aq4w-icon name="(fa)fas.user-cog" title="User preferences"></aq4w-icon>
+      <span>User preferences</span>
+    </div> -->
+  </div>
+  <div class="global-buttons">
+    <div class="button-row collapse-button">
+      <button>
+        <aq4w-icon class="collapse-icon" name="(fa)fas.compress" *ngIf="!view.isCollapsed" (click)="on.toggleCollapse()" title="Collapse sidebar"></aq4w-icon>
+        <aq4w-icon class="expand-icon" name="(fa)fas.expand" *ngIf="view.isCollapsed" (click)="on.toggleCollapse()" title="Expand sidebar"></aq4w-icon>
+      </button>
+    </div>
+    <div class="button-row prefs-button">
+      <button (click)="on.openUserPrefs()">
+        <aq4w-icon name="(fa)fas.user-cog" title="User preferences"></aq4w-icon>
+      </button>
+    </div>
+  </div>
+</div>

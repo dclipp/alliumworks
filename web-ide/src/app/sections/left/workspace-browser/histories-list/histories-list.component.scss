@@ -1,0 +1,33 @@
+@import '../common-styles';
+
+.histories-list {
+    & .record {
+        margin-top: $element-margin-top;
+
+        & ul.history-list {
+            list-style: none;
+            margin: 0;
+            padding: 0 0 0 2em;
+
+            & li {
+                & .list-content {
+                    display: inline;
+                    font-size: 13px;
+                    user-select: none;
+                    -webkit-user-select: none;
+                    -moz-user-select: none;
+                    cursor: pointer;
+        
+                    &:first-of-type {
+                        margin-right: 0.25em;
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+
+        & .workspace-title {
+            @include sectionTitle;
+        }
+    }
+}

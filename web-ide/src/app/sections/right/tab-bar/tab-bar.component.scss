@@ -1,0 +1,104 @@
+@import '../../../../styles';
+
+.top-tab-bar {
+    display: flex;
+
+    & ul {
+        list-style: none;
+        border-bottom: none;
+        background-color: hsla(300, 50%, 49%, 0.25);
+        margin: 0;
+        min-height: 2em;
+        padding-top: 0.5em;
+        // flex: 0.95;
+        flex: 1;
+
+        & li {
+            border: 1px solid $color-primary;
+            border-bottom: none;
+            display: inline-block;
+            cursor: pointer;
+            background-color: #f9ecf9;
+            height: 2em;
+            padding-left: 0.5em;
+            padding-right: 1.5em;
+
+            &:not(:last-of-type) {
+                border-right: none;
+            }
+
+            &.active-tab {
+                background-color: $color-light-primary;
+            }
+
+            &.is-dirty .tab-label::after {
+                content: "*";
+                color: #ff9a7a;
+            }
+
+            & .tab-close-icon {
+                position: fixed;
+                display: none;
+            }
+
+            &:hover {
+                & .tab-close-icon {
+                    display: inline-block;
+                }
+            }
+
+            & .tab-icon {
+                vertical-align: middle;
+            }
+
+            & .tab-label {
+                vertical-align: middle;
+                padding-left: 0.5em;
+                padding-right: 0.5em;
+            }
+        }
+    }
+
+    @media screen and (max-width: $mobile-small-max-width) {
+        display: none;
+    }
+}
+
+.tab-selector {
+    background-color: hsla(300, 50%, 49%, 0.25);
+    padding: 3px;
+
+    & select {
+        border-radius: 6px;
+        width: calc(100% - 10ch);
+        height: 3ch;
+        margin-left: 6px;
+        margin-right: 6px;
+        vertical-align: middle;
+    }
+
+    & .selector-button {
+        background-color: $color-light-primary;
+        display: inline-flex;
+        width: 3ch;
+        vertical-align: middle;
+        align-items: center;
+        border: 1px solid $box-shadow-color;
+        position: relative;
+
+        &.left {
+            right: 0%;
+            border: none;
+            background-color: transparent;
+        }
+
+        &.right {
+            float: right;
+        }
+
+        & aq4w-icon {
+            text-align: center;
+            width: 100%;
+        }
+    }
+}

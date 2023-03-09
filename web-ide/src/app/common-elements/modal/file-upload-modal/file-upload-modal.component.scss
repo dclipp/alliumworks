@@ -1,0 +1,163 @@
+@import '../../../../styles';
+@import '../../../../form-styles';
+@import '../modal-styles';
+
+.file-upload-modal {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+
+    &.open {
+        display: block;
+    }
+
+    & .dialog {
+        @include modalDialog;
+    }
+
+    .backdrop {
+        @include modalBackdrop;
+    }
+
+    & .file-uploader {
+        & .upload-control {
+            // padding: 1em;
+            // background-color: white;
+            // border: 1px solid #793e7d21;
+            border-radius: 8px;
+
+            & .selections {
+                display: flex;
+                overflow-y: auto;
+                max-height: 20ch;
+
+                & .files-list {
+                    list-style: none;
+                    margin: 0;
+                    padding: 0;
+                    display: inline-block;
+                    flex: 0.98;
+                    border-right: 1px dashed $color-primary;
+                    margin-right: 4px;
+
+                    & li {
+                        line-height: 24px;
+                        margin-bottom: 4px;
+                        padding: 2px 5px;
+
+                        & .file-icon {
+                            font-size: 21px;
+                            display: inline-block;
+                        }
+                        
+                        & .filename {
+                            display: inline-block;
+                            vertical-align: middle;
+                            font-family: 'Courier New', monospace;
+                            font-weight: bold;
+                            padding-left: 4px;
+                        }
+                    }
+                }
+
+                & .clear-button-area {
+                    display: inline-flex;
+                    align-self: center;
+                    
+                    & button {
+                        @include modalButton;
+                    }
+                }
+            }
+
+            & .static-text {
+                margin-bottom: 0.5em;
+            }
+
+            & .no-selections {
+                font-size: 18px;
+                display: inline-block;
+            }
+
+            & .loading-icon {
+                display: none;
+            }
+
+            & .text-form {
+                display: none;
+            }
+
+            &[data-control-state="clear"] {
+                cursor: pointer;
+
+                & .selections {
+                    display: none;
+                }
+                & .static-text {
+                    display: none;
+                }
+
+                &:hover {
+                    background-color: #793e7d21;
+                }
+            }
+            &[data-control-state="in-progress"] {
+                & .selections {
+                    display: none;
+                }
+
+                & .static-text {
+                    display: none;
+                }
+
+                & .no-selections {
+                    display: none;
+                }
+
+                & .loading-icon {
+                    display: inline-block;
+                }
+            }
+            &[data-control-state="has-selections"] {
+                & .no-selections {
+                    display: none;
+                }
+            }
+            &[data-control-state="text-input"] {
+                & .selections {
+                    display: none;
+                }
+
+                & .static-text {
+                    display: none;
+                }
+
+                & .no-selections {
+                    display: none;
+                }
+
+                & .text-form {
+                    display: inline-block;
+                }
+            }
+        }
+
+        & .upload-type {
+            margin-bottom: 1em;
+            // & label {
+            //     font-weight: bold;
+            //     display: block;
+            // }
+        }
+
+        & .upload-area {
+            padding: 1em;
+            background-color: white;
+            border: 1px solid #793e7d21;
+            border-radius: 8px;
+        }
+    }
+}
